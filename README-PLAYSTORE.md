@@ -148,3 +148,23 @@ Mundu install chesina app ni uninstall chesi, kotta APK install cheyyandi.
 - www/icon.png / assets/icon.png / assets/play-store-icon-512.png —
   ee icon ne. Old icons backup: assets/icon-previous-gold-logo.png
   (gold circular logo), assets/icon-options/ lo anni options unnayi.
+
+## Theme — phone settings tho link (2026-11-22)
+- Default theme ippudu System: app phone settings (dark/light) tho
+  link ayyi untundi — phone dark mode lo unte app dark, light lo unte
+  app light. Phone settings marchithe app kuda live ga marthundi.
+- Topbar 🌙 button / Settings > Theme lo Light / Dark / System ga
+  marchukovachu; choice ee phone lo matrame save avthundi.
+
+## Students mobile cards + colourful themes (2026-11-22)
+- Students page phone lo ippudu cards ga kanipisthundi (table kaadhu):
+  prathi student card lo avatar, stage, course, coach, average,
+  puzzle points, plus pedda "Edit details" and "Delete" buttons —
+  sideways scroll cheyyalsina pani ledu.
+- Desktop lo table lo "Actions" column sticky ga untundi — Edit/Delete
+  eppudu kanipisthayi.
+- Colour themes (4): Emerald Green-Gold (default), Royal Purple,
+  Ocean Blue, Sunset Pink — topbar 🎨 button tho cycle cheyyachu,
+  leda Settings > Colour theme lo swatch tap cheyyachu. Light/Dark/
+  System mode tho kalisi panichesthundi.
+- Effects: cards slide-in (stagger), buttons press scale, card hover lift.
