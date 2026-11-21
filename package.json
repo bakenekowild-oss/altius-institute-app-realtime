@@ -1,0 +1,17 @@
+{
+  "description": "Altius Chess Academy Institute App \u2014 real-time Firebase version, Capacitor Android wrapper for Play Store",
+  "devDependencies": {
+    "@capacitor/android": "^7.0.0",
+    "@capacitor/cli": "^7.0.0",
+    "@capacitor/core": "^7.0.0",
+    "@capacitor/assets": "^3.0.1"
+  },
+  "name": "altius-institute-app-realtime",
+  "private": true,
+  "scripts": {
+    "android": "npx cap open android",
+    "build:android": "npx cap sync android",
+    "sync": "npx cap sync"
+  },
+  "version": "2.0.0"
+}

@@ -1,0 +1,64 @@
+name: Build APK (free, no billing)
+
+# GitHub Actions lo free ga debug APK build avthundi.
+# No Google Cloud billing, no card, no payment.
+# Usage:
+# 1. GitHub lo new repo create chesi, ee project files anni upload cheyyandi.
+# 2. Repo > Actions tab > Build APK > Run workflow > Run.
+# 3. Build ayyaka Artifacts lo app-debug.apk download chesukondi.
+# Fix 2026-11-21: setup-node cache npm teesesanu — package-lock lekunda
+# cache valla workflow 11-16 sec lo fail avthundi. Ippudu package-lock.json
+# kuda repo lo undi, npm install direct ga run avthundi.
+# Fix 2026-11-22: Java 17 -> 21 — Capacitor 7 needs JDK 21, lekapothe
+# "invalid source release: 21" error tho compileDebugJavaWithJavac fail avthundi.
+# Fix 2026-11-22: app icon — cap sync alone default Capacitor icon ne vaduthundi.
+# @capacitor/assets generate step add chesanu, assets/icon.png (transparent)
+# + assets/splash.png nunchi Android launcher icons generate avthayi.
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Setup Java 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Add Android platform (if not present)
+        run: |
+          if [ ! -d android ]; then
+            npx cap add android
+          fi
+          npx cap sync android
+
+      - name: Generate app icons from logo
+        run: npx @capacitor/assets generate --iconBackgroundColor '#175c36' --splashBackgroundColor '#175c36'
+
+      - name: Build debug APK
+        run: |
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleDebug
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: altius-app-debug-apk
+          path: android/app/build/outputs/apk/debug/app-debug.apk

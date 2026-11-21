@@ -1,0 +1,1206 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="icon.png" />
+    <title>Altius Institute — Chess Academy App</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
+    <style>
+      button, [role="button"], select, summary, input:not([type="checkbox"], [type="radio"]) { min-height: 2.25rem; }
+      :root{
+        --bg:#f3f5f1; --bg2:#e9ede4; --panel:#ffffff; --panel2:#f7f8f4;
+        --ink:#182420; --ink2:#4c5a52; --line:#d8ded2;
+        --green:#175c36; --green2:#0f4427; --green-soft:#e2efe4;
+        --gold:#b8860b; --gold2:#d9a821; --gold-soft:#faf0d2;
+        --red:#b3362b; --red-soft:#fbe9e6;
+        --sq-l:#f0d9b5; --sq-d:#b58863;
+        --shadow:0 18px 44px rgba(20,40,28,.14);
+        --shadow-s:0 6px 18px rgba(20,40,28,.10);
+        --r-lg:20px; --r-md:14px; --r-sm:10px;
+      }
+      html[data-theme="dark"]{
+        --bg:#0d130f; --bg2:#111a13; --panel:#16211a; --panel2:#1a271e;
+        --ink:#e9f1ea; --ink2:#a9bcad; --line:#2b3d30;
+        --green:#3fae6a; --green2:#2c8a50; --green-soft:#1d3325;
+        --gold:#d9a821; --gold2:#eec44f; --gold-soft:#38300f;
+        --red:#e0786c; --red-soft:#3d201c;
+        --shadow:0 18px 44px rgba(0,0,0,.5);
+        --shadow-s:0 6px 18px rgba(0,0,0,.4);
+      }
+      }
+      *{box-sizing:border-box}
+      html{scroll-behavior:smooth;overflow-x:hidden}
+      body{margin:0;font-family:"Public Sans",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden;width:100%}
+      img,svg{max-width:100%}
+      /* realistic chess pieces — big, with shadow, not tiny glyphs */
+      .piece{width:86%;height:86%;object-fit:contain;display:block;filter:drop-shadow(0 2px 2px rgba(0,0,0,.35))}
+      .mini-board .piece{width:88%;height:88%}
+      .board .sq .piece{width:88%;height:88%}
+      h1,h2,h3,.serif{font-family:"Marcellus",serif;font-weight:400;letter-spacing:.01em}
+      a{color:var(--green)}
+      button{font:inherit;cursor:pointer}
+      input,select,textarea{font:inherit;color:var(--ink);background:var(--panel);border:1.5px solid var(--line);border-radius:var(--r-sm);padding:.55rem .75rem;width:100%}
+      input:focus,select:focus,textarea:focus{outline:2px solid var(--green);outline-offset:1px;border-color:var(--green)}
+      label{font-size:.85rem;font-weight:600;color:var(--ink2);display:block;margin-bottom:.3rem}
+      .wrap{max-width:1120px;margin:0 auto;padding:0 1.1rem}
+
+      /* ---------- buttons ---------- */
+      .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;border:none;border-radius:999px;padding:.65rem 1.4rem;font-weight:700;font-size:.95rem;transition:transform .15s ease,box-shadow .15s ease,background .15s ease;text-decoration:none;min-height:2.75rem}
+      .btn:active{transform:scale(.97)}
+      .btn-green{background:var(--green);color:#fff;box-shadow:var(--shadow-s)}
+      .btn-green:hover{background:var(--green2)}
+      .btn-gold{background:linear-gradient(135deg,var(--gold2),var(--gold));color:#241a00;box-shadow:var(--shadow-s)}
+      .btn-gold:hover{filter:brightness(1.06)}
+      .btn-ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+      .btn-ghost:hover{border-color:var(--green);color:var(--green)}
+      .btn-danger{background:var(--red-soft);color:var(--red)}
+      .btn-sm{padding:.4rem .9rem;font-size:.85rem;min-height:2.25rem}
+      .btn[disabled]{opacity:.5;cursor:not-allowed}
+
+      /* ---------- top bar ---------- */
+      .topbar{position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top,0px)}
+      .topbar-in{display:flex;align-items:center;gap:.75rem;padding:.6rem 0;flex-wrap:wrap;min-width:0}
+      .brand{display:flex;align-items:center;gap:.65rem;font-family:"Marcellus",serif;font-size:1.25rem;color:var(--ink);text-decoration:none;min-width:0;flex:1 1 auto}
+      .brand .mark{width:40px;height:40px;border-radius:11px;background:transparent;color:#f5d97e;display:grid;place-items:center;font-size:1.45rem;box-shadow:var(--shadow-s)}
+      .brand small{display:block;font-family:"Public Sans",sans-serif;font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);font-weight:700}
+      .topbar nav{margin-left:auto;display:flex;gap:.4rem;align-items:center;flex-wrap:wrap;flex-shrink:0}
+      .topbar nav a,.topbar nav button.navlink{color:var(--ink2);text-decoration:none;font-weight:600;font-size:.92rem;padding:.5rem .8rem;border-radius:999px;background:none;border:none;min-height:2.25rem}
+      .topbar nav a:hover,.topbar nav button.navlink:hover{color:var(--green);background:var(--green-soft)}
+      .who{font-size:.85rem;color:var(--ink2);font-weight:600}
+      .who b{color:var(--ink)}
+
+      /* ---------- hero ---------- */
+      .hero{position:relative;overflow:hidden;background:radial-gradient(900px 420px at 85% -10%,#ffeef5,transparent 60%),radial-gradient(700px 380px at 0% 0%,#fff3d6,transparent 55%),linear-gradient(160deg,#e6f7ee,#fff8e6 55%,#ffeef5)}
+      .hero-in{display:grid;grid-template-columns:1.05fr .95fr;gap:2.2rem;align-items:center;padding:3.2rem 0 3.6rem}
+      .hero h1{font-size:clamp(2.3rem,5.4vw,3.6rem);line-height:1.08;margin:.4rem 0 .8rem}
+      .hero h1 em{font-style:normal;color:var(--green)}
+      .hero p.lead{font-size:1.08rem;color:var(--ink2);max-width:34rem;margin:0 0 1.5rem}
+      .pill{display:inline-flex;align-items:center;gap:.45rem;background:var(--panel);border:1px solid var(--line);color:var(--green);font-weight:700;font-size:.8rem;padding:.35rem .8rem;border-radius:999px;box-shadow:var(--shadow-s)}
+      .pill .dot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+      @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+      .hero-cta{display:flex;gap:.7rem;flex-wrap:wrap}
+      .hero-stats{display:flex;gap:1.6rem;margin-top:1.8rem;flex-wrap:wrap}
+      .hero-stats div b{display:block;font-family:"Marcellus",serif;font-size:1.5rem;color:var(--green)}
+      .hero-stats div span{font-size:.8rem;color:var(--ink2);font-weight:600}
+      .hero-board{position:relative;justify-self:center;width:min(430px,100%)}
+      .hero-board .frame{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-lg);padding:14px;box-shadow:var(--shadow);animation:floaty 6s ease-in-out infinite}
+      @keyframes floaty{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-10px) rotate(-1deg)}}
+      .mini-board{display:grid;grid-template-columns:repeat(8,1fr);border-radius:8px;overflow:hidden}
+      .mini-board i{aspect-ratio:1;display:grid;place-items:center;font-style:normal;font-size:clamp(1rem,4.4vw,1.55rem);line-height:1}
+      .mini-board .l{background:var(--sq-l)} .mini-board .d{background:var(--sq-d)}
+      .mini-board .wp{color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.55),0 0 1px #000}
+      .mini-board .bp{color:#191919;text-shadow:0 1px 1px rgba(255,255,255,.25)}
+      .float-tag{position:absolute;background:var(--panel);border:1px solid var(--line);box-shadow:var(--shadow);border-radius:12px;padding:.5rem .8rem;font-weight:700;font-size:.82rem;display:flex;gap:.45rem;align-items:center;animation:floaty 5s ease-in-out infinite}
+      .float-tag.t1{top:6%;left:-8%}
+      .float-tag.t2{bottom:8%;right:-6%;animation-delay:1.4s}
+      .float-tag .ic{color:var(--gold);font-size:1.05rem}
+
+      /* ---------- sections ---------- */
+      section{padding:2.6rem 0}
+      .sec-head{max-width:40rem;margin-bottom:1.4rem}
+      .sec-head h2{font-size:clamp(1.6rem,3.4vw,2.2rem);margin:.2rem 0 .4rem}
+      .sec-head p{color:var(--ink2);margin:0}
+      .kick{font-size:.75rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+      .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+      .grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+      .card{background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:1.3rem;box-shadow:var(--shadow-s);transition:transform .2s cubic-bezier(.2,.8,.3,1),box-shadow .2s}
+      .card:hover{transform:translateY(-3px);box-shadow:0 20px 40px rgba(20,40,28,.16)}
+      .card h3{margin:.5rem 0 .35rem;font-size:1.2rem}
+      .card p{color:var(--ink2);margin:0;font-size:.95rem}
+      .card .ic{width:46px;height:46px;border-radius:13px;background:var(--green-soft);color:var(--green);display:grid;place-items:center;font-size:1.4rem}
+      .card.gold .ic{background:var(--gold-soft);color:var(--gold)}
+      .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+      .step{background:var(--panel2);border:1px dashed var(--line);border-radius:var(--r-lg);padding:1.2rem}
+      .step b{font-family:"Marcellus",serif;font-size:1.9rem;color:var(--gold);display:block}
+      .step h3{margin:.2rem 0 .3rem;font-size:1.1rem}
+      .step p{margin:0;color:var(--ink2);font-size:.93rem}
+
+      /* ---------- auth ---------- */
+      .auth-wrap{max-width:480px;margin:0 auto}
+      .auth-card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow);padding:1.8rem;animation:pop .35s cubic-bezier(.2,1.4,.4,1)}
+      @keyframes pop{from{opacity:0;transform:scale(.94) translateY(10px)}to{opacity:1;transform:none}}
+      .role-tabs{display:grid;grid-template-columns:1fr 1fr;background:var(--panel2);border:1px solid var(--line);border-radius:999px;padding:4px;margin-bottom:1.3rem}
+      .role-tabs button{border:none;background:transparent;border-radius:999px;padding:.55rem;font-weight:700;color:var(--ink2);min-height:2.5rem;transition:all .2s}
+      .role-tabs button.on{background:var(--green);color:#fff;box-shadow:var(--shadow-s)}
+      .field{margin-bottom:.95rem}
+      .form-err{background:var(--red-soft);color:var(--red);border-radius:var(--r-sm);padding:.6rem .8rem;font-size:.9rem;font-weight:600;margin-bottom:.9rem;display:none}
+      .hintline{font-size:.85rem;color:var(--ink2);text-align:center;margin-top:1rem}
+      .view{display:none}
+      .view.on{display:block;animation:slideIn .35s cubic-bezier(.2,.8,.3,1)}
+      @keyframes slideIn{from{opacity:0;transform:translateX(28px)}to{opacity:1;transform:none}}
+      @keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+      /* ---------- dashboards ---------- */
+      .dash{display:grid;grid-template-columns:230px 1fr;gap:1.4rem;align-items:start;padding:1.6rem 0 3rem}
+      .side{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-lg);padding:.8rem;box-shadow:var(--shadow-s);position:sticky;top:76px}
+      .side .me{padding:.6rem .7rem .9rem;border-bottom:1px solid var(--line);margin-bottom:.6rem}
+      .side .me b{display:block;font-size:1rem}
+      .side .me span{font-size:.8rem;color:var(--gold);font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+      .side button{display:flex;align-items:center;gap:.6rem;width:100%;text-align:left;background:none;border:none;padding:.62rem .7rem;border-radius:10px;font-weight:600;color:var(--ink2);min-height:2.6rem;transition:all .2s cubic-bezier(.2,.8,.3,1);scroll-snap-align:start;flex:none}
+      .side button:hover{background:var(--panel2);color:var(--ink)}
+      .side button.on{background:var(--green-soft);color:var(--green)}
+      .side button .ic{font-size:1.05rem;width:1.3rem;text-align:center}
+      .pane{display:none}
+      .pane.on{display:block;animation:paneIn .35s cubic-bezier(.2,.8,.3,1)}
+      @keyframes paneIn{from{opacity:0;transform:translateX(28px)}to{opacity:1;transform:none}}
+      .pane-head{display:flex;align-items:center;gap:.8rem;flex-wrap:wrap;margin-bottom:1.1rem}
+      .pane-head h2{margin:0;font-size:1.7rem}
+      .pane-head .sp{margin-left:auto;display:flex;gap:.5rem;flex-wrap:wrap}
+      .stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:1.2rem}
+      .stat{background:linear-gradient(160deg,#e6f7ee,#ffffff);border:1px solid var(--line);border-radius:18px;padding:1rem 1.1rem;box-shadow:var(--shadow-s)}
+      .stat:nth-child(2){background:linear-gradient(160deg,#fff3d6,#ffffff)}
+      .stat:nth-child(3){background:linear-gradient(160deg,#ffeef5,#ffffff)}
+      .stat:nth-child(4){background:linear-gradient(160deg,#e8f0ff,#ffffff)}
+      .stat b{font-family:"Marcellus",serif;font-size:1.9rem;color:var(--green);display:block;line-height:1.1}
+      .stat span{font-size:.8rem;font-weight:700;color:var(--ink2);text-transform:uppercase;letter-spacing:.05em}
+      table{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden}
+      th,td{padding:.65rem .8rem;text-align:left;font-size:.93rem;border-bottom:1px solid var(--line);vertical-align:top}
+      th{background:var(--panel2);font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;color:var(--ink2)}
+      tr:last-child td{border-bottom:none}
+      .tbl-wrap{overflow-x:auto;border-radius:var(--r-md);scroll-behavior:smooth;-webkit-overflow-scrolling:touch}
+      .side{scrollbar-width:none}
+      .side::-webkit-scrollbar{display:none}
+      .chip{display:inline-block;padding:.14rem .6rem;border-radius:999px;font-size:.76rem;font-weight:700;background:var(--green-soft);color:var(--green)}
+      .chip.gold{background:var(--gold-soft);color:var(--gold)}
+      .chip.gray{background:var(--panel2);color:var(--ink2);border:1px solid var(--line)}
+      .row-actions{display:flex;gap:.35rem;flex-wrap:wrap}
+      .icon-btn{border:1px solid var(--line);background:var(--panel);border-radius:9px;padding:.3rem .6rem;font-size:.82rem;font-weight:700;color:var(--ink);min-height:2.25rem}
+      .icon-btn:hover{border-color:var(--green);color:var(--green)}
+      .icon-btn.del:hover{border-color:var(--red);color:var(--red)}
+      .empty{background:var(--panel);border:1.5px dashed var(--line);border-radius:var(--r-lg);padding:2.2rem 1.4rem;text-align:center;color:var(--ink2)}
+      .empty .big{font-size:2.2rem;display:block;margin-bottom:.4rem}
+      .empty b{color:var(--ink);display:block;font-size:1.05rem;margin-bottom:.2rem}
+      .list-clean{list-style:none;margin:0;padding:0}
+      .list-clean li{display:flex;gap:.8rem;align-items:flex-start;padding:.7rem 0;border-bottom:1px solid var(--line)}
+      .list-clean li:last-child{border-bottom:none}
+      .avatar{width:42px;height:42px;border-radius:50%;background:var(--green);color:#fff;display:grid;place-items:center;font-weight:800;flex:none;font-size:.95rem}
+      .avatar.gold{background:var(--gold)}
+
+      /* ---------- calendar ---------- */
+      .cal{background:linear-gradient(160deg,#fff8e6,#ffeef5 55%,#e6f7ee);border:1px solid #f0d9a0;border-radius:22px;padding:1.1rem;box-shadow:var(--shadow-s)}
+      .cal-head h3{background:linear-gradient(90deg,#175c36,#b8860b,#ff6b9d);-webkit-background-clip:text;background-clip:text;color:transparent}
+      .cal-head{display:flex;align-items:center;gap:.6rem;margin-bottom:.8rem}
+      .cal-head h3{margin:0;font-size:1.25rem;flex:1;text-align:center}
+      .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
+      .cal-grid .dow{font-size:.72rem;font-weight:800;text-transform:uppercase;color:var(--ink2);text-align:center;padding:.3rem 0}
+      .cal-day{min-height:68px;border:1px solid #f2e3c2;border-radius:14px;padding:.35rem .4rem;background:linear-gradient(180deg,#ffffff,#fff7e0);cursor:pointer;text-align:left;font:inherit;color:var(--ink);transition:transform .2s cubic-bezier(.2,.8,.3,1),box-shadow .2s,border-color .2s;width:100%}
+      .cal-day:hover{border-color:var(--gold);transform:translateY(-2px) scale(1.03);box-shadow:0 8px 18px rgba(184,134,11,.25)}
+      .cal-day.pad{background:transparent;border:none;cursor:default}
+      .cal-day.today{background:linear-gradient(135deg,#ffd76e,#ff9ec7);border-color:#ff9ec7;color:#3d1024;box-shadow:0 8px 20px rgba(255,158,199,.5)}
+      .cal-day.today .n{color:#7a1e4d}
+      .cal-day.wknd{background:linear-gradient(180deg,#f3e8ff,#ffeef5)}
+      .cal-day.sel{background:linear-gradient(135deg,#b8f0c8,#7ed9a3);border-color:var(--green);box-shadow:0 8px 18px rgba(23,92,54,.25)}
+      .cal-day .n{font-weight:700;font-size:.85rem}
+      .cal-day .ev{display:block;font-size:.64rem;font-weight:700;background:linear-gradient(90deg,#175c36,#3fae6a);color:#fff;border-radius:999px;padding:.14rem .45rem;margin-top:.2rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+      .cal-day .ev.c1{background:linear-gradient(90deg,#ff6b9d,#ff9ec7)}
+      .cal-day .ev.c2{background:linear-gradient(90deg,#6a5cff,#9d8cff)}
+      .cal-day .ev.c3{background:linear-gradient(90deg,#ff9a3d,#ffc46b);color:#3d2400}
+      .cal-day .ev.c4{background:linear-gradient(90deg,#00b4d8,#7dd3fc)}
+      .cal-day .ev.more{background:linear-gradient(90deg,#d9a821,#f5d97e);color:#241a00}
+
+      /* ---------- puzzles ---------- */
+      .pz-layout{display:grid;grid-template-columns:auto 1fr;gap:1.4rem;align-items:start}
+      .board{width:min(400px,86vw);aspect-ratio:1;display:grid;grid-template-columns:repeat(8,1fr);border-radius:12px;overflow:hidden;box-shadow:var(--shadow);border:6px solid #6d4c2f}
+      .sq{display:grid;place-items:center;font-size:clamp(1.3rem,6vw,2rem);cursor:pointer;position:relative;line-height:1;user-select:none}
+      .sq.l{background:var(--sq-l)} .sq.d{background:var(--sq-d)}
+      .sq .wp{color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.6),0 0 2px #000}
+      .sq .bp{color:#181818;text-shadow:0 1px 1px rgba(255,255,255,.3)}
+      .sq.sel{box-shadow:inset 0 0 0 3.5px var(--gold)}
+      .sq.hintmove{box-shadow:inset 0 0 0 3.5px var(--green)}
+      .sq.lastmove{background:#e8cf7a}
+      .sq.shake{animation:shake .35s}
+      @keyframes shake{0%,100%{transform:none}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+      .pz-dots{display:flex;gap:.4rem;flex-wrap:wrap;margin:.4rem 0 1rem}
+      .pz-dot{width:34px;height:34px;border-radius:50%;border:2px solid var(--line);background:var(--panel);font-weight:800;font-size:.82rem;display:grid;place-items:center;cursor:pointer;color:var(--ink2);min-height:34px}
+      .pz-dot.on{border-color:var(--gold);color:var(--gold)}
+      .pz-dot.done{background:var(--green);border-color:var(--green);color:#fff}
+      .score-ring{display:flex;align-items:center;gap:1rem;background:var(--panel);border:1px solid var(--line);border-radius:var(--r-md);padding:.9rem 1.1rem;box-shadow:var(--shadow-s)}
+      .score-ring b{font-family:"Marcellus",serif;font-size:1.8rem;color:var(--green)}
+      .bar{height:10px;background:var(--panel2);border:1px solid var(--line);border-radius:99px;overflow:hidden}
+      .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--green),var(--green2));border-radius:99px;transition:width .6s cubic-bezier(.2,.8,.3,1)}
+      .bar.gold i{background:linear-gradient(90deg,var(--gold2),var(--gold))}
+
+      /* ---------- modal / toast ---------- */
+      .scrim{position:fixed;inset:0;background:rgba(10,18,12,.55);backdrop-filter:blur(3px);z-index:80;display:none;align-items:flex-end;justify-content:center;padding:0}
+      .scrim.on{display:flex}
+      .modal{background:var(--panel);width:100%;max-width:560px;max-height:92vh;overflow-y:auto;border-radius:22px 22px 0 0;padding:1.5rem;animation:slideup .32s cubic-bezier(.2,1.2,.3,1)}
+      @media(min-width:640px){.scrim{align-items:center;padding:1rem}.modal{border-radius:22px}}
+      @keyframes slideup{from{opacity:0;transform:translateY(34px)}to{opacity:1;transform:none}}
+      .modal h3{margin:0 0 .3rem;font-size:1.45rem}
+      .modal .sub{color:var(--ink2);font-size:.92rem;margin:0 0 1.1rem}
+      .modal-x{float:right}
+      .markrow{display:grid;grid-template-columns:1fr 110px 40px;gap:.5rem;margin-bottom:.5rem;align-items:end}
+      #toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,80px);visibility:hidden;background:var(--green2);color:#fff;font-weight:700;padding:.8rem 1.3rem;border-radius:999px;box-shadow:var(--shadow);z-index:120;transition:transform .35s cubic-bezier(.2,1.2,.3,1),visibility .35s;max-width:92vw;text-align:center;font-size:.93rem}
+      #toast.on{transform:translate(-50%,0);visibility:visible}
+      #toast.err{background:var(--red)}
+      #confetti{position:fixed;inset:0;pointer-events:none;z-index:110}
+      footer{border-top:1px solid var(--line);padding:1.6rem 0 2.2rem;color:var(--ink2);font-size:.9rem}
+      footer .frow{display:flex;gap:1rem;flex-wrap:wrap;align-items:center;justify-content:space-between}
+      .kv{display:grid;grid-template-columns:repeat(2,1fr);gap:.9rem 1.4rem}
+      .kv div span{display:block;font-size:.76rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--ink2)}
+      .kv div b{font-size:1.02rem}
+      @media (max-width:900px){
+        .hero-in{grid-template-columns:1fr;padding:2.2rem 0 2.6rem}
+        .grid3,.steps{grid-template-columns:1fr}
+        .grid2{grid-template-columns:1fr}
+        .dash{grid-template-columns:1fr}
+        .side{position:static;display:flex;flex-wrap:nowrap;gap:.3rem;padding:.6rem;overflow-x:auto;scroll-snap-type:x proximity;scroll-behavior:smooth;-webkit-overflow-scrolling:touch}
+        .side .me{display:none}
+        .side button{white-space:nowrap;width:auto}
+        .stat-grid{grid-template-columns:repeat(2,1fr)}
+        .pz-layout{grid-template-columns:1fr}
+        .float-tag.t1{left:0}.float-tag.t2{right:0}
+        .cal-day{min-height:52px}
+      }
+      @media (max-width:560px){
+        .wrap{padding:0 .9rem}
+        .topbar-in{gap:.5rem;flex-wrap:nowrap}
+        .brand{font-size:1.05rem}
+        .brand .mark{width:34px;height:34px;font-size:1.2rem;border-radius:9px;flex:none}
+        .brand small{display:none}
+        #topNav a{display:none}
+        #topNav{gap:.25rem}
+        #topNav .navlink{display:none}
+        #topNav .btn-gold{padding:.45rem .8rem;font-size:.82rem;min-height:2.4rem}
+        .who{display:none}
+        .hero-in{padding:1.6rem 0 2rem;gap:1.4rem}
+        .hero h1{font-size:clamp(1.85rem,8.5vw,2.3rem)}
+        .hero p.lead{font-size:.95rem;margin-bottom:1.1rem}
+        .hero-cta .btn{flex:1 1 auto;padding:.6rem 1rem;font-size:.9rem}
+        .hero-stats{gap:.9rem;margin-top:1.3rem}
+        .hero-stats div b{font-size:1.35rem}
+        .hero-board{width:100%}
+        .hero-board .frame{padding:10px}
+        .pill{font-size:.72rem;max-width:100%;white-space:normal;text-align:left}
+        .float-tag{font-size:.72rem;padding:.4rem .6rem;max-width:72%}
+        .float-tag.t1{left:0}
+        .float-tag.t2{right:0}
+        section{padding:1.8rem 0}
+        .board{width:min(400px,92vw)}
+        .cal-day{min-height:48px}
+        .stat-grid{grid-template-columns:repeat(2,1fr)}
+        .piece{width:88%;height:88%}
+      }
+      @media (prefers-reduced-motion: reduce){
+        *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="wrap topbar-in">
+        <a class="brand" href="#" id="brandHome"><span class="mark"><img src="icon.png" alt="Altius Chess Academy" style="width:100%;height:100%;object-fit:contain;display:block" /></span><span>Altius<small>Chess Academy · Institute App</small></span></a>
+        <nav id="topNav">
+          <a href="#why">Why Altius</a>
+          <a href="#how">How it works</a>
+          <button class="navlink" data-goto="login">Log in</button>
+          <button class="btn btn-gold btn-sm" data-goto="login" style="min-height:2.5rem">Join / Sign in</button>
+        </nav>
+        <button class="icon-btn" id="themeBtn" title="Theme marchu — Light / Dark / System" style="margin-left:auto">🌙</button>
+        <nav id="userNav" style="display:none">
+          <span class="who" id="whoLabel"></span>
+          <button class="navlink" id="logoutBtn">Log out</button>
+        </nav>
+      </div>
+    </header>
+
+    <!-- ================= HOME ================= -->
+    <main id="view-home" class="view on">
+      <div class="hero">
+        <div class="wrap hero-in">
+          <div>
+            <span class="pill"><span class="dot"></span> Admissions &amp; batches managed in one app</span>
+            <h1>Where young minds learn to <em>think ahead</em>.</h1>
+            <p class="lead">Altius Chess Academy's own institute app — students track their stage, grades, class schedule and solve 10 fresh puzzles every day, while coaches and admins run the whole academy from one dashboard.</p>
+            <div class="hero-cta">
+              <button class="btn btn-green" data-goto="login">Student / Parent login</button>
+              <button class="btn btn-ghost" data-goto="login" data-role="admin">Admin login</button>
+            </div>
+            <div class="hero-stats">
+              <div><b>10</b><span>Puzzles every day</span></div>
+              <div><b>5</b><span>Learning stages</span></div>
+              <div><b>100</b><span>Points to earn daily</span></div>
+            </div>
+          </div>
+          <div class="hero-board" aria-hidden="true">
+            <div class="frame"><div class="mini-board" id="miniBoard"></div></div>
+            <div class="float-tag t1"><span class="ic">♜</span> Live class schedule</div>
+            <div class="float-tag t2"><span class="ic">★</span> Grades &amp; progress</div>
+          </div>
+        </div>
+      </div>
+
+      <section id="why">
+        <div class="wrap">
+          <div class="sec-head">
+            <span class="kick">Why Altius</span>
+            <h2>Built for students, parents and coaches</h2>
+            <p>Everything a chess family needs, in one place — no scattered messages, no lost report cards.</p>
+          </div>
+          <div class="grid3">
+            <div class="card">
+              <div class="ic">♟</div>
+              <h3>Daily puzzle training</h3>
+              <p>Exactly 10 hand-picked tactical puzzles a day — checkmates, forks and smothered mates — with 10 points for every correct solution.</p>
+            </div>
+            <div class="card gold">
+              <div class="ic">♞</div>
+              <h3>Clear stage progress</h3>
+              <p>From Beginner to Master, students and parents always see the current stage, course and coach — and what comes next.</p>
+            </div>
+            <div class="card">
+              <div class="ic">♜</div>
+              <h3>One shared schedule</h3>
+              <p>Admins add or remove a class once, and it appears on every student's calendar in the app. No one misses a class again.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="how" style="background:var(--bg2)">
+        <div class="wrap">
+          <div class="sec-head">
+            <span class="kick">How it works</span>
+            <h2>Three steps to your first class</h2>
+          </div>
+          <div class="steps">
+            <div class="step"><b>01</b><h3>Admin sets up</h3><p>The institute admin creates the admin account, adds courses, coaches (HR) and student logins.</p></div>
+            <div class="step"><b>02</b><h3>Student signs in</h3><p>Students and parents log in with the ID given by the institute to see their course, stage and timetable.</p></div>
+            <div class="step"><b>03</b><h3>Learn &amp; earn</h3><p>Attend classes, check grades as coaches publish them, and score 100 points in the daily puzzles.</p></div>
+          </div>
+          <div style="text-align:center;margin-top:1.8rem">
+            <button class="btn btn-gold" data-goto="login">Open the app →</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="contactSec" style="display:none">
+        <div class="wrap">
+          <div class="sec-head">
+            <span class="kick">Visit us</span>
+            <h2>Institute contact</h2>
+          </div>
+          <div class="card" id="contactCard"></div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ================= LOGIN ================= -->
+    <main id="view-login" class="view">
+      <section>
+        <div class="wrap auth-wrap">
+          <div class="auth-card">
+            <h2 style="margin:.1rem 0 .3rem;font-size:1.8rem">Welcome back</h2>
+            <p style="color:var(--ink2);margin:0 0 1.2rem">Choose your account type and sign in.</p>
+            <div class="role-tabs" role="tablist">
+              <button id="tabStudent" class="on" type="button">🎓 Student / Parent</button>
+              <button id="tabAdmin" type="button">🛠 Admin</button>
+            </div>
+            <div class="form-err" id="loginErr"></div>
+            <form id="loginForm" autocomplete="off">
+              <div class="field">
+                <label for="loginId" id="loginIdLabel">Student ID</label>
+                <input id="loginId" required placeholder="e.g. ALT001" />
+              </div>
+              <div class="field">
+                <label for="loginPw">Password</label>
+                <input id="loginPw" type="password" required placeholder="Your password" />
+              </div>
+              <button class="btn btn-green" style="width:100%" type="submit" id="loginBtn">Log in as Student</button>
+            </form>
+            <div id="adminSetupHint" style="display:none">
+              <p class="hintline">First time here? No admin account exists yet.</p>
+              <button class="btn btn-gold" style="width:100%" id="gotoSetup" type="button">Create the admin account</button>
+            </div>
+            <p class="hintline" id="studentHint">Student IDs and passwords are issued by the institute office.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ================= ADMIN SETUP ================= -->
+    <main id="view-setup" class="view">
+      <section>
+        <div class="wrap auth-wrap">
+          <div class="auth-card">
+            <span class="kick">One-time setup</span>
+            <h2 style="margin:.3rem 0 .3rem;font-size:1.8rem">Create the admin account</h2>
+            <p style="color:var(--ink2);margin:0 0 1.2rem">This account manages students, marks, courses, staff and the class schedule for the whole institute.</p>
+            <div class="form-err" id="setupErr"></div>
+            <form id="setupForm" autocomplete="off">
+              <div class="field"><label for="suName">Admin full name</label><input id="suName" required placeholder="e.g. Academy Director" /></div>
+              <div class="field"><label for="suId">Admin login ID</label><input id="suId" required placeholder="e.g. admin" /></div>
+              <div class="field"><label for="suPw">Password</label><input id="suPw" type="password" required minlength="4" placeholder="Minimum 4 characters" /></div>
+              <div class="field"><label for="suPw2">Confirm password</label><input id="suPw2" type="password" required placeholder="Repeat the password" /></div>
+              <button class="btn btn-gold" style="width:100%" type="submit">Create admin account &amp; enter</button>
+            </form>
+            <p class="hintline"><a href="#" id="setupBack">← Back to login</a></p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ================= ADMIN ================= -->
+    <main id="view-admin" class="view">
+      <div class="wrap dash">
+        <aside class="side" id="adminSide">
+          <div class="me"><span>Admin</span><b id="adminName">—</b></div>
+          <button data-pane="a-overview" class="on"><span class="ic">▦</span> Overview</button>
+          <button data-pane="a-students"><span class="ic">🎓</span> Students</button>
+          <button data-pane="a-marks"><span class="ic">★</span> Marks &amp; Grades</button>
+          <button data-pane="a-courses"><span class="ic">♞</span> Courses</button>
+          <button data-pane="a-schedule"><span class="ic">📅</span> Schedule</button>
+          <button data-pane="a-hr"><span class="ic">👥</span> HR · Staff</button>
+          <button data-pane="a-settings"><span class="ic">⚙</span> Settings</button>
+        </aside>
+        <div>
+          <section class="pane on" id="a-overview" style="padding:0"></section>
+          <section class="pane" id="a-students" style="padding:0"></section>
+          <section class="pane" id="a-marks" style="padding:0"></section>
+          <section class="pane" id="a-courses" style="padding:0"></section>
+          <section class="pane" id="a-schedule" style="padding:0"></section>
+          <section class="pane" id="a-hr" style="padding:0"></section>
+          <section class="pane" id="a-settings" style="padding:0"></section>
+        </div>
+      </div>
+    </main>
+
+    <!-- ================= STUDENT ================= -->
+    <main id="view-student" class="view">
+      <div class="wrap dash">
+        <aside class="side" id="studentSide">
+          <div class="me"><span>Student</span><b id="studentNameSide">—</b></div>
+          <button data-pane="s-overview" class="on"><span class="ic">▦</span> Overview</button>
+          <button data-pane="s-course"><span class="ic">♞</span> My Course</button>
+          <button data-pane="s-grades"><span class="ic">★</span> My Grades</button>
+          <button data-pane="s-schedule"><span class="ic">📅</span> Class Schedule</button>
+          <button data-pane="s-puzzles"><span class="ic">♟</span> Daily Puzzles</button>
+          <button data-pane="s-profile"><span class="ic">👤</span> Profile</button>
+        </aside>
+        <div>
+          <section class="pane on" id="s-overview" style="padding:0"></section>
+          <section class="pane" id="s-course" style="padding:0"></section>
+          <section class="pane" id="s-grades" style="padding:0"></section>
+          <section class="pane" id="s-schedule" style="padding:0"></section>
+          <section class="pane" id="s-puzzles" style="padding:0"></section>
+          <section class="pane" id="s-profile" style="padding:0"></section>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <div class="wrap frow">
+        <span>♞ <b>Altius Chess Academy</b> — Institute App</span>
+        <span id="footContact"></span>
+      </div>
+    </footer>
+
+    <div class="scrim" id="scrim"><div class="modal" id="modalBox" role="dialog" aria-modal="true"></div></div>
+    <canvas id="confetti"></canvas>
+    <div id="toast" role="status"></div>
+    <script>
+    "use strict";
+    /* ================= helpers ================= */
+    const $ = (s, r) => (r || document).querySelector(s);
+    const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
+    const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+    const todayStr = () => { const d = new Date(); return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); };
+    const fmtDate = (iso) => { if (!iso) return "—"; const d = new Date(iso + "T00:00:00"); return d.toLocaleDateString(undefined, { weekday: "short", day: "numeric", month: "short", year: "numeric" }); };
+    const initials = (name) => name.trim().split(/\s+/).slice(0, 2).map(w => w[0].toUpperCase()).join("") || "?";
+    let toastTimer = null;
+    function toast(msg, isErr) {
+      const t = $("#toast"); t.textContent = msg; t.className = isErr ? "on err" : "on";
+      clearTimeout(toastTimer); toastTimer = setTimeout(() => { t.className = ""; }, 3200);
+    }
+    function confetti() {
+      const cv = $("#confetti"), ctx = cv.getContext("2d");
+      cv.width = innerWidth; cv.height = innerHeight;
+      const colors = ["#175c36", "#d9a821", "#b58863", "#3fae6a", "#f0d9b5"];
+      const ps = Array.from({ length: 130 }, () => ({ x: Math.random() * cv.width, y: -20 - Math.random() * cv.height * .4, w: 6 + Math.random() * 7, h: 8 + Math.random() * 9, vy: 2.2 + Math.random() * 3.2, vx: -1.4 + Math.random() * 2.8, r: Math.random() * Math.PI, vr: -.12 + Math.random() * .24, c: colors[Math.floor(Math.random() * colors.length)] }));
+      let frames = 0;
+      (function tick() {
+        ctx.clearRect(0, 0, cv.width, cv.height);
+        ps.forEach(p => { p.y += p.vy; p.x += p.vx; p.r += p.vr; ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.r); ctx.fillStyle = p.c; ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h); ctx.restore(); });
+        if (++frames < 170) requestAnimationFrame(tick); else ctx.clearRect(0, 0, cv.width, cv.height);
+      })();
+    }
+
+    /* ================= data ================= */
+    const STAGES = ["Beginner", "Foundation", "Intermediate", "Advanced", "Master"];
+    const GLYPHS = { K: "♔", Q: "♕", R: "♖", B: "♗", N: "♘", P: "♙", k: "♚", q: "♛", r: "♜", b: "♝", n: "♞", p: "♟" };
+    /* Realistic Staunton pieces (Cburnett, public domain) — pieces/*.svg, big not tiny */
+    /* ---------- Theme: Light / Dark / System (device-local, DB lo save avvadu) ---------- */
+    function applyTheme(mode){
+      if(mode === "dark"){ document.documentElement.dataset.theme = "dark"; }
+      else if(mode === "light"){ document.documentElement.dataset.theme = "light"; }
+      else { delete document.documentElement.dataset.theme; }
+      try{ localStorage.setItem("altius_theme", mode); }catch(e){}
+      const btn = document.getElementById("themeBtn");
+      if(btn) btn.textContent = mode === "dark" ? "☀️" : mode === "light" ? "🌙" : "🌓";
+    }
+    function cycleTheme(){
+      const cur = (function(){ try{ return localStorage.getItem("altius_theme") || "light"; }catch(e){ return "light"; } })();
+      const next = cur === "system" ? "light" : cur === "light" ? "dark" : "system";
+      applyTheme(next);
+      toast(next === "system" ? "Theme: System" : next === "light" ? "Theme: Light" : "Theme: Dark");
+      if(window.renderAdmin) renderAdmin();
+    }
+    (function(){ let m = "light"; try{ m = localStorage.getItem("altius_theme") || "light"; }catch(e){} applyTheme(m); })();
+    document.addEventListener("click", (e) => { if(e.target.closest("#themeBtn")) cycleTheme(); });
+
+    /* ---------- Swipe: dashboard lo left/right swipe tho next/prev tab ---------- */
+    (function(){
+      let sx = 0, sy = 0;
+      document.addEventListener("touchstart", (e) => { if(e.touches.length === 1){ sx = e.touches[0].clientX; sy = e.touches[0].clientY; } }, {passive:true});
+      document.addEventListener("touchend", (e) => {
+        if(!sx) return;
+        const dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy; sx = 0;
+        if(Math.abs(dx) < 60 || Math.abs(dy) > 45) return;
+        const dash = e.target.closest(".dash"); if(!dash) return;
+        const side = dash.querySelector(".side"); if(!side) return;
+        const btns = Array.from(side.querySelectorAll("button[data-pane]"));
+        const cur = btns.findIndex(b => b.classList.contains("on"));
+        if(cur < 0) return;
+        const next = dx < 0 ? Math.min(btns.length - 1, cur + 1) : Math.max(0, cur - 1);
+        if(next !== cur) btns[next].click();
+      }, {passive:true});
+    })();
+
+    function pieceImg(pc){ const w = pc === pc.toUpperCase(); return '<img class="piece" src="pieces/' + (w ? "w" : "b") + pc.toUpperCase() + '.svg" alt="' + pc + '" draggable="false" />'; }
+    /* 10 daily puzzles — White to move. pieces: square -> glyph key (uppercase = White). */
+    const PUZZLES = [
+      { title: "Back-Rank Mate", hint: "The king is trapped behind its own pawns.", explain: "Rd8 is checkmate — the pawns on f7, g7 and h7 lock every escape square.",
+        pieces: { g1: "K", d1: "R", f2: "P", g2: "P", h2: "P", g8: "k", f7: "p", g7: "p", h7: "p" }, from: "d1", to: "d8" },
+      { title: "Scholar's Mate", hint: "f7 is the weakest square near the king — and your bishop guards it.", explain: "Qxf7 is checkmate: the bishop on c4 protects the queen, and the king has no flight square.",
+        pieces: { e1: "K", h5: "Q", c4: "B", a2: "P", b2: "P", c2: "P", d2: "P", e4: "P", f2: "P", g2: "P", h2: "P", e8: "k", d8: "q", a7: "p", b7: "p", c7: "p", d7: "p", e5: "p", f7: "p", g7: "p", h7: "p" }, from: "h5", to: "f7" },
+      { title: "Queen & Bishop Battery", hint: "Your bishop on b2 guards g7 from across the board.", explain: "Qxg7 is checkmate — the long diagonal bishop covers the queen, and g8 is sealed.",
+        pieces: { h1: "K", g4: "Q", b2: "B", a2: "P", c2: "P", d2: "P", e2: "P", f2: "P", h2: "P", h8: "k", g7: "p", h7: "p" }, from: "g4", to: "g7" },
+      { title: "The Royal Fork", hint: "One knight jump attacks the king and the queen together.", explain: "Nd6+ forks king and queen — after the king moves, the queen is lost.",
+        pieces: { h1: "K", c4: "N", a2: "P", b2: "P", d2: "P", e2: "P", f2: "P", g2: "P", h2: "P", e8: "k", b7: "q", a7: "p", c7: "p", d7: "p", f7: "p", g7: "p", h7: "p" }, from: "c4", to: "d6" },
+      { title: "Smothered Mate", hint: "The king is boxed in by its own pieces — only a knight can finish this.", explain: "Nf7 is the classic smothered mate: the rook and pawns imprison their own king.",
+        pieces: { h1: "K", g5: "N", a2: "P", b2: "P", c2: "P", d2: "P", e2: "P", f2: "P", g2: "P", h2: "P", h8: "k", g8: "r", g7: "p", h7: "p" }, from: "g5", to: "f7" },
+      { title: "Two-Bishop Net", hint: "Both bishops aim at the king's shelter. Send the queen in.", explain: "Qxh7 is checkmate — Bd3 stops the king capturing, and Bc5 seals the f8 escape.",
+        pieces: { g1: "K", h5: "Q", d3: "B", c5: "B", a2: "P", b2: "P", c2: "P", d2: "P", e2: "P", f2: "P", g2: "P", h2: "P", g8: "k", d8: "q", a7: "p", b7: "p", f7: "p", h7: "p" }, from: "h5", to: "h7" },
+      { title: "Ladder Mate", hint: "One rook already guards the 7th rank. Bring the other one up.", explain: "Rb8 is checkmate — the a7 rook covers the 7th rank while the new rook seals the 8th.",
+        pieces: { g1: "K", a7: "R", b1: "R", f2: "P", g2: "P", h2: "P", h8: "k", g7: "p" }, from: "b1", to: "b8" },
+      { title: "Promotion Mate", hint: "March the pawn home — and pick the right piece.", explain: "Promoting to a queen mates: the new queen seals the back rank and your king covers g7 and h7.",
+        pieces: { g6: "K", e7: "P", a2: "P", b2: "P", c2: "P", d2: "P", f2: "P", g2: "P", h2: "P", h8: "k" }, from: "e7", to: "e8", promo: true },
+      { title: "Knight-Guarded Mate", hint: "The knight guards h7 and the rook guards the f-file. Strike now.", explain: "Qxh7 is checkmate — the knight stops Kxh7 and the rook seals both f-file escapes.",
+        pieces: { g1: "K", h6: "Q", g5: "N", f1: "R", a2: "P", b2: "P", c2: "P", d2: "P", e2: "P", g2: "P", h2: "P", g8: "k", d8: "q", a8: "r", g6: "p", h7: "p" }, from: "h6", to: "h7" },
+      { title: "Queen on the Back Rank", hint: "The king's own pawns lock every door. Land the queen on the 8th rank.", explain: "Qb8 is checkmate — the queen controls the whole back rank and the pawns block the king.",
+        pieces: { g1: "K", b3: "Q", a2: "P", c2: "P", d2: "P", e2: "P", f2: "P", g2: "P", h2: "P", g8: "k", a5: "q", d7: "p", f7: "p", g7: "p", h7: "p" }, from: "b3", to: "b8" }
+    ];
+
+    /* App state starts empty — the admin creates every record. */
+    const DB = {
+      admin: null,            // {name, id, pw}
+      students: [],           // {id, name, pw, parent, phone, courseId, coachId, stage, joined, marks:[{subject,score}], puzzles:{date,solved:[],score}}
+      staff: [],              // {id, name, role, phone, email}
+      courses: [],            // {id, name, level, desc}
+      events: [],             // {id, date, title, courseId, coachId, time, location}
+      settings: { phone: "", email: "", address: "" }
+    };
+    let session = null;       // {role:'admin'} | {role:'student', id}
+    let seq = 1;
+    const uid = (p) => p + (seq++) + Date.now().toString(36);
+    const courseById = (id) => DB.courses.find(c => c.id === id);
+    const staffById = (id) => DB.staff.find(s => s.id === id);
+    const studentById = (id) => DB.students.find(s => s.id === id);
+    function gradeOf(score) { return score >= 90 ? "A+" : score >= 80 ? "A" : score >= 70 ? "B+" : score >= 60 ? "B" : score >= 50 ? "C" : score >= 40 ? "D" : "F"; }
+    function avgOf(st) { if (!st.marks.length) return null; return Math.round(st.marks.reduce((a, m) => a + m.score, 0) / st.marks.length); }
+    function puzzleState(st) {
+      const t = todayStr();
+      if (!st.puzzles || st.puzzles.date !== t) st.puzzles = { date: t, solved: [], score: 0 };
+      return st.puzzles;
+    }
+
+    /* ================= navigation ================= */
+    const VIEWS = ["home", "login", "setup", "admin", "student"];
+    function show(view) {
+      VIEWS.forEach(v => $("#view-" + v).classList.toggle("on", v === view));
+      $("#topNav").style.display = session ? "none" : "";
+      $("#userNav").style.display = session ? "" : "none";
+      if (session) $("#whoLabel").innerHTML = session.role === "admin"
+        ? "Signed in as <b>" + esc(DB.admin.name) + "</b> · Admin"
+        : "Signed in as <b>" + esc(studentById(session.id).name) + "</b> · Student";
+      window.scrollTo({ top: 0 });
+    }
+    document.addEventListener("click", (e) => {
+      const g = e.target.closest("[data-goto]");
+      if (g) {
+        if (g.dataset.role) setRole("admin"); else if (g.closest("#view-home")) setRole("student");
+        show("login"); refreshLogin();
+      }
+    });
+    $("#brandHome").addEventListener("click", (e) => { e.preventDefault(); if (!session) show("home"); });
+    $("#logoutBtn").addEventListener("click", () => { session = null; toast("Logged out. See you soon!"); show("home"); });
+
+    /* mini hero board — the classic starting position */
+    (function miniBoard() {
+      const back = ["r", "n", "b", "q", "k", "b", "n", "r"];
+      const pos = {};
+      back.forEach((p, i) => { const f = "abcdefgh"[i]; pos[f + "8"] = p; pos[f + "7"] = "p"; pos[f + "2"] = "P"; pos[f + "1"] = p.toUpperCase(); });
+      let html = "";
+      for (let r = 8; r >= 1; r--) for (let f = 0; f < 8; f++) {
+        const sq = "abcdefgh"[f] + r, p = pos[sq];
+        html += '<i class="' + ((f + r) % 2 ? "l" : "d") + '">' + (p ? pieceImg(p) : "") + "</i>";
+      }
+      $("#miniBoard").innerHTML = html;
+    })();
+
+    /* ================= auth ================= */
+    let loginRole = "student";
+    function setRole(r) {
+      loginRole = r;
+      $("#tabStudent").classList.toggle("on", r === "student");
+      $("#tabAdmin").classList.toggle("on", r === "admin");
+      $("#loginIdLabel").textContent = r === "admin" ? "Admin ID" : "Student ID";
+      $("#loginId").placeholder = r === "admin" ? "Your admin ID" : "e.g. ALT001";
+      $("#loginBtn").textContent = r === "admin" ? "Log in as Admin" : "Log in as Student";
+      $("#loginBtn").className = "btn " + (r === "admin" ? "btn-gold" : "btn-green");
+      $("#loginBtn").style.width = "100%";
+      $("#studentHint").style.display = r === "student" ? "" : "none";
+      refreshLogin();
+    }
+    function refreshLogin() {
+      $("#adminSetupHint").style.display = (loginRole === "admin" && !DB.admin) ? "" : "none";
+      $("#loginErr").style.display = "none";
+    }
+    $("#tabStudent").addEventListener("click", () => setRole("student"));
+    $("#tabAdmin").addEventListener("click", () => setRole("admin"));
+    $("#gotoSetup").addEventListener("click", () => show("setup"));
+    $("#setupBack").addEventListener("click", (e) => { e.preventDefault(); show("login"); });
+    function loginError(msg) { const el = $("#loginErr"); el.textContent = msg; el.style.display = ""; }
+    $("#loginForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const id = $("#loginId").value.trim(), pw = $("#loginPw").value;
+      if (loginRole === "admin") {
+        if (!DB.admin) return loginError("No admin account exists yet — create one below.");
+        if (id.toLowerCase() !== DB.admin.id.toLowerCase() || pw !== DB.admin.pw) return loginError("Admin ID or password is incorrect.");
+        session = { role: "admin" }; $("#loginPw").value = "";
+        toast("Welcome back, " + DB.admin.name + "!");
+        enterAdmin();
+      } else {
+        const st = DB.students.find(s => s.id.toLowerCase() === id.toLowerCase() && s.pw === pw);
+        if (!st) return loginError("Student ID or password is incorrect. IDs are issued by the institute office.");
+        session = { role: "student", id: st.id }; $("#loginPw").value = "";
+        toast("Welcome, " + st.name + "! Ready for today's puzzles?");
+        enterStudent();
+      }
+    });
+    $("#setupForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const err = $("#setupErr");
+      const name = $("#suName").value.trim(), id = $("#suId").value.trim(), pw = $("#suPw").value, pw2 = $("#suPw2").value;
+      const fail = (m) => { err.textContent = m; err.style.display = ""; };
+      if (DB.admin) return fail("An admin account already exists.");
+      if (pw !== pw2) return fail("Passwords do not match.");
+      DB.admin = { name, id, pw };
+      session = { role: "admin" };
+      toast("Admin account created — welcome, " + name + "!");
+      confetti();
+      enterAdmin();
+    });
+
+    /* ================= modal ================= */
+    function openModal(html) { $("#modalBox").innerHTML = html; $("#scrim").classList.add("on"); }
+    function closeModal() { $("#scrim").classList.remove("on"); }
+    $("#scrim").addEventListener("click", (e) => { if (e.target === e.currentTarget) closeModal(); });
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeModal(); });
+    function confirmModal(title, body, onYes) {
+      openModal('<button class="btn btn-ghost btn-sm modal-x" onclick="closeModal()">✕</button>' +
+        "<h3>" + esc(title) + '</h3><p class="sub">' + esc(body) + '</p>' +
+        '<div style="display:flex;gap:.6rem;justify-content:flex-end"><button class="btn btn-ghost" onclick="closeModal()">Cancel</button>' +
+        '<button class="btn btn-danger" id="cfYes">Yes, delete</button></div>');
+      $("#cfYes").addEventListener("click", () => { closeModal(); onYes(); });
+    }
+    window.closeModal = closeModal;
+
+    /* ================= shared calendar ================= */
+    let calCursor = new Date(); calCursor.setDate(1);
+    let calSelected = todayStr();
+    function calendarHTML(prefix) {
+      const y = calCursor.getFullYear(), m = calCursor.getMonth();
+      const first = new Date(y, m, 1).getDay(), days = new Date(y, m + 1, 0).getDate();
+      const monthName = calCursor.toLocaleDateString(undefined, { month: "long", year: "numeric" });
+      let cells = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map(d => '<div class="dow">' + d + "</div>").join("");
+      for (let i = 0; i < first; i++) cells += '<div class="cal-day pad"></div>';
+      for (let d = 1; d <= days; d++) {
+        const iso = y + "-" + String(m + 1).padStart(2, "0") + "-" + String(d).padStart(2, "0");
+        const evs = DB.events.filter(e => e.date === iso);
+        const wk = new Date(y, m, d).getDay();
+        cells += '<button type="button" class="cal-day' + (iso === todayStr() ? " today" : "") + (iso === calSelected ? " sel" : "") + ((wk === 0 || wk === 6) ? " wknd" : "") + '" data-calday="' + iso + '">' +
+          '<span class="n">' + d + (iso === todayStr() ? " ✨" : "") + "</span>" +
+          evs.slice(0, 2).map((e, i) => '<span class="ev c' + ((i % 4) + 1) + '">' + esc(e.title) + "</span>").join("") +
+          (evs.length > 2 ? '<span class="ev more">+' + (evs.length - 2) + " more</span>" : "") + "</button>";
+      }
+      return '<div class="cal"><div class="cal-head">' +
+        '<button type="button" class="icon-btn" data-calnav="-1">← Prev</button><h3>' + monthName + '</h3><button type="button" class="icon-btn" data-calnav="1">Next →</button></div>' +
+        '<div class="cal-grid">' + cells + "</div></div>" +
+        '<div style="margin-top:1rem" id="' + prefix + 'DayList">' + dayListHTML(prefix) + "</div>";
+    }
+    function dayListHTML(prefix) {
+      const evs = DB.events.filter(e => e.date === calSelected).sort((a, b) => (a.time || "").localeCompare(b.time || ""));
+      const isAdmin = prefix === "a";
+      let h = '<div class="pane-head" style="margin-bottom:.6rem"><h3 style="font-family:Marcellus,serif;font-weight:400;font-size:1.25rem;margin:0">' + fmtDate(calSelected) + "</h3>" +
+        (isAdmin ? '<span class="sp"><button class="btn btn-green btn-sm" id="addEventBtn">+ Add class</button></span>' : "") + "</div>";
+      if (!evs.length) return h + '<div class="empty"><span class="big">📅</span><b>No classes on this day</b>' + (isAdmin ? "Tap “Add class” to schedule one — students see it instantly." : "Enjoy the rest day, or solve today's puzzles!") + "</div>";
+      h += '<div class="card" style="padding:.4rem 1.2rem"><ul class="list-clean">' + evs.map(e => {
+        const c = courseById(e.courseId), coach = staffById(e.coachId);
+        return "<li><div class='avatar gold'>♞</div><div style='flex:1'><b>" + esc(e.title) + "</b>" +
+          '<div style="color:var(--ink2);font-size:.88rem">' + (e.time ? "🕐 " + esc(e.time) + " · " : "") + (c ? "Course: " + esc(c.name) + " · " : "") + (coach ? "Coach: " + esc(coach.name) + " · " : "") + (e.location ? "📍 " + esc(e.location) : "") + "</div></div>" +
+          (isAdmin ? '<div class="row-actions"><button class="icon-btn" data-editev="' + e.id + '">Edit</button><button class="icon-btn del" data-delev="' + e.id + '">Delete</button></div>' : "") + "</li>";
+      }).join("") + "</ul></div>";
+      return h;
+    }
+    document.addEventListener("click", (e) => {
+      const nav = e.target.closest("[data-calnav]");
+      if (nav) { calCursor.setMonth(calCursor.getMonth() + Number(nav.dataset.calnav)); renderCalendars(); return; }
+      const day = e.target.closest("[data-calday]");
+      if (day) { calSelected = day.dataset.calday; renderCalendars(); }
+    });
+    function renderCalendars() {
+      if (session && session.role === "admin") { const el = $("#calMountA"); if (el) el.innerHTML = calendarHTML("a"); }
+      if (session && session.role === "student") { const el = $("#calMountS"); if (el) el.innerHTML = calendarHTML("s"); }
+    }
+
+    /* ================= ADMIN ================= */
+    function enterAdmin() {
+      $("#adminName").textContent = DB.admin.name;
+      show("admin"); switchPane("adminSide", "a-overview"); renderAdmin();
+    }
+    function switchPane(sideId, paneId) {
+      $$("#" + sideId + " button[data-pane]").forEach(b => { const on = b.dataset.pane === paneId; b.classList.toggle("on", on); if(on) b.scrollIntoView({behavior:"smooth", inline:"center", block:"nearest"}); });
+      $$("#view-" + (sideId === "adminSide" ? "admin" : "student") + " .pane").forEach(p => p.classList.toggle("on", p.id === paneId));
+    }
+    document.addEventListener("click", (e) => {
+      const b = e.target.closest(".side button[data-pane]");
+      if (!b) return;
+      const side = b.closest(".side");
+      switchPane(side.id, b.dataset.pane);
+      if (side.id === "studentSide" && b.dataset.pane === "s-puzzles") renderPuzzles();
+    });
+    function renderAdmin() { aOverview(); aStudents(); aMarks(); aCourses(); aSchedule(); aHR(); aSettings(); renderContact(); }
+    document.addEventListener("click", (e) => { const tp = e.target.closest("[data-theme-pick]"); if(!tp) return; applyTheme(tp.dataset.themePick); toast(tp.dataset.themePick === "system" ? "Theme: System" : tp.dataset.themePick === "light" ? "Theme: Light" : "Theme: Dark"); });
+
+    function aOverview() {
+      const upcoming = DB.events.filter(e => e.date >= todayStr()).sort((a, b) => a.date.localeCompare(b.date)).slice(0, 5);
+      const solvedToday = DB.students.reduce((a, s) => a + puzzleState(s).solved.length, 0);
+      $("#a-overview").innerHTML =
+        '<div class="pane-head"><h2>Overview</h2></div>' +
+        '<div class="stat-grid">' +
+        '<div class="stat"><b>' + DB.students.length + '</b><span>Students</span></div>' +
+        '<div class="stat"><b>' + DB.staff.length + '</b><span>Staff &amp; coaches</span></div>' +
+        '<div class="stat"><b>' + DB.courses.length + '</b><span>Courses</span></div>' +
+        '<div class="stat"><b>' + solvedToday + '</b><span>Puzzles solved today</span></div></div>' +
+        '<div class="grid2"><div class="card"><h3 style="margin-top:0">Upcoming classes</h3>' +
+        (upcoming.length ? '<ul class="list-clean">' + upcoming.map(e => { const c = courseById(e.courseId); return "<li><div class='avatar'>♞</div><div><b>" + esc(e.title) + "</b><div style='color:var(--ink2);font-size:.88rem'>" + fmtDate(e.date) + (e.time ? " · " + esc(e.time) : "") + (c ? " · " + esc(c.name) : "") + "</div></div></li>"; }).join("") + "</ul>"
+          : '<p>No classes scheduled yet. Add one in the Schedule tab — it appears on every student\'s calendar immediately.</p>') +
+        '</div><div class="card"><h3 style="margin-top:0">Top puzzle scorers today</h3>' +
+        (DB.students.length ? '<ul class="list-clean">' + DB.students.slice().sort((a, b) => puzzleState(b).score - puzzleState(a).score).slice(0, 5).map(s => "<li><div class='avatar gold'>" + esc(initials(s.name)) + "</div><div style='flex:1'><b>" + esc(s.name) + "</b><div style='color:var(--ink2);font-size:.88rem'>" + esc(s.id) + " · " + esc(s.stage) + "</div></div><span class='chip gold'>" + puzzleState(s).score + " pts</span></li>").join("") + "</ul>"
+          : "<p>No students yet. Add your first student from the Students tab.</p>") +
+        "</div></div>";
+    }
+
+    function aStudents() {
+      const rows = DB.students.map(s => {
+        const c = courseById(s.courseId), coach = staffById(s.coachId), avg = avgOf(s);
+        return "<tr><td><b>" + esc(s.name) + "</b><br><span style='color:var(--ink2);font-size:.82rem'>" + esc(s.id) + "</span></td>" +
+          "<td>" + (c ? esc(c.name) : "—") + "</td><td><span class='chip'>" + esc(s.stage) + "</span></td>" +
+          "<td>" + (coach ? esc(coach.name) : "—") + "</td>" +
+          "<td>" + (avg === null ? "—" : avg + " · " + gradeOf(avg)) + "</td>" +
+          "<td>" + puzzleState(s).score + " pts</td>" +
+          '<td><div class="row-actions"><button class="icon-btn" data-editstu="' + s.id + '">Edit</button><button class="icon-btn del" data-delstu="' + s.id + '">Delete</button></div></td></tr>';
+      }).join("");
+      $("#a-students").innerHTML =
+        '<div class="pane-head"><h2>Students</h2><span class="sp"><button class="btn btn-green btn-sm" id="addStudentBtn">+ Add student</button></span></div>' +
+        (DB.students.length
+          ? '<div class="tbl-wrap"><table><thead><tr><th>Student</th><th>Course</th><th>Stage</th><th>Coach</th><th>Average</th><th>Puzzles today</th><th></th></tr></thead><tbody>' + rows + "</tbody></table></div>"
+          : '<div class="empty"><span class="big">🎓</span><b>No students yet</b>Add a student to give them a login. They will see only their own course, stage, grades, schedule and daily puzzles.</div>');
+      $("#addStudentBtn").addEventListener("click", () => studentModal(null));
+    }
+    function studentModal(st) {
+      const isNew = !st; st = st || { name: "", id: "", pw: "", parent: "", phone: "", courseId: "", coachId: "", stage: "Beginner", joined: todayStr() };
+      const courseOpts = '<option value="">— Select course —</option>' + DB.courses.map(c => '<option value="' + c.id + '"' + (st.courseId === c.id ? " selected" : "") + ">" + esc(c.name) + "</option>").join("");
+      const coachOpts = '<option value="">— Select coach —</option>' + DB.staff.map(c => '<option value="' + c.id + '"' + (st.coachId === c.id ? " selected" : "") + ">" + esc(c.name) + " (" + esc(c.role) + ")</option>").join("");
+      openModal('<button class="btn btn-ghost btn-sm modal-x" onclick="closeModal()">✕</button>' +
+        "<h3>" + (isNew ? "Add student" : "Edit student") + '</h3><p class="sub">The student logs in with this ID and password. Share them with the parent directly.</p>' +
+        '<form id="stuForm"><div class="form-err" id="stuErr"></div>' +
+        '<div class="field"><label>Full name</label><input id="sf-name" required value="' + esc(st.name) + '"></div>' +
+        '<div class="grid2"><div class="field"><label>Student ID (login)</label><input id="sf-id" required value="' + esc(st.id) + '" placeholder="e.g. ALT001"></div>' +
+        '<div class="field"><label>Password (login)</label><input id="sf-pw" required value="' + esc(st.pw) + '"></div></div>' +
+        '<div class="grid2"><div class="field"><label>Parent / guardian name</label><input id="sf-parent" value="' + esc(st.parent) + '"></div>' +
+        '<div class="field"><label>Parent phone</label><input id="sf-phone" value="' + esc(st.phone) + '"></div></div>' +
+        '<div class="grid2"><div class="field"><label>Course</label><select id="sf-course">' + courseOpts + '</select></div>' +
+        '<div class="field"><label>Coach</label><select id="sf-coach">' + coachOpts + "</select></div></div>" +
+        '<div class="grid2"><div class="field"><label>Current stage</label><select id="sf-stage">' + STAGES.map(x => '<option' + (st.stage === x ? " selected" : "") + ">" + x + "</option>").join("") + '</select></div>' +
+        '<div class="field"><label>Joining date</label><input id="sf-joined" type="date" value="' + esc(st.joined) + '"></div></div>' +
+        '<button class="btn btn-green" style="width:100%">' + (isNew ? "Add student" : "Save changes") + "</button></form>");
+      $("#stuForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const id = $("#sf-id").value.trim();
+        if (DB.students.some(s => s.id.toLowerCase() === id.toLowerCase() && (!st || s.id !== st.id) && isNew) || (DB.students.some(s => s.id.toLowerCase() === id.toLowerCase() && s !== st))) {
+          const er = $("#stuErr"); er.textContent = "That Student ID is already in use."; er.style.display = ""; return;
+        }
+        const data = { name: $("#sf-name").value.trim(), id, pw: $("#sf-pw").value, parent: $("#sf-parent").value.trim(), phone: $("#sf-phone").value.trim(), courseId: $("#sf-course").value, coachId: $("#sf-coach").value, stage: $("#sf-stage").value, joined: $("#sf-joined").value || todayStr() };
+        if (isNew) { data.marks = []; data.puzzles = null; DB.students.push(data); toast("Student added — " + data.name + " can now log in."); }
+        else { Object.assign(st, data); toast("Student updated."); }
+        closeModal(); renderAdmin(); if (session.role === "student") renderStudent();
+      });
+    }
+    document.addEventListener("click", (e) => {
+      const ed = e.target.closest("[data-editstu]"); if (ed) studentModal(studentById(ed.dataset.editstu));
+      const del = e.target.closest("[data-delstu]");
+      if (del) { const s = studentById(del.dataset.delstu); confirmModal("Delete student?", s.name + " (" + s.id + ") and all their marks and puzzle scores will be removed.", () => { DB.students = DB.students.filter(x => x.id !== s.id); toast("Student deleted."); renderAdmin(); }); }
+    });
+
+    function aMarks() {
+      const rows = DB.students.map(s => {
+        const avg = avgOf(s);
+        return "<tr><td><b>" + esc(s.name) + "</b><br><span style='color:var(--ink2);font-size:.82rem'>" + esc(s.id) + " · " + esc(s.stage) + "</span></td>" +
+          "<td>" + (s.marks.length ? s.marks.map(m => esc(m.subject) + ": " + m.score).join("<br>") : "No marks yet") + "</td>" +
+          "<td>" + (avg === null ? "—" : "<b>" + avg + "</b>") + "</td>" +
+          "<td>" + (avg === null ? "—" : "<span class='chip gold'>" + gradeOf(avg) + "</span>") + "</td>" +
+          '<td><button class="icon-btn" data-marks="' + s.id + '">Enter / edit marks</button></td></tr>';
+      }).join("");
+      $("#a-marks").innerHTML =
+        '<div class="pane-head"><h2>Marks &amp; Grades</h2></div>' +
+        (DB.students.length
+          ? '<div class="tbl-wrap"><table><thead><tr><th>Student</th><th>Subjects</th><th>Average</th><th>Grade</th><th></th></tr></thead><tbody>' + rows + "</tbody></table></div><p style='color:var(--ink2);font-size:.88rem'>Grades: A+ ≥ 90 · A ≥ 80 · B+ ≥ 70 · B ≥ 60 · C ≥ 50 · D ≥ 40 · F below 40. Students see updates the moment you save.</p>"
+          : '<div class="empty"><span class="big">★</span><b>No students yet</b>Add students first, then enter their marks here.</div>');
+    }
+    document.addEventListener("click", (e) => {
+      const b = e.target.closest("[data-marks]"); if (b) marksModal(studentById(b.dataset.marks));
+    });
+    function marksModal(st) {
+      if (!st) return;
+      const rowHTML = (m) => '<div class="markrow"><div><label>Subject</label><input class="mk-sub" value="' + esc(m ? m.subject : "") + '" placeholder="e.g. Tactics Test 1"></div><div><label>Marks / 100</label><input class="mk-score" type="number" min="0" max="100" value="' + (m ? m.score : "") + '"></div><button type="button" class="icon-btn del mk-del" title="Remove">✕</button></div>';
+      openModal('<button class="btn btn-ghost btn-sm modal-x" onclick="closeModal()">✕</button>' +
+        "<h3>Marks — " + esc(st.name) + '</h3><p class="sub">Add each test or assessment. The average and grade are calculated automatically and shown to the student.</p>' +
+        '<div id="mkRows">' + (st.marks.length ? st.marks.map(rowHTML).join("") : rowHTML(null)) + '</div>' +
+        '<button type="button" class="btn btn-ghost btn-sm" id="mkAdd">+ Add subject</button>' +
+        '<button type="button" class="btn btn-green" id="mkSave" style="width:100%;margin-top:1rem">Save marks</button>');
+      $("#mkAdd").addEventListener("click", () => { $("#mkRows").insertAdjacentHTML("beforeend", rowHTML(null)); });
+      $("#mkRows").addEventListener("click", (e) => { const d = e.target.closest(".mk-del"); if (d) d.closest(".markrow").remove(); });
+      $("#mkSave").addEventListener("click", () => {
+        const marks = [];
+        $$("#mkRows .markrow").forEach(r => {
+          const sub = $(".mk-sub", r).value.trim(); const sc = $(".mk-score", r).value;
+          if (sub && sc !== "") marks.push({ subject: sub, score: Math.max(0, Math.min(100, Number(sc))) });
+        });
+        st.marks = marks; closeModal(); toast("Marks saved for " + st.name + "."); renderAdmin();
+      });
+    }
+
+    function aCourses() {
+      $("#a-courses").innerHTML =
+        '<div class="pane-head"><h2>Courses</h2><span class="sp"><button class="btn btn-green btn-sm" id="addCourseBtn">+ Add course</button></span></div>' +
+        (DB.courses.length
+          ? '<div class="grid2">' + DB.courses.map(c => {
+              const count = DB.students.filter(s => s.courseId === c.id).length;
+              return '<div class="card"><div class="ic">♞</div><h3>' + esc(c.name) + '</h3><p>' + (c.level ? "<b>" + esc(c.level) + "</b> · " : "") + count + " student" + (count === 1 ? "" : "s") + (c.desc ? "<br>" + esc(c.desc) : "") + '</p><div class="row-actions" style="margin-top:.8rem"><button class="icon-btn" data-editcourse="' + c.id + '">Edit</button><button class="icon-btn del" data-delcourse="' + c.id + '">Delete</button></div></div>';
+            }).join("") + "</div>"
+          : '<div class="empty"><span class="big">♞</span><b>No courses yet</b>Create the courses your institute offers — for example "Beginners Batch" or "Weekend Advanced". Students are assigned to a course when you add them.</div>');
+      $("#addCourseBtn").addEventListener("click", () => courseModal(null));
+    }
+    function courseModal(c) {
+      const isNew = !c; c = c || { name: "", level: "", desc: "" };
+      openModal('<button class="btn btn-ghost btn-sm modal-x" onclick="closeModal()">✕</button>' +
+        "<h3>" + (isNew ? "Add course" : "Edit course") + "</h3><p class='sub'>Courses describe the batch or programme — no fee details are shown anywhere in this app.</p>" +
+        '<form id="courseForm"><div class="field"><label>Course name</label><input id="cf-name" required value="' + esc(c.name) + '" placeholder="e.g. Beginners Batch"></div>' +
+        '<div class="field"><label>Level</label><input id="cf-level" value="' + esc(c.level) + '" placeholder="e.g. Beginner / Intermediate / Advanced"></div>' +
+        '<div class="field"><label>Short description</label><textarea id="cf-desc" rows="3" placeholder="What students learn in this course">' + esc(c.desc) + "</textarea></div>" +
+        '<button class="btn btn-green" style="width:100%">' + (isNew ? "Add course" : "Save changes") + "</button></form>");
+      $("#courseForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const data = { name: $("#cf-name").value.trim(), level: $("#cf-level").value.trim(), desc: $("#cf-desc").value.trim() };
+        if (isNew) { data.id = uid("c"); DB.courses.push(data); toast("Course added."); } else { Object.assign(c, data); toast("Course updated."); }
+        closeModal(); renderAdmin();
+      });
+    }
+    document.addEventListener("click", (e) => {
+      const ed = e.target.closest("[data-editcourse]"); if (ed) courseModal(courseById(ed.dataset.editcourse));
+      const del = e.target.closest("[data-delcourse]");
+      if (del) { const c = courseById(del.dataset.delcourse); confirmModal("Delete course?", "“" + c.name + "” will be removed. Students in it keep their accounts but show no course until reassigned.", () => { DB.courses = DB.courses.filter(x => x.id !== c.id); DB.students.forEach(s => { if (s.courseId === c.id) s.courseId = ""; }); toast("Course deleted."); renderAdmin(); }); }
+    });
+
+    function aSchedule() {
+      $("#a-schedule").innerHTML = '<div class="pane-head"><h2>Class Schedule</h2></div>' +
+        "<p style='color:var(--ink2);margin-top:-.5rem'>Tap any date to see its classes. Adding, editing or deleting here updates every student's calendar instantly.</p>" +
+        '<div id="calMountA"></div>';
+      renderCalendars();
+      bindEventButtons();
+    }
+    function eventModal(ev) {
+      const isNew = !ev; ev = ev || { date: calSelected, title: "", courseId: "", coachId: "", time: "", location: "" };
+      const courseOpts = '<option value="">— Any / all courses —</option>' + DB.courses.map(c => '<option value="' + c.id + '"' + (ev.courseId === c.id ? " selected" : "") + ">" + esc(c.name) + "</option>").join("");
+      const coachOpts = '<option value="">— Select coach —</option>' + DB.staff.map(c => '<option value="' + c.id + '"' + (ev.coachId === c.id ? " selected" : "") + ">" + esc(c.name) + "</option>").join("");
+      openModal('<button class="btn btn-ghost btn-sm modal-x" onclick="closeModal()">✕</button>' +
+        "<h3>" + (isNew ? "Add class" : "Edit class") + "</h3><p class='sub'>This appears on the student calendar as soon as you save.</p>" +
+        '<form id="evForm"><div class="field"><label>Class title</label><input id="ef-title" required value="' + esc(ev.title) + '" placeholder="e.g. Tactics Training"></div>' +
+        '<div class="grid2"><div class="field"><label>Date</label><input id="ef-date" type="date" required value="' + esc(ev.date) + '"></div>' +
+        '<div class="field"><label>Time</label><input id="ef-time" value="' + esc(ev.time) + '" placeholder="e.g. 5:00 – 6:30 PM"></div></div>' +
+        '<div class="grid2"><div class="field"><label>Course</label><select id="ef-course">' + courseOpts + '</select></div>' +
+        '<div class="field"><label>Coach</label><select id="ef-coach">' + coachOpts + "</select></div></div>" +
+        '<div class="field"><label>Location / room</label><input id="ef-loc" value="' + esc(ev.location) + '" placeholder="e.g. Main Hall, Room 2"></div>' +
+        '<button class="btn btn-green" style="width:100%">' + (isNew ? "Add class" : "Save changes") + "</button></form>");
+      $("#evForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const data = { title: $("#ef-title").value.trim(), date: $("#ef-date").value, time: $("#ef-time").value.trim(), courseId: $("#ef-course").value, coachId: $("#ef-coach").value, location: $("#ef-loc").value.trim() };
+        if (isNew) { data.id = uid("e"); DB.events.push(data); toast("Class added — students can see it now."); }
+        else { Object.assign(ev, data); toast("Class updated for everyone."); }
+        calSelected = data.date; closeModal(); renderAdmin();
+      });
+    }
+    function bindEventButtons() {
+      const b = $("#addEventBtn"); if (b) b.addEventListener("click", () => eventModal(null));
+    }
+    document.addEventListener("click", (e) => {
+      if (e.target.closest("#addEventBtn")) eventModal(null);
+      const ed = e.target.closest("[data-editev]"); if (ed) eventModal(DB.events.find(x => x.id === ed.dataset.editev));
+      const del = e.target.closest("[data-delev]");
+      if (del) { const ev = DB.events.find(x => x.id === del.dataset.delev); confirmModal("Delete this class?", "“" + ev.title + "” on " + fmtDate(ev.date) + " will be removed from every student's calendar.", () => { DB.events = DB.events.filter(x => x.id !== ev.id); toast("Class deleted everywhere."); renderAdmin(); }); }
+    });
+
+    function aHR() {
+      const rows = DB.staff.map(m => "<tr><td><b>" + esc(m.name) + "</b></td><td><span class='chip gold'>" + esc(m.role) + "</span></td><td>" + (esc(m.phone) || "—") + "</td><td>" + (esc(m.email) || "—") + "</td>" +
+        '<td><div class="row-actions"><button class="icon-btn" data-editstaff="' + m.id + '">Edit</button><button class="icon-btn del" data-delstaff="' + m.id + '">Delete</button></div></td></tr>').join("");
+      $("#a-hr").innerHTML =
+        '<div class="pane-head"><h2>HR · Staff &amp; Coaches</h2><span class="sp"><button class="btn btn-green btn-sm" id="addStaffBtn">+ Add staff</button></span></div>' +
+        (DB.staff.length
+          ? '<div class="tbl-wrap"><table><thead><tr><th>Name</th><th>Role</th><th>Phone</th><th>Email</th><th></th></tr></thead><tbody>' + rows + "</tbody></table></div>"
+          : '<div class="empty"><span class="big">👥</span><b>No staff added yet</b>Add coaches and staff here — coaches can then be assigned to students and classes.</div>');
+      $("#addStaffBtn").addEventListener("click", () => staffModal(null));
+    }
+    function staffModal(m) {
+      const isNew = !m; m = m || { name: "", role: "Coach", phone: "", email: "" };
+      openModal('<button class="btn btn-ghost btn-sm modal-x" onclick="closeModal()">✕</button>' +
+        "<h3>" + (isNew ? "Add staff member" : "Edit staff member") + "</h3><p class='sub'>Coaches appear in student profiles and on the class schedule.</p>" +
+        '<form id="staffForm"><div class="field"><label>Full name</label><input id="hf-name" required value="' + esc(m.name) + '"></div>' +
+        '<div class="field"><label>Role</label><input id="hf-role" required value="' + esc(m.role) + '" placeholder="e.g. Head Coach, Coach, Coordinator"></div>' +
+        '<div class="grid2"><div class="field"><label>Phone</label><input id="hf-phone" value="' + esc(m.phone) + '"></div>' +
+        '<div class="field"><label>Email</label><input id="hf-email" type="email" value="' + esc(m.email) + '"></div></div>' +
+        '<button class="btn btn-green" style="width:100%">' + (isNew ? "Add staff" : "Save changes") + "</button></form>");
+      $("#staffForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const data = { name: $("#hf-name").value.trim(), role: $("#hf-role").value.trim(), phone: $("#hf-phone").value.trim(), email: $("#hf-email").value.trim() };
+        if (isNew) { data.id = uid("s"); DB.staff.push(data); toast("Staff member added."); } else { Object.assign(m, data); toast("Staff updated."); }
+        closeModal(); renderAdmin();
+      });
+    }
+    document.addEventListener("click", (e) => {
+      const ed = e.target.closest("[data-editstaff]"); if (ed) staffModal(staffById(ed.dataset.editstaff));
+      const del = e.target.closest("[data-delstaff]");
+      if (del) { const m = staffById(del.dataset.delstaff); confirmModal("Remove staff member?", m.name + " will be removed. Students coached by them will show no coach until reassigned.", () => { DB.staff = DB.staff.filter(x => x.id !== m.id); DB.students.forEach(s => { if (s.coachId === m.id) s.coachId = ""; }); DB.events.forEach(ev => { if (ev.coachId === m.id) ev.coachId = ""; }); toast("Staff member removed."); renderAdmin(); }); }
+    });
+
+    function aSettings() {
+      const s = DB.settings;
+      $("#a-settings").innerHTML =
+        '<div class="pane-head"><h2>Settings</h2></div>' +
+        '<div class="card" style="max-width:560px;margin-bottom:1rem"><h3 style="margin-top:0">Theme</h3><p>Light (default — app dark ga undadhu), Dark, leda System — ee phone lo matrame save avthundi.</p><div style="display:flex;gap:.5rem;flex-wrap:wrap"><button class="btn btn-ghost btn-sm" data-theme-pick="light">☀️ Light</button><button class="btn btn-ghost btn-sm" data-theme-pick="dark">🌙 Dark</button><button class="btn btn-ghost btn-sm" data-theme-pick="system">🌓 System</button></div></div>' +
+        '<div class="card" style="max-width:560px"><h3 style="margin-top:0">Institute contact details</h3>' +
+        "<p>These appear on the home page and footer only after you fill them in — nothing is pre-filled.</p>" +
+        '<form id="setForm"><div class="field"><label>Contact phone</label><input id="set-phone" value="' + esc(s.phone) + '" placeholder="Institute phone number"></div>' +
+        '<div class="field"><label>Contact email</label><input id="set-email" type="email" value="' + esc(s.email) + '" placeholder="Institute email"></div>' +
+        '<div class="field"><label>Address</label><textarea id="set-addr" rows="2" placeholder="Institute address">' + esc(s.address) + "</textarea></div>" +
+        '<button class="btn btn-green">Save settings</button></form></div>' +
+        '<div class="card" style="max-width:560px;margin-top:1rem"><h3 style="margin-top:0">Admin account</h3><p>Signed in as <b>' + esc(DB.admin.name) + "</b> (ID: " + esc(DB.admin.id) + ").</p></div>";
+      $("#setForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        DB.settings = { phone: $("#set-phone").value.trim(), email: $("#set-email").value.trim(), address: $("#set-addr").value.trim() };
+        toast("Settings saved."); renderContact();
+      });
+    }
+    function renderContact() {
+      const s = DB.settings;
+      const has = s.phone || s.email || s.address;
+      $("#contactSec").style.display = has ? "" : "none";
+      if (has) $("#contactCard").innerHTML = '<div class="kv">' +
+        (s.phone ? "<div><span>Phone</span><b>" + esc(s.phone) + "</b></div>" : "") +
+        (s.email ? "<div><span>Email</span><b>" + esc(s.email) + "</b></div>" : "") +
+        (s.address ? "<div><span>Address</span><b>" + esc(s.address) + "</b></div>" : "") + "</div>";
+      $("#footContact").textContent = has ? [s.phone, s.email].filter(Boolean).join(" · ") : "";
+    }
+
+    /* ================= STUDENT ================= */
+    function myRecord() { return studentById(session.id); }
+    function enterStudent() {
+      const st = myRecord();
+      $("#studentNameSide").textContent = st.name;
+      show("student"); switchPane("studentSide", "s-overview"); renderStudent();
+    }
+    function renderStudent() { sOverview(); sCourse(); sGrades(); sSchedule(); sProfile(); }
+    function nextClasses(st, limit) {
+      return DB.events.filter(e => e.date >= todayStr() && (!e.courseId || !st.courseId || e.courseId === st.courseId))
+        .sort((a, b) => a.date.localeCompare(b.date) || (a.time || "").localeCompare(b.time || "")).slice(0, limit || 4);
+    }
+    function classListHTML(evs, emptyMsg) {
+      if (!evs.length) return '<div class="empty"><span class="big">📅</span><b>No upcoming classes</b>' + emptyMsg + "</div>";
+      return '<ul class="list-clean">' + evs.map(e => {
+        const c = courseById(e.courseId), coach = staffById(e.coachId);
+        return "<li><div class='avatar gold'>♞</div><div><b>" + esc(e.title) + "</b><div style='color:var(--ink2);font-size:.88rem'>" + fmtDate(e.date) + (e.time ? " · 🕐 " + esc(e.time) : "") + (c ? " · " + esc(c.name) : "") + (coach ? " · Coach " + esc(coach.name) : "") + (e.location ? " · 📍 " + esc(e.location) : "") + "</div></div></li>";
+      }).join("") + "</ul>";
+    }
+    function sOverview() {
+      const st = myRecord(); if (!st) return;
+      const pz = puzzleState(st), avg = avgOf(st), c = courseById(st.courseId), coach = staffById(st.coachId);
+      const stageIdx = STAGES.indexOf(st.stage);
+      $("#s-overview").innerHTML =
+        '<div class="pane-head"><h2>Namaste, ' + esc(st.name.split(" ")[0]) + "!</h2></div>" +
+        '<div class="grid2"><div class="card"><span class="kick">My stage</span><h3 style="font-size:1.6rem;margin:.3rem 0">' + esc(st.stage) + '</h3>' +
+        '<div class="bar gold"><i style="width:' + ((stageIdx + 1) / STAGES.length * 100) + '%"></i></div>' +
+        '<p style="margin-top:.5rem">Stage ' + (stageIdx + 1) + " of " + STAGES.length + (c ? " · Course: <b>" + esc(c.name) + "</b>" : "") + (coach ? "<br>Coach: <b>" + esc(coach.name) + "</b>" : "") + "</p></div>" +
+        '<div class="card"><span class="kick">Today\'s puzzles</span><h3 style="font-size:1.6rem;margin:.3rem 0">' + pz.score + ' <span style="font-size:1rem;color:var(--ink2)">/ 100 points</span></h3>' +
+        '<div class="bar"><i style="width:' + (pz.solved.length * 10) + '%"></i></div>' +
+        '<p style="margin:.5rem 0 .8rem">' + pz.solved.length + " of 10 solved today.</p>" +
+        '<button class="btn btn-green btn-sm" id="goPuzzles">' + (pz.solved.length >= 10 ? "Review today's puzzles" : "Solve today's puzzles") + "</button></div></div>" +
+        '<div class="grid2" style="margin-top:1rem"><div class="card"><h3 style="margin-top:0">Upcoming classes</h3>' + classListHTML(nextClasses(st), "Your coach will announce new batches soon.") + "</div>" +
+        '<div class="card"><h3 style="margin-top:0">Latest grades</h3>' +
+        (st.marks.length ? '<ul class="list-clean">' + st.marks.slice(-4).reverse().map(m => "<li><div style='flex:1'><b>" + esc(m.subject) + "</b></div><span class='chip gold'>" + m.score + " · " + gradeOf(m.score) + "</span></li>").join("") + "</ul><p style='margin-top:.6rem'>Overall average: <b>" + avg + "</b> · Grade <b>" + gradeOf(avg) + "</b></p>"
+          : "<p>No marks published yet. Your grades will appear here as soon as your coach enters them.</p>") + "</div></div>";
+      $("#goPuzzles").addEventListener("click", () => { switchPane("studentSide", "s-puzzles"); renderPuzzles(); });
+    }
+    function sCourse() {
+      const st = myRecord(); if (!st) return;
+      const c = courseById(st.courseId), coach = staffById(st.coachId), stageIdx = STAGES.indexOf(st.stage);
+      $("#s-course").innerHTML =
+        '<div class="pane-head"><h2>My Course &amp; Stage</h2></div>' +
+        (c ? '<div class="card"><div class="ic">♞</div><h3 style="font-size:1.5rem">' + esc(c.name) + "</h3><p>" + (c.level ? "<b>" + esc(c.level) + "</b>" : "") + (c.desc ? "<br>" + esc(c.desc) : "") + "</p></div>"
+          : '<div class="empty"><span class="big">♞</span><b>No course assigned yet</b>The institute office will assign your course soon.</div>') +
+        '<div class="card" style="margin-top:1rem"><h3 style="margin-top:0">My learning path</h3>' +
+        STAGES.map((s, i) => '<div style="display:flex;gap:.8rem;align-items:center;padding:.55rem 0;border-bottom:1px solid var(--line)">' +
+          '<span class="pz-dot ' + (i < stageIdx ? "done" : i === stageIdx ? "on" : "") + '" style="cursor:default">' + (i < stageIdx ? "✓" : i + 1) + "</span>" +
+          "<div><b>" + s + "</b>" + (i === stageIdx ? ' <span class="chip">You are here</span>' : i < stageIdx ? ' <span style="color:var(--ink2);font-size:.85rem">Completed</span>' : ' <span style="color:var(--ink2);font-size:.85rem">Coming up</span>') + "</div></div>").join("") +
+        (coach ? '<p style="margin-top:.9rem">Your coach: <b>' + esc(coach.name) + "</b> (" + esc(coach.role) + ")</p>" : "") + "</div>";
+    }
+    function sGrades() {
+      const st = myRecord(); if (!st) return;
+      const avg = avgOf(st);
+      $("#s-grades").innerHTML =
+        '<div class="pane-head"><h2>My Grades</h2></div>' +
+        (st.marks.length
+          ? '<div class="stat-grid" style="grid-template-columns:repeat(2,1fr)"><div class="stat"><b>' + avg + '</b><span>Average score</span></div><div class="stat"><b>' + gradeOf(avg) + '</b><span>Overall grade</span></div></div>' +
+            '<div class="tbl-wrap"><table><thead><tr><th>Subject / Test</th><th>Marks</th><th>Grade</th><th>Progress</th></tr></thead><tbody>' +
+            st.marks.map(m => "<tr><td><b>" + esc(m.subject) + "</b></td><td>" + m.score + " / 100</td><td><span class='chip gold'>" + gradeOf(m.score) + "</span></td><td style='min-width:130px'><div class='bar'><i style='width:" + m.score + "%'></i></div></td></tr>").join("") +
+            "</tbody></table></div>"
+          : '<div class="empty"><span class="big">★</span><b>No grades yet</b>When your coach publishes marks, they will appear here with your grade.</div>');
+    }
+    function sSchedule() {
+      $("#s-schedule").innerHTML = '<div class="pane-head"><h2>Class Schedule</h2></div>' +
+        "<p style='color:var(--ink2);margin-top:-.5rem'>Tap any date to see the classes on that day. This calendar updates the moment your institute changes it.</p>" +
+        '<div id="calMountS"></div>';
+      renderCalendars();
+    }
+    function sProfile() {
+      const st = myRecord(); if (!st) return;
+      const c = courseById(st.courseId), coach = staffById(st.coachId);
+      $("#s-profile").innerHTML =
+        '<div class="pane-head"><h2>My Profile</h2></div>' +
+        '<div class="card" style="max-width:620px"><div style="display:flex;gap:1rem;align-items:center;margin-bottom:1.1rem"><div class="avatar" style="width:58px;height:58px;font-size:1.25rem">' + esc(initials(st.name)) + '</div><div><h3 style="margin:0;font-size:1.45rem">' + esc(st.name) + '</h3><span class="chip">' + esc(st.stage) + "</span></div></div>" +
+        '<div class="kv">' +
+        "<div><span>Student ID</span><b>" + esc(st.id) + "</b></div>" +
+        "<div><span>Course</span><b>" + (c ? esc(c.name) : "Not assigned yet") + "</b></div>" +
+        "<div><span>Coach</span><b>" + (coach ? esc(coach.name) : "Not assigned yet") + "</b></div>" +
+        "<div><span>Joined</span><b>" + fmtDate(st.joined) + "</b></div>" +
+        (st.parent ? "<div><span>Parent / Guardian</span><b>" + esc(st.parent) + "</b></div>" : "") +
+        (st.phone ? "<div><span>Parent phone</span><b>" + esc(st.phone) + "</b></div>" : "") +
+        "</div><p style='color:var(--ink2);font-size:.88rem;margin-top:1rem'>To correct any detail, please contact the institute office — profiles are managed by the admin.</p></div>";
+    }
+
+    /* ================= puzzles ================= */
+    let pzIndex = 0, pzSel = null, pzBoard = null, pzLast = null;
+    function renderPuzzles() {
+      const st = myRecord(); if (!st) return;
+      const pz = puzzleState(st);
+      if (!pz.solved.includes(pzIndex) && pz.solved.length && pz.solved.every((v, i) => v === i)) pzIndex = pz.solved.length;
+      if (pzIndex > 9) pzIndex = 9;
+      const p = PUZZLES[pzIndex], solved = pz.solved.includes(pzIndex);
+      pzBoard = Object.assign({}, p.pieces); pzSel = null; pzLast = null;
+      $("#s-puzzles").innerHTML =
+        '<div class="pane-head"><h2>Daily Puzzles</h2><span class="sp"><span class="chip gold">' + fmtDate(todayStr()) + "</span></span></div>" +
+        '<div class="score-ring" style="margin-bottom:1rem"><div style="font-size:1.7rem">🏆</div><div style="flex:1"><b>' + pz.score + " / 100</b><div style='color:var(--ink2);font-size:.88rem'>" + pz.solved.length + " of 10 puzzles solved · 10 points each · a fresh set unlocks tomorrow</div></div></div>" +
+        '<div class="pz-dots">' + PUZZLES.map((x, i) => '<button type="button" class="pz-dot' + (i === pzIndex ? " on" : "") + (pz.solved.includes(i) ? " done" : "") + '" data-pz="' + i + '">' + (pz.solved.includes(i) ? "✓" : i + 1) + "</button>").join("") + "</div>" +
+        '<div class="pz-layout"><div class="board" id="pzBoard"></div>' +
+        '<div class="card"><span class="kick">Puzzle ' + (pzIndex + 1) + " of 10</span>" +
+        "<h3 style='font-size:1.5rem;margin:.3rem 0'>" + esc(p.title) + "</h3>" +
+        "<p><b>White to move.</b> " + esc(p.hint) + "</p>" +
+        '<div id="pzMsg">' + (solved ? '<p style="color:var(--green);font-weight:700">✓ Solved — ' + esc(p.explain) + "</p>" : '<p style="color:var(--ink2)">Tap one of your white pieces, then tap where it should go.</p>') + "</div>" +
+        '<div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.8rem">' +
+        (solved ? "" : '<button class="btn btn-ghost btn-sm" id="pzHintBtn">Show me the piece</button>') +
+        (pzIndex < 9 ? '<button class="btn btn-green btn-sm" id="pzNext">Next puzzle →</button>' : "") +
+        (pzIndex > 0 ? '<button class="btn btn-ghost btn-sm" id="pzPrev">← Previous</button>' : "") +
+        "</div>" +
+        (pz.solved.length === 10 ? '<div style="margin-top:1rem;background:var(--gold-soft);border-radius:12px;padding:.9rem 1rem"><b>🎉 Perfect day — 100/100!</b><br><span style="color:var(--ink2);font-size:.9rem">All 10 puzzles solved. Come back tomorrow for a fresh challenge and keep the streak alive.</span></div>' : "") +
+        "</div></div>";
+      drawBoard();
+      $$("#s-puzzles [data-pz]").forEach(b => b.addEventListener("click", () => { pzIndex = Number(b.dataset.pz); renderPuzzles(); }));
+      const nx = $("#pzNext"); if (nx) nx.addEventListener("click", () => { pzIndex = Math.min(9, pzIndex + 1); renderPuzzles(); });
+      const pv = $("#pzPrev"); if (pv) pv.addEventListener("click", () => { pzIndex = Math.max(0, pzIndex - 1); renderPuzzles(); });
+      const hb = $("#pzHintBtn"); if (hb) hb.addEventListener("click", () => { const el = $('#pzBoard [data-sq="' + p.from + '"]'); if (el) el.classList.add("hintmove"); toast("Try moving the highlighted piece."); });
+    }
+    function drawBoard() {
+      const el = $("#pzBoard"); if (!el) return;
+      let html = "";
+      for (let r = 8; r >= 1; r--) for (let f = 0; f < 8; f++) {
+        const sq = "abcdefgh"[f] + r, pc = pzBoard[sq];
+        const cls = ["sq", (f + r) % 2 ? "l" : "d"];
+        if (pzSel === sq) cls.push("sel");
+        if (pzLast === sq) cls.push("lastmove");
+        html += '<div class="' + cls.join(" ") + '" data-sq="' + sq + '">' + (pc ? pieceImg(pc) : "") + "</div>";
+      }
+      el.innerHTML = html;
+      $$("#pzBoard .sq").forEach(s => s.addEventListener("click", () => pzTap(s.dataset.sq)));
+    }
+    function pzTap(sq) {
+      const st = myRecord(); if (!st) return;
+      const pz = puzzleState(st), p = PUZZLES[pzIndex];
+      if (pz.solved.includes(pzIndex)) return;
+      const pc = pzBoard[sq];
+      if (!pzSel) {
+        if (pc && pc === pc.toUpperCase()) { pzSel = sq; drawBoard(); }
+        return;
+      }
+      if (sq === pzSel) { pzSel = null; drawBoard(); return; }
+      if (pc && pc === pc.toUpperCase()) { pzSel = sq; drawBoard(); return; }
+      if (pzSel === p.from && sq === p.to) {
+        /* correct move */
+        pzBoard[p.to] = p.promo ? "Q" : pzBoard[p.from];
+        delete pzBoard[p.from];
+        pzSel = null; pzLast = p.to;
+        pz.solved.push(pzIndex); pz.score += 10;
+        drawBoard();
+        $("#pzMsg").innerHTML = '<p style="color:var(--green);font-weight:700">✓ Correct! +10 points. ' + esc(p.explain) + "</p>";
+        const hb = $("#pzHintBtn"); if (hb) hb.remove();
+        toast("Puzzle solved! +10 points — total " + pz.score + "/100");
+        if (pz.solved.length === 10) { confetti(); setTimeout(renderPuzzles, 900); }
+        else {
+          const dots = $$("#s-puzzles .pz-dot");
+          if (dots[pzIndex]) { dots[pzIndex].classList.add("done"); dots[pzIndex].textContent = "✓"; }
+          const ring = $("#s-puzzles .score-ring b"); if (ring) ring.textContent = pz.score + " / 100";
+          if (!$("#pzNext")) { const btn = document.createElement("button"); btn.className = "btn btn-green btn-sm"; btn.id = "pzNext"; btn.textContent = "Next puzzle →"; btn.addEventListener("click", () => { pzIndex = Math.min(9, pzIndex + 1); renderPuzzles(); }); $("#pzMsg").after(btn); }
+        }
+      } else {
+        const el = $('#pzBoard [data-sq="' + sq + '"]');
+        if (el) { el.classList.add("shake"); setTimeout(() => el.classList.remove("shake"), 380); }
+        $("#pzMsg").innerHTML = '<p style="color:var(--red);font-weight:700">Not quite — that move doesn\'t solve it. Look again, or use "Show me the piece".</p>';
+        pzSel = null; setTimeout(drawBoard, 60);
+      }
+    }
+
+    /* ================= init ================= */
+    setRole("student");
+    show("home");
+    </script>
+  
+<!-- Real-time: Firebase Firestore (free Spark plan) -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js"></script>
+<script src="realtime-sync.js"></script>
+</body>
+</html>

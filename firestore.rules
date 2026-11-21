@@ -1,0 +1,12 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // v1 — testing rules: anyone with the app link can read/write altius/db.
+    // Institute real data tho live ki velle mundhu, Firebase Auth add chesi,
+    // write ni admin ke restrict cheyyali. App lo passwords ni real passwords ga vaddu.
+    match /altius/db {
+      allow read: if true;
+      allow write: if true;
+    }
+  }
+}
