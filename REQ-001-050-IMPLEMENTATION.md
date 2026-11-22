@@ -84,3 +84,13 @@ Login now has 4 tabs: **Student, Parent, Trainer, Admin**.
 Unzip `altius-institute-app-realtime-v3-req-001-050.zip`, copy the project into the
 `altius-institute-app-realtime` repo folder, `git add .`, commit, `git push` — GitHub Actions
 builds the debug APK (`altius-app-debug-apk`).
+
+## Add Student button on Student Profile pane — 2026-11-22 (v3 fix)
+- Add Student previously lived ONLY on the Students tab (`#addStudentBtn` → `studentModal(null)`).
+- Now also on the Student Profile pane (`renderProfile`, admin-only): a green "+ Add student" button in the pane header (next to the student picker) when students exist, AND a big "+ Add student" button inside the "No students yet" empty state. Both reuse the same `studentModal(null)` form — no duplicated form logic. Logo cache fix (`icon.png?v=20261122`) and all 50 requirements untouched.
+
+## Board fix — 2026-11-22 (v3, same zip)
+- Root cause: the puzzle `.board` had `aspect-ratio:1` on the container but its 64 `.sq` cells had NO aspect-ratio and the grid had NO `grid-template-rows` — row heights were content-driven, so squares stretched into rectangles on phones. Fixed: `.board` + `.mini-board` now use `grid-template-rows:repeat(8,1fr)` and every `.sq`/`.mini-board i` has `aspect-ratio:1`, so all 64 squares are perfect, equal squares at any phone width.
+- Pieces: real Staunton SVGs (`www/pieces/*.svg`) at 90% of the square on puzzle boards, 92% on the home board, with a stronger drop shadow. No Unicode glyph is used on any board.
+- Touch (Daily Puzzles + assigned puzzles): tap a piece → it lifts/scales with a gold glow, its square highlights, pseudo-legal destination squares glow (green dots, red ring on capturable pieces), a gold ripple + ✦ sparkle plays on the tapped square; tap a destination → the piece slides there (direction-aware `pieceSlide` animation). Wrong move → red flash + shake, message shown, try again (selection clears after 0.5s).
+- Home animated board: the logged-out home hero board now auto-plays Scholar's Mate (e4 e5 Bc4 Nc6 Qh5 Nf6 Qxf7#) on a loop, one move every ~2.2s, with a caption showing the move ("▶ Auto-play demo · 4. Qxf7# — Checkmate!"). Demo only — no puzzle scores or student data touched. It pauses when the home view is hidden, the tab is hidden, or the user is logged in (so it never runs while a puzzle is open); disabled entirely under prefers-reduced-motion.
