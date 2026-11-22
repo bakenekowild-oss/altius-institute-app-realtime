@@ -12,8 +12,9 @@ name: Build APK (free, no billing)
 # Fix 2026-11-22: Java 17 -> 21 — Capacitor 7 needs JDK 21, lekapothe
 # "invalid source release: 21" error tho compileDebugJavaWithJavac fail avthundi.
 # Fix 2026-11-22: app icon — cap sync alone default Capacitor icon ne vaduthundi.
-# @capacitor/assets generate step add chesanu, assets/icon.png (transparent)
+# @capacitor/assets generate step add chesanu, assets/icon.png
 # + assets/splash.png nunchi Android launcher icons generate avthayi.
+# 2026-11-22 logo change: background cream #FEF7E4 (new logo cream bg ki match).
 
 on:
   workflow_dispatch:
@@ -48,8 +49,24 @@ jobs:
           fi
           npx cap sync android
 
+      # Fix 2026-11-22 (v3 logo bug): an update-install can keep showing the
+      # old Cinematic 3 top-bar icon from the WebView cache, because the
+      # top-bar loaded plain icon.png. index.html now loads
+      # icon.png?v=20261122 so the new emblem is always fetched fresh.
+      # Also delete any stale launcher mipmaps before regenerating, so an
+      # old icon can never survive in android/app/src/main/res.
+      - name: Clear stale launcher icons
+        run: rm -rf android/app/src/main/res/mipmap-*
+
       - name: Generate app icons from logo
-        run: npx @capacitor/assets generate --iconBackgroundColor '#175c36' --splashBackgroundColor '#175c36'
+        run: npx @capacitor/assets generate --iconBackgroundColor '#FEF7E4' --splashBackgroundColor '#FEF7E4'
+
+      - name: Verify new logo is in the APK assets
+        run: |
+          echo "www/icon.png:"; md5sum www/icon.png assets/icon.png
+          echo "APK asset icon:"; md5sum android/app/src/main/assets/public/icon.png
+          test "$(md5sum www/icon.png | cut -d' ' -f1)" = "$(md5sum android/app/src/main/assets/public/icon.png | cut -d' ' -f1)"
+          ls android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png
 
       - name: Build debug APK
         run: |

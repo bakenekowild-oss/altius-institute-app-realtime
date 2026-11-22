@@ -168,3 +168,27 @@ Mundu install chesina app ni uninstall chesi, kotta APK install cheyyandi.
   leda Settings > Colour theme lo swatch tap cheyyachu. Light/Dark/
   System mode tho kalisi panichesthundi.
 - Effects: cards slide-in (stagger), buttons press scale, card hover lift.
+
+## New logo — 2026-11-22 (user-supplied)
+- User gave a new logo: navy/gold King with two Knights on a chessboard,
+  gold laurel wreath, "ALTIUS / CHESS INSTITUTE" text, cream background.
+- www/icon.png / assets/icon.png — 512x512, emblem only (King + Knights +
+  board + laurel, no text) so it still reads at 40px top-bar / launcher size.
+- www/icon-192.png — 192x192, same emblem.
+- assets/play-store-icon-512.png — 512x512, FULL logo with text, opaque
+  cream background #FEF7E4 (Play Store rejects transparent icons).
+- assets/icon-1024.png — 1024x1024, full logo.
+- assets/splash.png — 2732x2732, full logo centred on cream.
+- Workflow icon/splash background colour changed green #175c36 -> cream
+  #FEF7E4 to match the new logo (no green ring around the icon).
+- Cinematic 3 icon backed up, NOT deleted:
+  workspace/your_files/altius-icon-options/cinematic-3-selected-icon-512.png,
+  cinematic-3-selected-icon-1024.png, cinematic-3-selected-splash-2732.png
+- Top bar + favicon already use icon.png, so they pick up the new logo
+  automatically — no code change needed.
+
+## Logo fix — 2026-11-22 (v3, top-bar still showed old icon)
+- www/icon.png / assets/icon.png are the NEW navy/gold emblem (King + 2 Knights, cream bg, no text) — verified by md5 + visual check.
+- Root cause of the stale top-bar: the old Cinematic 3 file was never in the new build — the phone's WebView served the cached old `icon.png` on an update-install, because the top-bar loaded plain `icon.png` with no cache-buster.
+- Fix: top-bar + favicon now load `icon.png?v=20261122`, so the new emblem is always fetched fresh. Workflow now deletes stale `mipmap-*` before `@capacitor/assets generate` and fails the build if the APK asset icon does not match www/icon.png.
+- User must UNINSTALL the old app first, then install the new APK — an update-install can keep the old launcher icon cached by Android as well.
