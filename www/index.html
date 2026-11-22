@@ -423,8 +423,10 @@
           <div class="auth-card">
             <h2 style="margin:.1rem 0 .3rem;font-size:1.8rem">Welcome back</h2>
             <p style="color:var(--ink2);margin:0 0 1.2rem">Choose your account type and sign in.</p>
-            <div class="role-tabs" role="tablist">
-              <button id="tabStudent" class="on" type="button">🎓 Student / Parent</button>
+            <div class="role-tabs" role="tablist" style="flex-wrap:wrap">
+              <button id="tabStudent" class="on" type="button">🎓 Student</button>
+              <button id="tabParent" type="button">👪 Parent</button>
+              <button id="tabTrainer" type="button">♞ Trainer</button>
               <button id="tabAdmin" type="button">🛠 Admin</button>
             </div>
             <div class="form-err" id="loginErr"></div>
@@ -478,20 +480,83 @@
           <div class="me"><span>Admin</span><b id="adminName">—</b></div>
           <button data-pane="a-overview" class="on"><span class="ic">▦</span> Overview</button>
           <button data-pane="a-students"><span class="ic">🎓</span> Students</button>
+          <button data-pane="a-profile"><span class="ic">👤</span> Student Profile</button>
+          <button data-pane="a-classes"><span class="ic">📚</span> Classes</button>
+          <button data-pane="a-attendance"><span class="ic">✅</span> Attendance</button>
+          <button data-pane="a-notes"><span class="ic">📝</span> Class Notes</button>
+          <button data-pane="a-homework"><span class="ic">📖</span> Homework</button>
+          <button data-pane="a-apuzzles"><span class="ic">🧩</span> Assigned Puzzles</button>
+          <button data-pane="a-assess"><span class="ic">⭐</span> Assessments</button>
+          <button data-pane="a-ratings"><span class="ic">📈</span> Ratings</button>
+          <button data-pane="a-tournaments"><span class="ic">🏆</span> Tournaments</button>
+          <button data-pane="a-reports"><span class="ic">📄</span> Weekly Reports</button>
+          <button data-pane="a-reminders"><span class="ic">🔔</span> Reminders</button>
+          <button data-pane="a-history"><span class="ic">🔍</span> History &amp; Search</button>
           <button data-pane="a-marks"><span class="ic">★</span> Marks &amp; Grades</button>
           <button data-pane="a-courses"><span class="ic">♞</span> Courses</button>
           <button data-pane="a-schedule"><span class="ic">📅</span> Schedule</button>
-          <button data-pane="a-hr"><span class="ic">👥</span> HR · Staff</button>
+          <button data-pane="a-hr"><span class="ic">👥</span> HR · Staff &amp; Trainers</button>
           <button data-pane="a-settings"><span class="ic">⚙</span> Settings</button>
         </aside>
         <div>
           <section class="pane on" id="a-overview" style="padding:0"></section>
           <section class="pane" id="a-students" style="padding:0"></section>
+          <section class="pane" id="a-profile" style="padding:0"></section>
+          <section class="pane" id="a-classes" style="padding:0"></section>
+          <section class="pane" id="a-attendance" style="padding:0"></section>
+          <section class="pane" id="a-notes" style="padding:0"></section>
+          <section class="pane" id="a-homework" style="padding:0"></section>
+          <section class="pane" id="a-apuzzles" style="padding:0"></section>
+          <section class="pane" id="a-assess" style="padding:0"></section>
+          <section class="pane" id="a-ratings" style="padding:0"></section>
+          <section class="pane" id="a-tournaments" style="padding:0"></section>
+          <section class="pane" id="a-reports" style="padding:0"></section>
+          <section class="pane" id="a-reminders" style="padding:0"></section>
+          <section class="pane" id="a-history" style="padding:0"></section>
           <section class="pane" id="a-marks" style="padding:0"></section>
           <section class="pane" id="a-courses" style="padding:0"></section>
           <section class="pane" id="a-schedule" style="padding:0"></section>
           <section class="pane" id="a-hr" style="padding:0"></section>
           <section class="pane" id="a-settings" style="padding:0"></section>
+        </div>
+      </div>
+    </main>
+
+    <!-- ================= TRAINER ================= -->
+    <main id="view-trainer" class="view">
+      <div class="wrap dash">
+        <aside class="side" id="trainerSide">
+          <div class="me"><span>Trainer</span><b id="trainerNameSide">—</b></div>
+          <button data-pane="t-overview" class="on"><span class="ic">▦</span> Overview</button>
+          <button data-pane="t-students"><span class="ic">🎓</span> My Students</button>
+          <button data-pane="t-classes"><span class="ic">📚</span> Classes</button>
+          <button data-pane="t-attendance"><span class="ic">✅</span> Attendance</button>
+          <button data-pane="t-notes"><span class="ic">📝</span> Class Notes</button>
+          <button data-pane="t-homework"><span class="ic">📖</span> Homework</button>
+          <button data-pane="t-apuzzles"><span class="ic">🧩</span> Assigned Puzzles</button>
+          <button data-pane="t-assess"><span class="ic">⭐</span> Assessments</button>
+          <button data-pane="t-ratings"><span class="ic">📈</span> Ratings</button>
+          <button data-pane="t-tournaments"><span class="ic">🏆</span> Tournaments</button>
+          <button data-pane="t-reports"><span class="ic">📄</span> Weekly Reports</button>
+          <button data-pane="t-reminders"><span class="ic">🔔</span> Reminders</button>
+          <button data-pane="t-history"><span class="ic">🔍</span> History &amp; Search</button>
+          <button data-pane="t-schedule"><span class="ic">📅</span> Schedule</button>
+        </aside>
+        <div>
+          <section class="pane on" id="t-overview" style="padding:0"></section>
+          <section class="pane" id="t-students" style="padding:0"></section>
+          <section class="pane" id="t-classes" style="padding:0"></section>
+          <section class="pane" id="t-attendance" style="padding:0"></section>
+          <section class="pane" id="t-notes" style="padding:0"></section>
+          <section class="pane" id="t-homework" style="padding:0"></section>
+          <section class="pane" id="t-apuzzles" style="padding:0"></section>
+          <section class="pane" id="t-assess" style="padding:0"></section>
+          <section class="pane" id="t-ratings" style="padding:0"></section>
+          <section class="pane" id="t-tournaments" style="padding:0"></section>
+          <section class="pane" id="t-reports" style="padding:0"></section>
+          <section class="pane" id="t-reminders" style="padding:0"></section>
+          <section class="pane" id="t-history" style="padding:0"></section>
+          <section class="pane" id="t-schedule" style="padding:0"></section>
         </div>
       </div>
     </main>
@@ -505,6 +570,10 @@
           <button data-pane="s-course"><span class="ic">♞</span> My Course</button>
           <button data-pane="s-grades"><span class="ic">★</span> My Grades</button>
           <button data-pane="s-schedule"><span class="ic">📅</span> Class Schedule</button>
+          <button data-pane="s-learning"><span class="ic">📝</span> My Learning</button>
+          <button data-pane="s-homework"><span class="ic">📖</span> Homework</button>
+          <button data-pane="s-apuzzles"><span class="ic">🧩</span> Assigned Puzzles</button>
+          <button data-pane="s-reports"><span class="ic">📄</span> Weekly Reports</button>
           <button data-pane="s-puzzles"><span class="ic">♟</span> Daily Puzzles</button>
           <button data-pane="s-profile"><span class="ic">👤</span> Profile</button>
         </aside>
@@ -513,6 +582,10 @@
           <section class="pane" id="s-course" style="padding:0"></section>
           <section class="pane" id="s-grades" style="padding:0"></section>
           <section class="pane" id="s-schedule" style="padding:0"></section>
+          <section class="pane" id="s-learning" style="padding:0"></section>
+          <section class="pane" id="s-homework" style="padding:0"></section>
+          <section class="pane" id="s-apuzzles" style="padding:0"></section>
+          <section class="pane" id="s-reports" style="padding:0"></section>
           <section class="pane" id="s-puzzles" style="padding:0"></section>
           <section class="pane" id="s-profile" style="padding:0"></section>
         </div>
@@ -653,18 +726,93 @@
     /* App state starts empty — the admin creates every record. */
     const DB = {
       admin: null,            // {name, id, pw}
-      students: [],           // {id, name, pw, parent, phone, courseId, coachId, stage, joined, marks:[{subject,score}], puzzles:{date,solved:[],score}}
+      students: [],           // {id,name,pw,parentPw,parent,phone,contact,dob,age,courseId,coachId,trainerId,stage,joined,classPlan,allocTotal,allocCourseId,active,marks:[{subject,score}],puzzles:{date,solved:[],score}}
+      trainers: [],           // {id,name,loginId,pw,phone,email,assignedStudentIds:[]}
       staff: [],              // {id, name, role, phone, email}
       courses: [],            // {id, name, level, desc}
-      events: [],             // {id, date, title, courseId, coachId, time, location}
-      settings: { phone: "", email: "", address: "" }
+      events: [],             // {id, date, title, courseId, coachId, time, location, classId}
+      classes: [],            // REQ-003/004/005/010 {id,title,studentIds[],trainerId,courseId,date,startTime,endTime,type,location,status,createdBy,updatedAt,updatedBy}
+      attendance: [],         // REQ-006/007/008 {id,classId,studentId,date,time,trainerId,status,remarks,updatedAt,updatedBy}
+      classNotes: [],         // REQ-011-015 {id,classId,studentId,date,trainerId,topics[],notes,understanding,improvement,nextFocus,updatedAt,updatedBy}
+      homework: [],           // REQ-016-019 {id,studentId,trainerId,title,description,assignedDate,dueDate,topic,link,status,submission,feedback,correctionsRequested,history[],updatedAt,updatedBy}
+      assignedPuzzles: [],    // REQ-020 {id,studentId,trainerId,title,pieces,from,to,solution[],sideToMove,instructions,topic,assignedDate,dueDate,status}
+      puzzleAttempts: [],     // REQ-023 {id,puzzleId,studentId,date,moves,attempts,correct,completed}
+      assessments: [],        // REQ-025-029 {id,studentId,trainerId,date,classId,kind,question,rating,comment,skills{},practical{},strengths,weaknesses,targets,updatedAt,updatedBy}
+      ratings: [],            // REQ-030-033 {id,studentId,source,type,value,date,note,updatedBy}
+      tournaments: [],        // REQ-034-036 {id,studentId,name,date,location,platform,format,timeControl,rounds,wins,draws,losses,score,rank,review,updatedBy}
+      reports: [],            // REQ-037-039 {id,studentId,weekStart,weekEnd,summary,trainerComment,status,editedBy,updatedAt}
+      audit: [],              // REQ-050 {id,date,user,action,recordType,recordId,detail}
+      settings: { phone: "", email: "", address: "", reminderMinutes: 60 }
     };
+    /* Ensure old saves (without the new collections) still work — REQ-046 history is never wiped. */
+    function ensureCollections() {
+      const arrs = ["trainers","classes","attendance","classNotes","homework","assignedPuzzles","puzzleAttempts","assessments","ratings","tournaments","reports","audit"];
+      arrs.forEach(k => { if (!Array.isArray(DB[k])) DB[k] = []; });
+      if (!DB.settings) DB.settings = { phone: "", email: "", address: "", reminderMinutes: 60 };
+      if (DB.settings.reminderMinutes == null) DB.settings.reminderMinutes = 60;
+      DB.students.forEach(st => { if (st.active == null) st.active = true; if (!st.marks) st.marks = []; if (st.allocTotal == null) st.allocTotal = 0; });
+    }
+    ensureCollections();
     let session = null;       // {role:'admin'} | {role:'student', id}
     let seq = 1;
     const uid = (p) => p + (seq++) + Date.now().toString(36);
     const courseById = (id) => DB.courses.find(c => c.id === id);
     const staffById = (id) => DB.staff.find(s => s.id === id);
     const studentById = (id) => DB.students.find(s => s.id === id);
+    const trainerById = (id) => DB.trainers.find(t => t.id === id);
+    const classById = (id) => DB.classes.find(c => c.id === id);
+    /* ---- REQ-040..044 role-based access ---- */
+    function canSeeStudent(st) {
+      if (!session) return false;
+      if (session.role === "admin") return true;
+      if (session.role === "student") return session.id === st.id;
+      if (session.role === "parent") return session.id === st.id; /* parent session.id = linked child id */
+      if (session.role === "trainer") {
+        const tr = trainerById(session.trainerId);
+        return (tr && tr.assignedStudentIds && tr.assignedStudentIds.includes(st.id)) || st.trainerId === session.trainerId || st.coachId === session.trainerId;
+      }
+      return false;
+    }
+    function visibleStudents() { return DB.students.filter(canSeeStudent); }
+    function isTrainer() { return session && session.role === "trainer"; }
+    function isAdmin() { return session && session.role === "admin"; }
+    function canManageStudent(st) { return isAdmin() || (isTrainer() && canSeeStudent(st)); }
+    function actorName() { if (!session) return "—"; if (session.role === "admin") return "Admin: " + (DB.admin ? DB.admin.name : ""); if (session.role === "trainer") { const t = trainerById(session.trainerId); return "Trainer: " + (t ? t.name : ""); } const st = studentById(session.id); return (session.role === "parent" ? "Parent of " : "Student: ") + (st ? st.name : ""); }
+    /* ---- REQ-049 validation: required fields, clear message, nothing saved incomplete ---- */
+    function reqFields(obj, fields) {
+      const missing = fields.filter(f => { const v = obj[f]; return v == null || String(v).trim() === ""; });
+      if (missing.length) { toast("Please fill: " + missing.join(", "), true); return false; }
+      return true;
+    }
+    /* ---- REQ-050 edit history / trace ---- */
+    function logAudit(action, recordType, recordId, detail) {
+      DB.audit.unshift({ id: uid("au"), date: new Date().toISOString(), user: actorName(), action, recordType, recordId: recordId || "", detail: detail || "" });
+      if (DB.audit.length > 500) DB.audit.length = 500;
+    }
+    function stamp(rec) { rec.updatedAt = new Date().toISOString(); rec.updatedBy = actorName(); return rec; }
+    function ageFromDob(dob) { if (!dob) return ""; const d = new Date(dob + "T00:00:00"), n = new Date(); let a = n.getFullYear() - d.getFullYear(); const m = n.getMonth() - d.getMonth(); if (m < 0 || (m === 0 && n.getDate() < d.getDate())) a--; return a; }
+    /* REQ-004/005 class counts: completed only counts status Completed; Cancelled/Rescheduled never count */
+    function classCounts(st) {
+      const alloc = Number(st.allocTotal) || 0;
+      const done = DB.classes.filter(c => c.status === "Completed" && c.studentIds && c.studentIds.includes(st.id)).length;
+      return { allocated: alloc, completed: done, remaining: Math.max(0, alloc - done) };
+    }
+    /* REQ-008 attendance summary */
+    function attendanceSummary(stId) {
+      const recs = DB.attendance.filter(a => a.studentId === stId);
+      const c = { Present: 0, Absent: 0, Late: 0, Leave: 0 };
+      recs.forEach(a => { if (c[a.status] != null) c[a.status]++; });
+      const total = recs.length, pct = total ? Math.round((c.Present + c.Late) / total * 100) : null;
+      return { total, present: c.Present, absent: c.Absent, late: c.Late, leave: c.Leave, pct };
+    }
+    /* REQ-024 puzzle performance */
+    function puzzlePerf(stId) {
+      const assigned = DB.assignedPuzzles.filter(p => p.studentId === stId);
+      const atts = DB.puzzleAttempts.filter(a => a.studentId === stId);
+      const solved = new Set(atts.filter(a => a.correct).map(a => a.puzzleId)).size;
+      const attempted = new Set(atts.map(a => a.puzzleId)).size;
+      return { assigned: assigned.length, attempted, solved, incorrect: Math.max(0, attempted - solved), pct: attempted ? Math.round(solved / attempted * 100) : null };
+    }
     function gradeOf(score) { return score >= 90 ? "A+" : score >= 80 ? "A" : score >= 70 ? "B+" : score >= 60 ? "B" : score >= 50 ? "C" : score >= 40 ? "D" : "F"; }
     function avgOf(st) { if (!st.marks.length) return null; return Math.round(st.marks.reduce((a, m) => a + m.score, 0) / st.marks.length); }
     function puzzleState(st) {
@@ -674,14 +822,18 @@
     }
 
     /* ================= navigation ================= */
-    const VIEWS = ["home", "login", "setup", "admin", "student"];
+    const VIEWS = ["home", "login", "setup", "admin", "trainer", "student"];
     function show(view) {
       VIEWS.forEach(v => $("#view-" + v).classList.toggle("on", v === view));
       $("#topNav").style.display = session ? "none" : "";
       $("#userNav").style.display = session ? "" : "none";
       if (session) $("#whoLabel").innerHTML = session.role === "admin"
         ? "Signed in as <b>" + esc(DB.admin.name) + "</b> · Admin"
-        : "Signed in as <b>" + esc(studentById(session.id).name) + "</b> · Student";
+        : session.role === "trainer"
+        ? "Signed in as <b>" + esc((trainerById(session.trainerId) || {}).name || "") + "</b> · Trainer"
+        : session.role === "parent"
+        ? "Signed in as parent of <b>" + esc((studentById(session.id) || {}).name || "") + "</b> · Parent"
+        : "Signed in as <b>" + esc((studentById(session.id) || {}).name || "") + "</b> · Student";
       window.scrollTo({ top: 0 });
     }
     document.addEventListener("click", (e) => {
@@ -709,16 +861,17 @@
 
     /* ================= auth ================= */
     let loginRole = "student";
+    const ROLE_LABEL = { student: ["Student ID", "e.g. ALT001", "Log in as Student"], parent: ["Student ID (your child)", "e.g. ALT001", "Log in as Parent"], trainer: ["Trainer login ID", "e.g. TRN001", "Log in as Trainer"], admin: ["Admin ID", "Your admin ID", "Log in as Admin"] };
     function setRole(r) {
       loginRole = r;
-      $("#tabStudent").classList.toggle("on", r === "student");
-      $("#tabAdmin").classList.toggle("on", r === "admin");
-      $("#loginIdLabel").textContent = r === "admin" ? "Admin ID" : "Student ID";
-      $("#loginId").placeholder = r === "admin" ? "Your admin ID" : "e.g. ALT001";
-      $("#loginBtn").textContent = r === "admin" ? "Log in as Admin" : "Log in as Student";
+      ["student", "parent", "trainer", "admin"].forEach(x => { const b = $("#tab" + x[0].toUpperCase() + x.slice(1)); if (b) b.classList.toggle("on", r === x); });
+      $("#loginIdLabel").textContent = ROLE_LABEL[r][0];
+      $("#loginId").placeholder = ROLE_LABEL[r][1];
+      $("#loginBtn").textContent = ROLE_LABEL[r][2];
       $("#loginBtn").className = "btn " + (r === "admin" ? "btn-gold" : "btn-green");
       $("#loginBtn").style.width = "100%";
-      $("#studentHint").style.display = r === "student" ? "" : "none";
+      $("#studentHint").textContent = r === "parent" ? "Parent login: your child's Student ID + the parent password given by the institute. You see only your linked child." : r === "trainer" ? "Trainer login ID and password are issued by the admin. You see only your assigned students." : "Student IDs and passwords are issued by the institute office.";
+      $("#studentHint").style.display = r === "admin" ? "none" : "";
       refreshLogin();
     }
     function refreshLogin() {
@@ -726,6 +879,8 @@
       $("#loginErr").style.display = "none";
     }
     $("#tabStudent").addEventListener("click", () => setRole("student"));
+    $("#tabParent").addEventListener("click", () => setRole("parent"));
+    $("#tabTrainer").addEventListener("click", () => setRole("trainer"));
     $("#tabAdmin").addEventListener("click", () => setRole("admin"));
     $("#gotoSetup").addEventListener("click", () => show("setup"));
     $("#setupBack").addEventListener("click", (e) => { e.preventDefault(); show("login"); });
@@ -733,15 +888,31 @@
     $("#loginForm").addEventListener("submit", (e) => {
       e.preventDefault();
       const id = $("#loginId").value.trim(), pw = $("#loginPw").value;
+      if (!id || !pw) return loginError("Please enter your login ID and password.");
       if (loginRole === "admin") {
         if (!DB.admin) return loginError("No admin account exists yet — create one below.");
         if (id.toLowerCase() !== DB.admin.id.toLowerCase() || pw !== DB.admin.pw) return loginError("Admin ID or password is incorrect.");
         session = { role: "admin" }; $("#loginPw").value = "";
         toast("Welcome back, " + DB.admin.name + "!");
         enterAdmin();
+      } else if (loginRole === "trainer") {
+        const tr = DB.trainers.find(t => t.loginId.toLowerCase() === id.toLowerCase() && t.pw === pw);
+        if (!tr) return loginError("Trainer login ID or password is incorrect. Ask the admin for your trainer login.");
+        session = { role: "trainer", trainerId: tr.id }; $("#loginPw").value = "";
+        toast("Welcome, " + tr.name + "!");
+        enterTrainer();
+      } else if (loginRole === "parent") {
+        const st = DB.students.find(x => x.id.toLowerCase() === id.toLowerCase());
+        if (!st || !st.active) return loginError("Student ID not found, or the student is inactive.");
+        const ppw = st.parentPw || st.pw;
+        if (pw !== ppw) return loginError("Parent password is incorrect. Ask the institute office for the parent password.");
+        session = { role: "parent", id: st.id }; $("#loginPw").value = "";
+        toast("Welcome! Viewing " + st.name + "'s progress.");
+        enterStudent();
       } else {
-        const st = DB.students.find(s => s.id.toLowerCase() === id.toLowerCase() && s.pw === pw);
+        const st = DB.students.find(x => x.id.toLowerCase() === id.toLowerCase() && x.pw === pw);
         if (!st) return loginError("Student ID or password is incorrect. IDs are issued by the institute office.");
+        if (!st.active) return loginError("This student account is deactivated. Please contact the institute office.");
         session = { role: "student", id: st.id }; $("#loginPw").value = "";
         toast("Welcome, " + st.name + "! Ready for today's puzzles?");
         enterStudent();
@@ -820,7 +991,8 @@
     });
     function renderCalendars() {
       if (session && session.role === "admin") { const el = $("#calMountA"); if (el) el.innerHTML = calendarHTML("a"); }
-      if (session && session.role === "student") { const el = $("#calMountS"); if (el) el.innerHTML = calendarHTML("s"); }
+      if (session && session.role === "trainer") { const el = $("#calMountT"); if (el) el.innerHTML = calendarHTML("t"); }
+      if (session && (session.role === "student" || session.role === "parent")) { const el = $("#calMountS"); if (el) el.innerHTML = calendarHTML("s"); }
     }
 
     /* ================= ADMIN ================= */
@@ -830,7 +1002,7 @@
     }
     function switchPane(sideId, paneId) {
       $$("#" + sideId + " button[data-pane]").forEach(b => { const on = b.dataset.pane === paneId; b.classList.toggle("on", on); if(on) b.scrollIntoView({behavior:"smooth", inline:"center", block:"nearest"}); });
-      $$("#view-" + (sideId === "adminSide" ? "admin" : "student") + " .pane").forEach(p => p.classList.toggle("on", p.id === paneId));
+      $$("#view-" + (sideId === "adminSide" ? "admin" : sideId === "trainerSide" ? "trainer" : "student") + " .pane").forEach(p => p.classList.toggle("on", p.id === paneId));
     }
     document.addEventListener("click", (e) => {
       const b = e.target.closest(".side button[data-pane]");
@@ -839,7 +1011,13 @@
       switchPane(side.id, b.dataset.pane);
       if (side.id === "studentSide" && b.dataset.pane === "s-puzzles") renderPuzzles();
     });
-    function renderAdmin() { aOverview(); aStudents(); aMarks(); aCourses(); aSchedule(); aHR(); aSettings(); renderContact(); }
+    function renderAdmin() { ensureCollections(); aOverview(); aStudents(); aProfile(); aClasses(); aAttendance(); aNotes(); aHomework(); aAPuzzles(); aAssess(); aRatings(); aTournaments(); aReports(); aReminders(); aHistory(); aMarks(); aCourses(); aSchedule(); aHR(); aSettings(); renderContact(); }
+    function enterTrainer() {
+      const tr = trainerById(session.trainerId);
+      $("#trainerNameSide").textContent = tr ? tr.name : "Trainer";
+      show("trainer"); switchPane("trainerSide", "t-overview"); renderTrainer();
+    }
+    function renderTrainer() { ensureCollections(); tOverview(); tStudents(); tClasses(); tAttendance(); tNotes(); tHomework(); tAPuzzles(); tAssess(); tRatings(); tTournaments(); tReports(); tReminders(); tHistory(); tSchedule(); }
     document.addEventListener("click", (e) => { const tp = e.target.closest("[data-theme-pick]"); if(!tp) return; applyTheme(tp.dataset.themePick); toast(tp.dataset.themePick === "system" ? "Theme: System" : tp.dataset.themePick === "light" ? "Theme: Light" : "Theme: Dark"); });
 
     function aOverview() {
@@ -869,7 +1047,7 @@
           "<td>" + (coach ? esc(coach.name) : "—") + "</td>" +
           "<td>" + (avg === null ? "—" : avg + " · " + gradeOf(avg)) + "</td>" +
           "<td>" + puzzleState(s).score + " pts</td>" +
-          '<td><div class="row-actions"><button class="icon-btn" data-editstu="' + s.id + '">✏️ Edit</button><button class="icon-btn del" data-delstu="' + s.id + '">🗑️ Delete</button></div></td></tr>';
+          '<td><div class="row-actions"><button class="icon-btn" data-profile="' + s.id + '">👤 Profile</button><button class="icon-btn" data-editstu="' + s.id + '">✏️ Edit</button><button class="icon-btn del" data-delstu="' + s.id + '">🗑️ Delete</button></div></td></tr>';
       }).join("");
       /* Mobile cards — Edit/Delete buttons always visible, no sideways scroll needed */
       const cards = DB.students.map((s, i) => {
@@ -877,7 +1055,7 @@
         return '<div class="stu-card" style="animation-delay:' + (i * 60) + 'ms">' +
           '<div class="stu-top"><div class="avatar gold">' + esc(initials(s.name)) + '</div><div style="flex:1;min-width:0"><b style="font-size:1.05rem">' + esc(s.name) + '</b><div style="color:var(--ink2);font-size:.85rem">' + esc(s.id) + '</div></div><span class="chip">' + esc(s.stage) + '</span></div>' +
           '<div class="stu-meta"><div>Course<br><b>' + (c ? esc(c.name) : "—") + '</b></div><div>Coach<br><b>' + (coach ? esc(coach.name) : "—") + '</b></div><div>Average<br><b>' + (avg === null ? "—" : avg + " · " + gradeOf(avg)) + '</b></div><div>Puzzles today<br><b>' + puzzleState(s).score + ' pts</b></div></div>' +
-          '<div class="row-actions"><button class="icon-btn" data-editstu="' + s.id + '">✏️ Edit details</button><button class="icon-btn del" data-delstu="' + s.id + '">🗑️ Delete</button></div></div>';
+          '<div class="row-actions"><button class="icon-btn" data-profile="' + s.id + '">👤 Profile</button><button class="icon-btn" data-editstu="' + s.id + '">✏️ Edit details</button><button class="icon-btn del" data-delstu="' + s.id + '">🗑️ Delete</button></div></div>';
       }).join("");
       $("#a-students").innerHTML =
         '<div class="pane-head"><h2>Students</h2><span class="sp"><button class="btn btn-green btn-sm" id="addStudentBtn">+ Add student</button></span></div>' +
@@ -887,9 +1065,11 @@
       $("#addStudentBtn").addEventListener("click", () => studentModal(null));
     }
     function studentModal(st) {
-      const isNew = !st; st = st || { name: "", id: "", pw: "", parent: "", phone: "", courseId: "", coachId: "", stage: "Beginner", joined: todayStr() };
+      const isNew = !st; st = st || { name: "", id: "", pw: "", parentPw: "", parent: "", phone: "", contact: "", dob: "", courseId: "", coachId: "", trainerId: "", stage: "Beginner", joined: todayStr(), classPlan: "", allocTotal: 0, allocCourseId: "", active: true };
       const courseOpts = '<option value="">— Select course —</option>' + DB.courses.map(c => '<option value="' + c.id + '"' + (st.courseId === c.id ? " selected" : "") + ">" + esc(c.name) + "</option>").join("");
       const coachOpts = '<option value="">— Select coach —</option>' + DB.staff.map(c => '<option value="' + c.id + '"' + (st.coachId === c.id ? " selected" : "") + ">" + esc(c.name) + " (" + esc(c.role) + ")</option>").join("");
+      const trainerOpts = '<option value="">— Select trainer (login user) —</option>' + DB.trainers.map(t => '<option value="' + t.id + '"' + (st.trainerId === t.id ? " selected" : "") + ">" + esc(t.name) + " (" + esc(t.loginId) + ")</option>").join("");
+      const allocCourseOpts = '<option value="">— Same as course —</option>' + DB.courses.map(c => '<option value="' + c.id + '"' + (st.allocCourseId === c.id ? " selected" : "") + ">" + esc(c.name) + "</option>").join("");
       openModal('<button class="btn btn-ghost btn-sm modal-x" onclick="closeModal()">✕</button>' +
         "<h3>" + (isNew ? "Add student" : "Edit student") + '</h3><p class="sub">The student logs in with this ID and password. Share them with the parent directly.</p>' +
         '<form id="stuForm"><div class="form-err" id="stuErr"></div>' +
@@ -898,6 +1078,14 @@
         '<div class="field"><label>Password (login)</label><input id="sf-pw" required value="' + esc(st.pw) + '"></div></div>' +
         '<div class="grid2"><div class="field"><label>Parent / guardian name</label><input id="sf-parent" value="' + esc(st.parent) + '"></div>' +
         '<div class="field"><label>Parent phone</label><input id="sf-phone" value="' + esc(st.phone) + '"></div></div>' +
+        '<div class="grid2"><div class="field"><label>Student contact (phone)</label><input id="sf-contact" value="' + esc(st.contact) + '" placeholder="Student phone, if any"></div>' +
+        '<div class="field"><label>Date of birth</label><input id="sf-dob" type="date" value="' + esc(st.dob) + '"></div></div>' +
+        '<div class="grid2"><div class="field"><label>Parent password (parent login)</label><input id="sf-parentpw" value="' + esc(st.parentPw) + '" placeholder="Leave blank = same as student password"></div>' +
+        '<div class="field"><label>Assigned trainer</label><select id="sf-trainer">' + trainerOpts + '</select></div></div>' +
+        '<div class="grid2"><div class="field"><label>Class plan</label><input id="sf-plan" value="' + esc(st.classPlan) + '" placeholder="e.g. 12 classes / month, Weekend batch"></div>' +
+        '<div class="field"><label>Status</label><select id="sf-active"><option value="1"' + (st.active !== false ? " selected" : "") + '>Active</option><option value="0"' + (st.active === false ? " selected" : "") + '>Inactive (deactivated)</option></select></div></div>' +
+        '<div class="grid2"><div class="field"><label>Total classes allocated</label><input id="sf-alloc" type="number" min="0" value="' + (st.allocTotal || 0) + '"></div>' +
+        '<div class="field"><label>Allocation for course</label><select id="sf-alloccourse">' + allocCourseOpts + '</select></div></div>' +
         '<div class="grid2"><div class="field"><label>Course</label><select id="sf-course">' + courseOpts + '</select></div>' +
         '<div class="field"><label>Coach</label><select id="sf-coach">' + coachOpts + "</select></div></div>" +
         '<div class="grid2"><div class="field"><label>Current stage</label><select id="sf-stage">' + STAGES.map(x => '<option' + (st.stage === x ? " selected" : "") + ">" + x + "</option>").join("") + '</select></div>' +
@@ -909,9 +1097,10 @@
         if (DB.students.some(s => s.id.toLowerCase() === id.toLowerCase() && (!st || s.id !== st.id) && isNew) || (DB.students.some(s => s.id.toLowerCase() === id.toLowerCase() && s !== st))) {
           const er = $("#stuErr"); er.textContent = "That Student ID is already in use."; er.style.display = ""; return;
         }
-        const data = { name: $("#sf-name").value.trim(), id, pw: $("#sf-pw").value, parent: $("#sf-parent").value.trim(), phone: $("#sf-phone").value.trim(), courseId: $("#sf-course").value, coachId: $("#sf-coach").value, stage: $("#sf-stage").value, joined: $("#sf-joined").value || todayStr() };
-        if (isNew) { data.marks = []; data.puzzles = null; DB.students.push(data); toast("Student added — " + data.name + " can now log in."); }
-        else { Object.assign(st, data); toast("Student updated."); }
+        if (!reqFields({ name: $("#sf-name").value, id, pw: $("#sf-pw").value }, ["name", "id", "pw"])) return;
+        const data = { name: $("#sf-name").value.trim(), id, pw: $("#sf-pw").value, parentPw: $("#sf-parentpw").value, parent: $("#sf-parent").value.trim(), phone: $("#sf-phone").value.trim(), contact: $("#sf-contact").value.trim(), dob: $("#sf-dob").value, age: ageFromDob($("#sf-dob").value), courseId: $("#sf-course").value, coachId: $("#sf-coach").value, trainerId: $("#sf-trainer").value, stage: $("#sf-stage").value, joined: $("#sf-joined").value || todayStr(), classPlan: $("#sf-plan").value.trim(), allocTotal: Number($("#sf-alloc").value) || 0, allocCourseId: $("#sf-alloccourse").value, active: $("#sf-active").value === "1" };
+        if (isNew) { data.marks = []; data.puzzles = null; DB.students.push(data); logAudit("create", "student", data.id, "Student added: " + data.name); toast("Student added — " + data.name + " can now log in."); }
+        else { Object.assign(st, data); logAudit("edit", "student", st.id, "Student profile updated: " + st.name); toast("Student updated."); }
         closeModal(); renderAdmin(); if (session.role === "student") renderStudent();
       });
     }
@@ -1096,10 +1285,14 @@
     function myRecord() { return studentById(session.id); }
     function enterStudent() {
       const st = myRecord();
-      $("#studentNameSide").textContent = st.name;
+      $("#studentNameSide").textContent = st.name + (isParent() ? " (Parent view)" : "");
+      const pzBtn = document.querySelector('#studentSide button[data-pane="s-puzzles"]');
+      if (pzBtn) pzBtn.style.display = isParent() ? "none" : "";
       show("student"); switchPane("studentSide", "s-overview"); renderStudent();
     }
-    function renderStudent() { sOverview(); sCourse(); sGrades(); sSchedule(); sProfile(); }
+    function renderStudent() { ensureCollections(); sOverview(); sCourse(); sGrades(); sSchedule(); sLearning(); sHomework(); sAPuzzles(); sReports(); sProfile(); }
+    /* Parent view reuses the student view but with parent wording — REQ-043: only the linked child */
+    function isParent() { return session && session.role === "parent"; }
     function nextClasses(st, limit) {
       return DB.events.filter(e => e.date >= todayStr() && (!e.courseId || !st.courseId || e.courseId === st.courseId))
         .sort((a, b) => a.date.localeCompare(b.date) || (a.time || "").localeCompare(b.time || "")).slice(0, limit || 4);
@@ -1256,6 +1449,743 @@
         pzSel = null; setTimeout(drawBoard, 60);
       }
     }
+
+
+    /* ================= LEARNING MODULES — REQ coverage =================
+       REQ-001 studentModal (create/edit/deactivate/search, dob, contacts, trainer, plan, allocation)
+       REQ-002 renderProfile (one student page: allocation, attendance, notes, homework, puzzles, assessments, ratings, tournaments, reports)
+       REQ-003 classModal (schedule class: students, trainer, date, start/end, type) · REQ-004 student allocTotal + classCounts · REQ-005 class status Completed counts only, Cancelled/Rescheduled never count
+       REQ-006 renderAttendance (Present/Absent/Late/Leave) · REQ-007 attendanceTable date-wise history · REQ-008 attendanceSummary totals + %
+       REQ-009 renderReminders + settings.reminderMinutes (configurable class reminders) · REQ-010 classes[] records + syncEventForClass
+       REQ-011 afterClassModal topics · REQ-012 notes · REQ-013 understanding · REQ-014 improvement · REQ-015 nextFocus
+       REQ-016 homeworkModal · REQ-017 HW_STATUSES · REQ-018 student submit (data-hwsubmit) · REQ-019 review/feedback (data-hwreview)
+       REQ-020 assignPuzzleModal · REQ-021 drawAPzBoard interactive board + side to move · REQ-022 apzTap move validation vs solution · REQ-023 puzzleAttempts records · REQ-024 puzzlePerf summary + %
+       REQ-025 assessModal post-class check · REQ-026 1-5 RATING_LABELS + comment · REQ-027 SKILL_AREAS separately · REQ-028 practical application · REQ-029 strengths/weaknesses/targets dated
+       REQ-030 ratingModal FIDE · REQ-031 Chess.com · REQ-032 Lichess · REQ-033 ratingGraph separate per source+type
+       REQ-034 tournamentModal participation · REQ-035 W/D/L score rank · REQ-036 game review notes
+       REQ-037 buildWeeklySummary auto-generated · REQ-038 report review/edit (data-repedit) · REQ-039 share with student/parent only (data-repshare, sReports Shared only)
+       REQ-040 trainer view + assigned students only · REQ-041 student view own data · REQ-042 admin full management · REQ-043 parent view linked child only · REQ-044 canSeeStudent/visibleStudents role gating
+       REQ-045 upcomingReminders homework/puzzle deadlines + trainer overdue list · REQ-046 ensureCollections + realtime-sync persists all collections, history retained · REQ-047 renderHistory filters · REQ-048 afterClassModal complete workflow in one place
+       REQ-049 reqFields validation with clear messages · REQ-050 logAudit + updatedAt/updatedBy stamps */
+    const SKILL_AREAS = ["Tactics", "Calculation", "Openings", "Positional Play", "Endgames", "Practical Decision-Making", "Time Management"];
+    const RATING_LABELS = { 1: "1 — Needs significant improvement", 2: "2 — Below expectations", 3: "3 — Average", 4: "4 — Good", 5: "5 — Excellent" };
+    const ATT_STATUSES = ["Present", "Absent", "Late", "Leave"];
+    const HW_STATUSES = ["Pending", "In Progress", "Submitted", "Completed"];
+    let profileStudentId = null;
+    let histFilter = { studentId: "", from: "", to: "", trainer: "", status: "", topic: "", type: "" };
+    function paneEl(prefix, name) { return $("#" + prefix + "-" + name); }
+    function scopeStudents() { return visibleStudents(); }
+    function studentOptions(sel, list) { return '<option value="">— Select student —</option>' + (list || scopeStudents()).map(s => '<option value="' + s.id + '"' + (sel === s.id ? " selected" : "") + ">" + esc(s.name) + " (" + esc(s.id) + ")" + (s.active === false ? " — inactive" : "") + "</option>").join(""); }
+    function trainerOptions(sel) { return '<option value="">— Select trainer —</option>' + DB.trainers.map(t => '<option value="' + t.id + '"' + (sel === t.id ? " selected" : "") + ">" + esc(t.name) + "</option>").join(""); }
+    function classOptions(sel, stId) {
+      const list = DB.classes.filter(c => !stId || (c.studentIds || []).includes(stId));
+      return '<option value="">— Select class —</option>' + list.map(c => '<option value="' + c.id + '"' + (sel === c.id ? " selected" : "") + ">" + esc(fmtDate(c.date)) + " · " + esc(c.title) + " (" + esc(c.status) + ")</option>").join("");
+    }
+    function escOr(v) { return v ? esc(v) : "—"; }
+    function ratingGraph(entries) {
+      /* REQ-033: simple SVG line graph, one source+time-control at a time */
+      if (entries.length < 2) return "<p style='color:var(--ink2);font-size:.88rem'>Add at least 2 dated entries to see the progress graph.</p>";
+      const pts = entries.slice().sort((a, b) => a.date.localeCompare(b.date));
+      const vals = pts.map(p => Number(p.value));
+      const min = Math.min.apply(null, vals), max = Math.max.apply(null, vals), span = (max - min) || 1;
+      const W = 520, H = 150, P = 24;
+      const xy = pts.map((p, i) => [P + i * (W - 2 * P) / (pts.length - 1), H - P - (Number(p.value) - min) / span * (H - 2 * P)]);
+      return '<svg viewBox="0 0 ' + W + ' ' + H + '" style="width:100%;max-width:560px;background:var(--panel);border:1px solid var(--line);border-radius:12px">' +
+        '<polyline points="' + xy.map(p => p[0].toFixed(1) + "," + p[1].toFixed(1)).join(" ") + '" fill="none" stroke="var(--green)" stroke-width="3" stroke-linejoin="round"/>' +
+        xy.map((p, i) => '<circle cx="' + p[0].toFixed(1) + '" cy="' + p[1].toFixed(1) + '" r="4.5" fill="#d9a821"/><text x="' + p[0].toFixed(1) + '" y="' + (p[1] - 9).toFixed(1) + '" font-size="11" text-anchor="middle" fill="var(--ink)">' + vals[i] + '</text><text x="' + p[0].toFixed(1) + '" y="' + (H - 6) + '" font-size="10" text-anchor="middle" fill="var(--ink2)">' + esc(pts[i].date.slice(5)) + "</text>").join("") + "</svg>";
+    }
+    function weekStartStr(d) { const dt = new Date(d + "T00:00:00"); const day = dt.getDay(); dt.setDate(dt.getDate() - ((day + 6) % 7)); return dt.getFullYear() + "-" + String(dt.getMonth() + 1).padStart(2, "0") + "-" + String(dt.getDate()).padStart(2, "0"); }
+    function addDaysStr(iso, n) { const dt = new Date(iso + "T00:00:00"); dt.setDate(dt.getDate() + n); return dt.getFullYear() + "-" + String(dt.getMonth() + 1).padStart(2, "0") + "-" + String(dt.getDate()).padStart(2, "0"); }
+
+    /* ---------- REQ-002 Student Profile (one page, everything) ---------- */
+    function renderProfile(prefix) {
+      const el = paneEl(prefix, "profile"); if (!el) return;
+      const list = scopeStudents();
+      if (!profileStudentId || !list.some(s => s.id === profileStudentId)) profileStudentId = list.length ? list[0].id : null;
+      const st = profileStudentId ? studentById(profileStudentId) : null;
+      let h = '<div class="pane-head"><h2>Student Profile</h2><span class="sp"><select id="profilePick" style="max-width:260px">' + list.map(s => '<option value="' + s.id + '"' + (s.id === profileStudentId ? " selected" : "") + ">" + esc(s.name) + "</option>").join("") + "</select></span></div>";
+      if (!st) { el.innerHTML = h + '<div class="empty"><span class="big">🎓</span><b>No students yet</b>Add a student first — their full profile appears here.</div>'; return; }
+      const cc = classCounts(st), att = attendanceSummary(st.id), pp = puzzlePerf(st.id);
+      const c = courseById(st.courseId), coach = staffById(st.coachId), tr = trainerById(st.trainerId);
+      const notes = DB.classNotes.filter(n => n.studentId === st.id).sort((a, b) => b.date.localeCompare(a.date));
+      const hw = DB.homework.filter(x => x.studentId === st.id);
+      const as = DB.assessments.filter(x => x.studentId === st.id).sort((a, b) => b.date.localeCompare(a.date));
+      const rats = DB.ratings.filter(x => x.studentId === st.id);
+      const tours = DB.tournaments.filter(x => x.studentId === st.id);
+      const reps = DB.reports.filter(x => x.studentId === st.id).sort((a, b) => b.weekStart.localeCompare(a.weekStart));
+      h += '<div class="card"><div style="display:flex;gap:1rem;align-items:center"><div class="avatar" style="width:54px;height:54px;font-size:1.2rem">' + esc(initials(st.name)) + '</div><div><h3 style="margin:0;font-size:1.4rem">' + esc(st.name) + ' <span class="chip">' + esc(st.stage) + '</span> ' + (st.active === false ? '<span class="chip" style="background:#fee">Inactive</span>' : "") + '</h3><div style="color:var(--ink2);font-size:.9rem">' + esc(st.id) + (st.dob ? " · DOB " + esc(st.dob) + (st.age !== "" && st.age != null ? " (" + st.age + " yrs)" : "") : "") + " · Joined " + fmtDate(st.joined) + "</div></div></div>" +
+        '<div class="kv" style="margin-top:1rem"><div><span>Course</span><b>' + escOr(c && c.name) + '</b></div><div><span>Coach</span><b>' + escOr(coach && coach.name) + '</b></div><div><span>Trainer</span><b>' + escOr(tr && tr.name) + '</b></div><div><span>Parent / Guardian</span><b>' + escOr(st.parent) + '</b></div><div><span>Parent phone</span><b>' + escOr(st.phone) + '</b></div><div><span>Student contact</span><b>' + escOr(st.contact) + '</b></div><div><span>Class plan</span><b>' + escOr(st.classPlan) + '</b></div></div></div>' +
+        '<div class="stat-grid"><div class="stat"><b>' + cc.allocated + '</b><span>Classes allocated</span></div><div class="stat"><b>' + cc.completed + '</b><span>Completed</span></div><div class="stat"><b>' + cc.remaining + '</b><span>Remaining</span></div><div class="stat"><b>' + (att.pct == null ? "—" : att.pct + "%") + '</b><span>Attendance</span></div><div class="stat"><b>' + (pp.pct == null ? "—" : pp.pct + "%") + '</b><span>Puzzle success</span></div></div>' +
+        '<div class="grid2"><div class="card"><h3 style="margin-top:0">Attendance history</h3>' + attendanceTable(st.id, 6) + '</div>' +
+        '<div class="card"><h3 style="margin-top:0">Latest class notes</h3>' + (notes.length ? notes.slice(0, 3).map(n => "<p><b>" + fmtDate(n.date) + "</b> — " + esc((n.topics || []).join(", ")) + "<br>" + esc(n.notes || "").slice(0, 160) + "</p>").join("") : "<p>No class notes yet.</p>") + '</div></div>' +
+        '<div class="grid2" style="margin-top:1rem"><div class="card"><h3 style="margin-top:0">Homework (' + hw.filter(x => x.status !== "Completed").length + ' open)</h3>' + (hw.length ? hw.slice(0, 5).map(x => "<p><b>" + esc(x.title) + "</b> · " + esc(x.status) + " · due " + fmtDate(x.dueDate) + "</p>").join("") : "<p>No homework assigned yet.</p>") + '</div>' +
+        '<div class="card"><h3 style="margin-top:0">Assessments &amp; skills</h3>' + (as.length ? as.slice(0, 3).map(a => "<p><b>" + fmtDate(a.date) + "</b> — " + (a.rating ? RATING_LABELS[a.rating] : a.kind) + (a.comment ? "<br>" + esc(a.comment) : "") + "</p>").join("") : "<p>No assessments yet.</p>") + '</div></div>' +
+        '<div class="grid2" style="margin-top:1rem"><div class="card"><h3 style="margin-top:0">Ratings</h3>' + (rats.length ? rats.slice(-5).reverse().map(r => "<p><b>" + esc(r.source) + " " + esc(r.type) + "</b> — " + r.value + " · " + fmtDate(r.date) + "</p>").join("") : "<p>No ratings recorded yet.</p>") + '</div>' +
+        '<div class="card"><h3 style="margin-top:0">Tournaments</h3>' + (tours.length ? tours.slice(0, 3).map(t => "<p><b>" + esc(t.name) + "</b> — " + fmtDate(t.date) + " · Score " + esc(t.score) + " · Rank " + esc(t.rank) + "</p>").join("") : "<p>No tournaments yet.</p>") + '</div></div>' +
+        '<div class="card" style="margin-top:1rem"><h3 style="margin-top:0">Progress reports</h3>' + (reps.length ? reps.slice(0, 3).map(r => "<p><b>Week of " + fmtDate(r.weekStart) + "</b> — " + esc(r.status) + (r.trainerComment ? "<br>" + esc(r.trainerComment) : "") + "</p>").join("") : "<p>No weekly reports yet.</p>") + "</div>";
+      el.innerHTML = h;
+      const pick = $("#profilePick"); if (pick) pick.addEventListener("change", () => { profileStudentId = pick.value; renderProfile(prefix); });
+    }
+    function aProfile() { renderProfile("a"); }
+    function attendanceTable(stId, limit) {
+      const recs = DB.attendance.filter(a => a.studentId === stId).sort((a, b) => b.date.localeCompare(a.date));
+      if (!recs.length) return "<p>No attendance records yet.</p>";
+      const rows = (limit ? recs.slice(0, limit) : recs).map(a => { const cl = classById(a.classId); const tr = trainerById(a.trainerId); return "<tr><td>" + fmtDate(a.date) + "</td><td>" + esc(a.time || "") + "</td><td>" + esc(cl ? cl.title : "") + "</td><td>" + esc(tr ? tr.name : "") + "</td><td><span class='chip'>" + esc(a.status) + "</span></td><td>" + esc(a.remarks || "") + "</td></tr>"; }).join("");
+      return '<div class="tbl-wrap"><table><thead><tr><th>Date</th><th>Time</th><th>Class</th><th>Trainer</th><th>Status</th><th>Remarks</th></tr></thead><tbody>' + rows + "</tbody></table></div>";
+    }
+
+    /* ---------- REQ-003/004/005/010 Classes ---------- */
+    function renderClasses(prefix) {
+      const el = paneEl(prefix, "classes"); if (!el) return;
+      const mine = prefix === "t" ? DB.classes.filter(c => c.trainerId === session.trainerId) : DB.classes;
+      const rows = mine.slice().sort((a, b) => b.date.localeCompare(a.date)).map(c => {
+        const sts = (c.studentIds || []).map(id => { const s = studentById(id); return s ? esc(s.name) : id; }).join(", ") || "—";
+        const tr = trainerById(c.trainerId);
+        return "<tr><td><b>" + esc(c.title) + "</b><br><span style='color:var(--ink2);font-size:.82rem'>" + esc(c.type || "") + "</span></td><td>" + fmtDate(c.date) + "<br>" + esc(c.startTime || "") + (c.endTime ? " – " + esc(c.endTime) : "") + "</td><td>" + sts + "</td><td>" + esc(tr ? tr.name : "—") + "</td><td><span class='chip'>" + esc(c.status) + "</span></td>" +
+          '<td><div class="row-actions">' + (isAdmin() || prefix === "t" ? '<button class="icon-btn" data-classedit="' + c.id + '">Edit</button><button class="icon-btn" data-classstatus="' + c.id + '">Status</button>' : "") + "</div></td></tr>";
+      }).join("");
+      el.innerHTML = '<div class="pane-head"><h2>Classes</h2><span class="sp"><button class="btn btn-green btn-sm" id="addClassBtn-' + prefix + '">+ Schedule class</button></span></div>' +
+        "<p style='color:var(--ink2);margin-top:-.5rem'>Completed classes count towards the allocation; Cancelled / Rescheduled classes never count as completed.</p>" +
+        (mine.length ? '<div class="tbl-wrap"><table><thead><tr><th>Class</th><th>Date &amp; time</th><th>Students</th><th>Trainer</th><th>Status</th><th></th></tr></thead><tbody>' + rows + "</tbody></table></div>" : '<div class="empty"><span class="big">📚</span><b>No classes yet</b>Schedule the first class — it appears on the calendar and in each student\'s schedule.</div>');
+      const b = $("#addClassBtn-" + prefix); if (b) b.addEventListener("click", () => classModal(null));
+    }
+    function aClasses() { renderClasses("a"); }
+    function tClasses() { renderClasses("t"); }
+    function syncEventForClass(c) {
+      let ev = DB.events.find(e => e.classId === c.id);
+      const data = { date: c.date, title: c.title, courseId: c.courseId || "", coachId: c.trainerId || "", time: (c.startTime || "") + (c.endTime ? " – " + c.endTime : ""), location: c.location || "", classId: c.id };
+      if (!ev) { ev = Object.assign({ id: uid("e") }, data); DB.events.push(ev); }
+      else Object.assign(ev, data);
+    }
+    function classModal(cl) {
+      const isNew = !cl; cl = cl || { title: "", studentIds: [], trainerId: isTrainer() ? session.trainerId : "", courseId: "", date: todayStr(), startTime: "", endTime: "", type: "Group", location: "", status: "Scheduled" };
+      const stuChecks = scopeStudents().map(s => '<label style="display:flex;gap:.5rem;align-items:center;padding:.3rem 0"><input type="checkbox" class="cm-stu" value="' + s.id + '"' + ((cl.studentIds || []).includes(s.id) ? " checked" : "") + '> ' + esc(s.name) + "</label>").join("");
+      openModal('<button class="btn btn-ghost btn-sm modal-x" onclick="closeModal()">✕</button>' +
+        "<h3>" + (isNew ? "Schedule class" : "Edit class") + '</h3><form id="classForm"><div class="form-err" id="classErr"></div>' +
+        '<div class="field"><label>Class title</label><input id="cm-title" required value="' + esc(cl.title) + '" placeholder="e.g. Tactics Training"></div>' +
+        '<div class="grid2"><div class="field"><label>Date</label><input id="cm-date" type="date" required value="' + esc(cl.date) + '"></div>' +
+        '<div class="field"><label>Class type</label><select id="cm-type">' + ["Group", "One-to-one", "Online", "Workshop", "Practice"].map(t => '<option' + (cl.type === t ? " selected" : "") + ">" + t + "</option>").join("") + '</select></div></div>' +
+        '<div class="grid2"><div class="field"><label>Start time</label><input id="cm-start" type="time" value="' + esc(cl.startTime) + '"></div>' +
+        '<div class="field"><label>End time</label><input id="cm-end" type="time" value="' + esc(cl.endTime) + '"></div></div>' +
+        '<div class="grid2"><div class="field"><label>Trainer</label><select id="cm-trainer">' + trainerOptions(cl.trainerId) + '</select></div>' +
+        '<div class="field"><label>Course</label><select id="cm-course"><option value="">— Any —</option>' + DB.courses.map(x => '<option value="' + x.id + '"' + (cl.courseId === x.id ? " selected" : "") + ">" + esc(x.name) + "</option>").join("") + '</select></div></div>' +
+        '<div class="field"><label>Location / room / link</label><input id="cm-loc" value="' + esc(cl.location) + '"></div>' +
+        '<div class="field"><label>Students</label><div style="max-height:160px;overflow:auto;border:1px solid var(--line);border-radius:10px;padding:.5rem .8rem">' + (stuChecks || "No students yet.") + '</div></div>' +
+        '<button class="btn btn-green" style="width:100%">' + (isNew ? "Schedule class" : "Save changes") + "</button></form>");
+      $("#classForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const ids = $$(".cm-stu").filter(x => x.checked).map(x => x.value);
+        const data = { title: $("#cm-title").value.trim(), date: $("#cm-date").value, type: $("#cm-type").value, startTime: $("#cm-start").value, endTime: $("#cm-end").value, trainerId: $("#cm-trainer").value, courseId: $("#cm-course").value, location: $("#cm-loc").value.trim(), studentIds: ids };
+        if (!reqFields(data, ["title", "date"])) return;
+        if (!ids.length) { toast("Select at least one student for the class.", true); return; }
+        if (isNew) { data.id = uid("cl"); data.status = "Scheduled"; data.createdBy = actorName(); stamp(data); DB.classes.push(data); logAudit("create", "class", data.id, "Class scheduled: " + data.title + " on " + data.date); toast("Class scheduled — students see it on their calendar."); }
+        else { Object.assign(cl, data); stamp(cl); logAudit("edit", "class", cl.id, "Class updated: " + cl.title); toast("Class updated."); }
+        syncEventForClass(isNew ? data : cl);
+        closeModal(); renderAdmin(); if (isTrainer()) renderTrainer(); if (session && session.role === "student") renderStudent();
+      });
+    }
+    document.addEventListener("click", (e) => {
+      const ed = e.target.closest("[data-classedit]"); if (ed) classModal(classById(ed.dataset.classedit));
+      const st = e.target.closest("[data-classstatus]");
+      if (st) {
+        const c = classById(st.dataset.classstatus); if (!c) return;
+        openModal('<button class="btn btn-ghost btn-sm modal-x" onclick="closeModal()">✕</button><h3>Class status — ' + esc(c.title) + '</h3><p class="sub">Completed counts towards each student\'s allocation. Cancelled / Rescheduled never count as completed.</p>' +
+          ["Scheduled", "Completed", "Cancelled", "Rescheduled"].map(x => '<button class="btn ' + (c.status === x ? "btn-green" : "btn-ghost") + '" style="width:100%;margin-bottom:.5rem" data-setstatus="' + x + '">' + x + "</button>").join(""));
+        $$("[data-setstatus]").forEach(b => b.addEventListener("click", () => { c.status = b.dataset.setstatus; stamp(c); logAudit("edit", "class", c.id, "Status → " + c.status + ": " + c.title); closeModal(); toast("Class marked " + c.status + "."); renderAdmin(); if (isTrainer()) renderTrainer(); }));
+      }
+      const pf = e.target.closest("[data-profile]"); if (pf) { profileStudentId = pf.dataset.profile; switchPane("adminSide", "a-profile"); renderProfile("a"); }
+    });
+
+    /* ---------- REQ-006/007/008 Attendance ---------- */
+    function renderAttendance(prefix) {
+      const el = paneEl(prefix, "attendance"); if (!el) return;
+      const classes = (prefix === "t" ? DB.classes.filter(c => c.trainerId === session.trainerId) : DB.classes).slice().sort((a, b) => b.date.localeCompare(a.date));
+      let h = '<div class="pane-head"><h2>Attendance</h2></div><div class="field" style="max-width:420px"><label>Class</label><select id="attClass-' + prefix + '">' + '<option value="">— Select class —</option>' + classes.map(c => '<option value="' + c.id + '">' + esc(fmtDate(c.date)) + " · " + esc(c.title) + " (" + esc(c.status) + ")</option>").join("") + "</select></div><div id='attBody-" + prefix + "'></div>";
+      const all = DB.attendance.slice().sort((a, b) => b.date.localeCompare(a.date)).slice(0, 30);
+      h += '<div class="card" style="margin-top:1rem"><h3 style="margin-top:0">Recent attendance</h3>' + (all.length ? '<div class="tbl-wrap"><table><thead><tr><th>Date</th><th>Student</th><th>Class</th><th>Status</th><th>Remarks</th></tr></thead><tbody>' + all.map(a => { const s = studentById(a.studentId); const c = classById(a.classId); return "<tr><td>" + fmtDate(a.date) + "</td><td>" + esc(s ? s.name : a.studentId) + "</td><td>" + esc(c ? c.title : "") + "</td><td><span class='chip'>" + esc(a.status) + "</span></td><td>" + esc(a.remarks || "") + "</td></tr>"; }).join("") + "</tbody></table></div>" : "<p>No attendance marked yet.</p>") + "</div>";
+      el.innerHTML = h;
+      const sel = $("#attClass-" + prefix);
+      const draw = () => {
+        const c = classById(sel.value); const body = $("#attBody-" + prefix); if (!body) return;
+        if (!c) { body.innerHTML = "<p>Select a class to mark attendance.</p>"; return; }
+        const rows = (c.studentIds || []).map(id => {
+          const s = studentById(id); if (!s) return "";
+          const rec = DB.attendance.find(a => a.classId === c.id && a.studentId === id);
+          const sum = attendanceSummary(id);
+          return "<tr><td><b>" + esc(s.name) + "</b><br><span style='color:var(--ink2);font-size:.82rem'>Attendance " + (sum.pct == null ? "—" : sum.pct + "%") + "</span></td>" +
+            ATT_STATUSES.map(stt => '<td><label style="display:flex;gap:.3rem;align-items:center"><input type="radio" name="att-' + id + '" value="' + stt + '"' + (rec && rec.status === stt ? " checked" : "") + "> " + stt + "</label></td>").join("") +
+            '<td><input class="att-remark" data-stu="' + id + '" placeholder="Remarks" value="' + esc(rec ? rec.remarks : "") + '"></td></tr>';
+        }).join("");
+        body.innerHTML = '<div class="card"><h3 style="margin-top:0">' + esc(c.title) + " — " + fmtDate(c.date) + '</h3><div class="tbl-wrap"><table><thead><tr><th>Student</th><th>Present</th><th>Absent</th><th>Late</th><th>Leave</th><th>Remarks</th></tr></thead><tbody>' + rows + '</tbody></table></div><button class="btn btn-green" id="attSave-' + prefix + '" style="margin-top:.8rem">Save attendance</button></div>';
+        $("#attSave-" + prefix).addEventListener("click", () => {
+          let saved = 0;
+          (c.studentIds || []).forEach(id => {
+            const r = document.querySelector('input[name="att-' + id + '"]:checked');
+            if (!r) return;
+            const remark = (document.querySelector('.att-remark[data-stu="' + id + '"]') || {}).value || "";
+            let rec = DB.attendance.find(a => a.classId === c.id && a.studentId === id);
+            if (!rec) { rec = { id: uid("at"), classId: c.id, studentId: id, date: c.date, time: c.startTime || "", trainerId: c.trainerId || (isTrainer() ? session.trainerId : "") }; DB.attendance.push(rec); }
+            rec.status = r.value; rec.remarks = remark.trim(); stamp(rec); saved++;
+            logAudit("edit", "attendance", rec.id, studentById(id).name + " → " + rec.status + " (" + c.title + ")");
+          });
+          if (!saved) { toast("Select a status (Present / Absent / Late / Leave) for at least one student.", true); return; }
+          toast("Attendance saved for " + saved + " student(s)."); renderAdmin(); if (isTrainer()) renderTrainer();
+        });
+      };
+      sel.addEventListener("change", draw); draw();
+    }
+    function aAttendance() { renderAttendance("a"); }
+    function tAttendance() { renderAttendance("t"); }
+
+    /* ---------- REQ-011..015, 048 Class notes + after-class workflow ---------- */
+    function renderNotes(prefix) {
+      const el = paneEl(prefix, "notes"); if (!el) return;
+      const list = DB.classNotes.slice().sort((a, b) => b.date.localeCompare(a.date));
+      const vis = prefix === "t" ? list.filter(n => n.trainerId === session.trainerId) : list;
+      el.innerHTML = '<div class="pane-head"><h2>Class Notes</h2><span class="sp"><button class="btn btn-green btn-sm" id="addNoteBtn-' + prefix + '">+ Complete after-class workflow</button></span></div>' +
+        "<p style='color:var(--ink2);margin-top:-.5rem'>After a class: mark attendance, record topics &amp; notes, understanding, improvement areas, next-class focus, and assign homework or puzzles — all linked to the same class and student.</p>" +
+        (vis.length ? vis.map(n => { const s = studentById(n.studentId); const c = classById(n.classId); return '<div class="card"><h3 style="margin-top:0">' + esc(s ? s.name : n.studentId) + " — " + fmtDate(n.date) + '</h3><p><b>Class:</b> ' + esc(c ? c.title : "—") + ' · <b>Topics:</b> ' + esc((n.topics || []).join(", ")) + '</p><p>' + esc(n.notes || "") + '</p><p><b>Understanding:</b> ' + esc(n.understanding || "—") + ' · <b>Improvement:</b> ' + esc(n.improvement || "—") + ' · <b>Next focus:</b> ' + esc(n.nextFocus || "—") + '</p><button class="icon-btn" data-editnote="' + n.id + '">Edit</button></div>'; }).join("") : '<div class="empty"><span class="big">📝</span><b>No class notes yet</b>Complete the after-class workflow after your next class.</div>');
+      const b = $("#addNoteBtn-" + prefix); if (b) b.addEventListener("click", () => afterClassModal(null));
+    }
+    function aNotes() { renderNotes("a"); }
+    function tNotes() { renderNotes("t"); }
+    function afterClassModal(note) {
+      const isNew = !note; note = note || { classId: "", studentId: "", date: todayStr(), topics: [], notes: "", understanding: "Independent", improvement: "", nextFocus: "" };
+      const topicList = ["Openings", "Tactics", "Calculation", "Positional Play", "Strategy", "Endgames", "Practical Play", "Time Management"];
+      openModal('<button class="btn btn-ghost btn-sm modal-x" onclick="closeModal()">✕</button><h3>After-class workflow</h3><p class="sub">Attendance, notes, understanding, improvement and next focus — saved under the same class/student history.</p>' +
+        '<form id="noteForm"><div class="form-err" id="noteErr"></div>' +
+        '<div class="grid2"><div class="field"><label>Class</label><select id="nt-class">' + classOptions(note.classId) + '</select></div>' +
+        '<div class="field"><label>Student</label><select id="nt-student">' + studentOptions(note.studentId) + '</select></div></div>' +
+        '<div class="field"><label>Date</label><input id="nt-date" type="date" required value="' + esc(note.date) + '"></div>' +
+        '<div class="field"><label>Topics covered</label><div style="display:flex;gap:.6rem;flex-wrap:wrap">' + topicList.map(t => '<label style="display:flex;gap:.3rem;align-items:center"><input type="checkbox" class="nt-topic" value="' + t + '"' + ((note.topics || []).includes(t) ? " checked" : "") + "> " + t + "</label>").join("") + '</div></div>' +
+        '<div class="field"><label>Detailed notes — what was taught, concepts, examples, key positions</label><textarea id="nt-notes" rows="4">' + esc(note.notes) + '</textarea></div>' +
+        '<div class="field"><label>Student understanding</label><select id="nt-und"><option' + (note.understanding === "Independent" ? " selected" : "") + '>Independent</option><option' + (note.understanding === "Needed hints" ? " selected" : "") + '>Needed hints</option><option' + (note.understanding === "Needed repeated explanation" ? " selected" : "") + '>Needed repeated explanation</option></select></div>' +
+        '<div class="field"><label>Improvement areas — mistakes, concepts not understood, calculation / practical problems</label><textarea id="nt-imp" rows="3">' + esc(note.improvement) + '</textarea></div>' +
+        '<div class="field"><label>Next-class focus — planned topic, revision task, learning objective</label><input id="nt-next" value="' + esc(note.nextFocus) + '"></div>' +
+        '<button class="btn btn-green" style="width:100%">Save class notes</button></form>');
+      $("#noteForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const data = { classId: $("#nt-class").value, studentId: $("#nt-student").value, date: $("#nt-date").value, topics: $$(".nt-topic").filter(x => x.checked).map(x => x.value), notes: $("#nt-notes").value.trim(), understanding: $("#nt-und").value, improvement: $("#nt-imp").value.trim(), nextFocus: $("#nt-next").value.trim(), trainerId: isTrainer() ? session.trainerId : (classById($("#nt-class").value) || {}).trainerId || "" };
+        if (!reqFields(data, ["classId", "studentId", "date"])) return;
+        if (isNew) { data.id = uid("cn"); stamp(data); DB.classNotes.push(data); logAudit("create", "classNote", data.id, "Notes for " + (studentById(data.studentId) || {}).name + " on " + data.date); toast("Class notes saved."); }
+        else { Object.assign(note, data); stamp(note); logAudit("edit", "classNote", note.id, "Class notes updated"); toast("Class notes updated."); }
+        closeModal(); renderAdmin(); if (isTrainer()) renderTrainer();
+      });
+    }
+    document.addEventListener("click", (e) => { const ed = e.target.closest("[data-editnote]"); if (ed) afterClassModal(DB.classNotes.find(n => n.id === ed.dataset.editnote)); });
+
+    /* ---------- REQ-016..019 Homework ---------- */
+    function hwCard(x, canManage, prefix) {
+      const s = studentById(x.studentId);
+      const overdue = x.status !== "Completed" && x.dueDate && x.dueDate < todayStr();
+      return '<div class="card"><h3 style="margin-top:0">' + esc(x.title) + ' <span class="chip">' + esc(x.status) + '</span>' + (overdue ? ' <span class="chip" style="background:#fee">Overdue</span>' : "") + '</h3><p><b>' + esc(s ? s.name : x.studentId) + '</b> · Topic: ' + esc(x.topic || "—") + ' · Assigned ' + fmtDate(x.assignedDate) + ' · Due ' + fmtDate(x.dueDate) + (x.link ? ' · <a href="' + esc(x.link) + '" target="_blank" rel="noopener">Material / link</a>' : "") + '</p><p>' + esc(x.description || "") + '</p>' +
+        (x.submission ? "<p><b>Submission (" + fmtDate(x.submission.date) + "):</b> " + esc(x.submission.text || "") + (x.submission.moves ? "<br>Moves: " + esc(x.submission.moves) : "") + "</p>" : "") +
+        (x.feedback ? "<p><b>Trainer feedback:</b> " + esc(x.feedback) + (x.correctionsRequested ? " — corrections requested, please try again." : "") + "</p>" : "") +
+        '<div class="row-actions">' +
+        (canManage ? '<button class="icon-btn" data-hwreview="' + x.id + '">Review / feedback</button><button class="icon-btn" data-hwedit="' + x.id + '">Edit</button>' : "") +
+        (session && session.role === "student" && x.studentId === session.id && x.status !== "Completed" ? '<button class="icon-btn" data-hwsubmit="' + x.id + '">Submit homework</button><button class="icon-btn" data-hwstatus="' + x.id + '" data-to="In Progress">Mark In Progress</button>' : "") +
+        "</div></div>";
+    }
+    function renderHomework(prefix) {
+      const el = paneEl(prefix, "homework"); if (!el) return;
+      let list = DB.homework.slice().sort((a, b) => (a.dueDate || "").localeCompare(b.dueDate || ""));
+      if (prefix === "t") list = list.filter(x => x.trainerId === session.trainerId || (studentById(x.studentId) && canSeeStudent(studentById(x.studentId))));
+      const canManage = isAdmin() || prefix === "t";
+      el.innerHTML = '<div class="pane-head"><h2>Homework</h2>' + (canManage ? '<span class="sp"><button class="btn btn-green btn-sm" id="addHwBtn-' + prefix + '">+ Assign homework</button></span>' : "") + '</div>' +
+        (list.length ? list.map(x => hwCard(x, canManage, prefix)).join("") : '<div class="empty"><span class="big">📖</span><b>No homework yet</b>' + (canManage ? "Assign the first homework to a student." : "No homework assigned to you yet.") + "</div>");
+      const b = $("#addHwBtn-" + prefix); if (b) b.addEventListener("click", () => homeworkModal(null));
+    }
+    function aHomework() { renderHomework("a"); }
+    function tHomework() { renderHomework("t"); }
+    function sHomework() {
+      const el = $("#s-homework"); if (!el) return;
+      const list = DB.homework.filter(x => x.studentId === session.id).sort((a, b) => (a.dueDate || "").localeCompare(b.dueDate || ""));
+      el.innerHTML = '<div class="pane-head"><h2>My Homework</h2></div>' + (list.length ? list.map(x => hwCard(x, false, "s")).join("") : '<div class="empty"><span class="big">📖</span><b>No homework yet</b>Your trainer will assign homework here.</div>');
+    }
+    function homeworkModal(hw) {
+      const isNew = !hw; hw = hw || { studentId: "", title: "", description: "", assignedDate: todayStr(), dueDate: "", topic: "", link: "", status: "Pending" };
+      openModal('<button class="btn btn-ghost btn-sm modal-x" onclick="closeModal()">✕</button><h3>' + (isNew ? "Assign homework" : "Edit homework") + '</h3><form id="hwForm"><div class="form-err" id="hwErr"></div>' +
+        '<div class="field"><label>Student</label><select id="hw-student">' + studentOptions(hw.studentId) + '</select></div>' +
+        '<div class="field"><label>Title</label><input id="hw-title" required value="' + esc(hw.title) + '"></div>' +
+        '<div class="field"><label>Description / instructions</label><textarea id="hw-desc" rows="3">' + esc(hw.description) + '</textarea></div>' +
+        '<div class="grid2"><div class="field"><label>Assigned date</label><input id="hw-adate" type="date" value="' + esc(hw.assignedDate) + '"></div>' +
+        '<div class="field"><label>Due date</label><input id="hw-ddate" type="date" value="' + esc(hw.dueDate) + '"></div></div>' +
+        '<div class="grid2"><div class="field"><label>Related topic</label><input id="hw-topic" value="' + esc(hw.topic) + '" placeholder="e.g. Tactics — forks"></div>' +
+        '<div class="field"><label>Material / link</label><input id="hw-link" value="' + esc(hw.link) + '" placeholder="https://…"></div></div>' +
+        '<div class="field"><label>Status</label><select id="hw-status">' + HW_STATUSES.map(x => '<option' + (hw.status === x ? " selected" : "") + ">" + x + "</option>").join("") + '</select></div>' +
+        '<button class="btn btn-green" style="width:100%">' + (isNew ? "Assign homework" : "Save changes") + "</button></form>");
+      $("#hwForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const data = { studentId: $("#hw-student").value, title: $("#hw-title").value.trim(), description: $("#hw-desc").value.trim(), assignedDate: $("#hw-adate").value || todayStr(), dueDate: $("#hw-ddate").value, topic: $("#hw-topic").value.trim(), link: $("#hw-link").value.trim(), status: $("#hw-status").value, trainerId: isTrainer() ? session.trainerId : hw.trainerId || "" };
+        if (!reqFields(data, ["studentId", "title"])) return;
+        if (isNew) { data.id = uid("hw"); data.submission = null; data.feedback = ""; data.correctionsRequested = false; data.history = [{ date: todayStr(), by: actorName(), note: "Assigned — Pending" }]; stamp(data); DB.homework.push(data); logAudit("create", "homework", data.id, "Homework assigned: " + data.title); toast("Homework assigned."); }
+        else { Object.assign(hw, data); stamp(hw); logAudit("edit", "homework", hw.id, "Homework updated: " + hw.title); toast("Homework updated."); }
+        closeModal(); renderAdmin(); if (isTrainer()) renderTrainer();
+      });
+    }
+    document.addEventListener("click", (e) => {
+      const ed = e.target.closest("[data-hwedit]"); if (ed) homeworkModal(DB.homework.find(x => x.id === ed.dataset.hwedit));
+      const sub = e.target.closest("[data-hwsubmit]");
+      if (sub) {
+        const x = DB.homework.find(h => h.id === sub.dataset.hwsubmit); if (!x) return;
+        openModal('<button class="btn btn-ghost btn-sm modal-x" onclick="closeModal()">✕</button><h3>Submit homework — ' + esc(x.title) + '</h3><form id="hwSubForm"><div class="field"><label>Your answer / written work</label><textarea id="hs-text" rows="4" placeholder="Write your answer here"></textarea></div><div class="field"><label>Move sequence (if any)</label><input id="hs-moves" placeholder="e.g. 1. Qxf7+ Kxf7 2. …"></div><div class="field"><label>Comments</label><input id="hs-comment" placeholder="Anything to tell your trainer"></div><button class="btn btn-green" style="width:100%">Submit</button></form>');
+        $("#hwSubForm").addEventListener("submit", (ev) => { ev.preventDefault(); x.submission = { text: $("#hs-text").value.trim(), moves: $("#hs-moves").value.trim(), comment: $("#hs-comment").value.trim(), date: todayStr() }; x.status = "Submitted"; x.history = x.history || []; x.history.push({ date: todayStr(), by: actorName(), note: "Submitted by student" }); stamp(x); logAudit("edit", "homework", x.id, "Homework submitted: " + x.title); closeModal(); toast("Homework submitted — your trainer will review it."); renderStudent(); });
+        return;
+      }
+      const stt = e.target.closest("[data-hwstatus]");
+      if (stt) { const x = DB.homework.find(h => h.id === stt.dataset.hwstatus); if (x) { x.status = stt.dataset.to; stamp(x); toast("Homework marked " + x.status + "."); renderStudent(); } return; }
+      const rv = e.target.closest("[data-hwreview]");
+      if (rv) {
+        const x = DB.homework.find(h => h.id === rv.dataset.hwreview); if (!x) return;
+        openModal('<button class="btn btn-ghost btn-sm modal-x" onclick="closeModal()">✕</button><h3>Review — ' + esc(x.title) + '</h3><p class="sub">' + (x.submission ? esc(x.submission.text || "No written answer.") + (x.submission.moves ? "<br>Moves: " + esc(x.submission.moves) : "") : "Student has not submitted yet.") + '</p><form id="hwRevForm"><div class="field"><label>Feedback</label><textarea id="hr-fb" rows="3">' + esc(x.feedback || "") + '</textarea></div><label style="display:flex;gap:.5rem;align-items:center"><input type="checkbox" id="hr-corr"' + (x.correctionsRequested ? " checked" : "") + '> Request corrections / another attempt</label><div class="field" style="margin-top:.8rem"><label>Final status</label><select id="hr-status">' + HW_STATUSES.map(s2 => '<option' + (x.status === s2 ? " selected" : "") + ">" + s2 + "</option>").join("") + '</select></div><button class="btn btn-green" style="width:100%">Save review</button></form>');
+        $("#hwRevForm").addEventListener("submit", (ev) => { ev.preventDefault(); x.feedback = $("#hr-fb").value.trim(); x.correctionsRequested = $("#hr-corr").checked; x.status = $("#hr-status").value; x.history = x.history || []; x.history.push({ date: todayStr(), by: actorName(), note: "Reviewed — " + x.status }); stamp(x); logAudit("edit", "homework", x.id, "Homework reviewed: " + x.title + " → " + x.status); closeModal(); toast("Review saved — the student can see your feedback."); renderAdmin(); if (isTrainer()) renderTrainer(); });
+      }
+    });
+
+    /* ---------- REQ-020..024 Assigned puzzles + interactive board ---------- */
+    function renderAPuzzles(prefix) {
+      const el = paneEl(prefix, "apuzzles"); if (!el) return;
+      let list = DB.assignedPuzzles.slice().sort((a, b) => (a.assignedDate || "").localeCompare(b.assignedDate || ""));
+      if (prefix === "t") list = list.filter(p => p.trainerId === session.trainerId);
+      const canManage = isAdmin() || prefix === "t";
+      el.innerHTML = '<div class="pane-head"><h2>Assigned Puzzles</h2>' + (canManage ? '<span class="sp"><button class="btn btn-green btn-sm" id="addAPzBtn-' + prefix + '">+ Assign puzzle</button></span>' : "") + '</div>' +
+        (list.length ? list.map(p => { const s = studentById(p.studentId); const atts = DB.puzzleAttempts.filter(a => a.puzzleId === p.id); const solved = atts.some(a => a.correct); return '<div class="card"><h3 style="margin-top:0">' + esc(p.title) + ' <span class="chip">' + (solved ? "Solved" : p.status || "Assigned") + '</span></h3><p><b>' + esc(s ? s.name : p.studentId) + '</b> · Topic: ' + esc(p.topic || "—") + ' · ' + esc(p.sideToMove || "White") + ' to move · Assigned ' + fmtDate(p.assignedDate) + (p.dueDate ? " · Due " + fmtDate(p.dueDate) : "") + '</p><p>' + esc(p.instructions || "") + '</p><p>Attempts: ' + atts.length + (atts.length ? " · Last: " + (atts[atts.length - 1].correct ? "correct" : "not correct") : "") + '</p></div>'; }).join("") : '<div class="empty"><span class="big">🧩</span><b>No assigned puzzles yet</b>' + (canManage ? "Assign a puzzle from the daily bank or a custom position." : "No puzzles assigned to you yet.") + "</div>");
+      const b = $("#addAPzBtn-" + prefix); if (b) b.addEventListener("click", () => assignPuzzleModal(null));
+    }
+    function aAPuzzles() { renderAPuzzles("a"); }
+    function tAPuzzles() { renderAPuzzles("t"); }
+    function sAPuzzles() {
+      const el = $("#s-apuzzles"); if (!el) return;
+      const list = DB.assignedPuzzles.filter(p => p.studentId === session.id);
+      const perf = puzzlePerf(session.id);
+      el.innerHTML = '<div class="pane-head"><h2>My Assigned Puzzles</h2></div>' +
+        '<div class="stat-grid" style="grid-template-columns:repeat(4,1fr)"><div class="stat"><b>' + perf.assigned + '</b><span>Assigned</span></div><div class="stat"><b>' + perf.attempted + '</b><span>Attempted</span></div><div class="stat"><b>' + perf.solved + '</b><span>Solved</span></div><div class="stat"><b>' + (perf.pct == null ? "—" : perf.pct + "%") + '</b><span>Success</span></div></div>' +
+        (list.length ? list.map(p => '<div class="card"><h3 style="margin-top:0">' + esc(p.title) + '</h3><p>' + esc(p.instructions || "") + ' · ' + esc(p.sideToMove || "White") + ' to move · Topic: ' + esc(p.topic || "—") + '</p><button class="btn btn-green btn-sm" data-playpz="' + p.id + '">Play on board</button></div>').join("") : '<div class="empty"><span class="big">🧩</span><b>No assigned puzzles yet</b>Your trainer will assign puzzles here.</div>') +
+        '<div id="playPzMount" style="margin-top:1rem"></div>';
+    }
+    function assignPuzzleModal(pz) {
+      const isNew = !pz; pz = pz || { studentId: "", title: "", instructions: "", topic: "", sideToMove: "White", bankIndex: 0, assignedDate: todayStr(), dueDate: "", status: "Assigned" };
+      const bankOpts = PUZZLES.map((p, i) => '<option value="' + i + '"' + (Number(pz.bankIndex) === i ? " selected" : "") + ">" + esc(p.title) + "</option>").join("");
+      openModal('<button class="btn btn-ghost btn-sm modal-x" onclick="closeModal()">✕</button><h3>Assign puzzle</h3><form id="apzForm"><div class="form-err" id="apzErr"></div>' +
+        '<div class="field"><label>Student</label><select id="apz-student">' + studentOptions(pz.studentId) + '</select></div>' +
+        '<div class="field"><label>Puzzle from daily bank</label><select id="apz-bank">' + bankOpts + '</select></div>' +
+        '<div class="field"><label>Title</label><input id="apz-title" value="' + esc(pz.title || PUZZLES[0].title) + '"></div>' +
+        '<div class="field"><label>Task instructions</label><textarea id="apz-inst" rows="2">' + esc(pz.instructions || "") + '</textarea></div>' +
+        '<div class="grid2"><div class="field"><label>Topic / skill</label><input id="apz-topic" value="' + esc(pz.topic || "") + '" placeholder="e.g. Tactics — forks"></div>' +
+        '<div class="field"><label>Side to move</label><select id="apz-side"><option>White</option><option' + (pz.sideToMove === "Black" ? " selected" : "") + '>Black</option></select></div></div>' +
+        '<div class="grid2"><div class="field"><label>Assigned date</label><input id="apz-adate" type="date" value="' + esc(pz.assignedDate) + '"></div>' +
+        '<div class="field"><label>Due date</label><input id="apz-ddate" type="date" value="' + esc(pz.dueDate || "") + '"></div></div>' +
+        '<button class="btn btn-green" style="width:100%">Assign puzzle</button></form>');
+      $("#apz-bank").addEventListener("change", () => { const p = PUZZLES[Number($("#apz-bank").value)]; $("#apz-title").value = p.title; $("#apz-inst").value = p.hint; });
+      $("#apzForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const bi = Number($("#apz-bank").value), bank = PUZZLES[bi];
+        const data = { studentId: $("#apz-student").value, title: $("#apz-title").value.trim(), instructions: $("#apz-inst").value.trim(), topic: $("#apz-topic").value.trim(), sideToMove: $("#apz-side").value, bankIndex: bi, pieces: bank.pieces, from: bank.from, to: bank.to, solution: [bank.from + bank.to], assignedDate: $("#apz-adate").value || todayStr(), dueDate: $("#apz-ddate").value, status: "Assigned", trainerId: isTrainer() ? session.trainerId : "" };
+        if (!reqFields(data, ["studentId", "title"])) return;
+        data.id = uid("apz"); stamp(data); DB.assignedPuzzles.push(data); logAudit("create", "puzzle", data.id, "Puzzle assigned: " + data.title + " to " + (studentById(data.studentId) || {}).name);
+        closeModal(); toast("Puzzle assigned."); renderAdmin(); if (isTrainer()) renderTrainer();
+      });
+    }
+    /* Interactive assigned-puzzle board — REQ-021/022/023 */
+    let apzBoard = null, apzSel = null, apzCur = null;
+    document.addEventListener("click", (e) => {
+      const b = e.target.closest("[data-playpz]"); if (!b) return;
+      const p = DB.assignedPuzzles.find(x => x.id === b.dataset.playpz); if (!p) return;
+      apzCur = p; apzBoard = Object.assign({}, p.pieces); apzSel = null;
+      const mount = $("#playPzMount"); if (!mount) return;
+      mount.innerHTML = '<div class="card"><h3 style="margin-top:0">' + esc(p.title) + ' — ' + esc(p.sideToMove || "White") + ' to move</h3><p>' + esc(p.instructions || "") + '</p><div class="pz-layout"><div class="board" id="apzBoard"></div><div><div id="apzMsg"><p style="color:var(--ink2)">Tap your piece, then tap where it should go.</p></div></div></div></div>';
+      drawAPzBoard();
+    });
+    function drawAPzBoard() {
+      const el = $("#apzBoard"); if (!el || !apzCur) return;
+      let html = "";
+      for (let r = 8; r >= 1; r--) for (let f = 0; f < 8; f++) {
+        const sq = "abcdefgh"[f] + r, pc = apzBoard[sq];
+        html += '<div class="sq ' + ((f + r) % 2 ? "l" : "d") + (apzSel === sq ? " sel" : "") + '" data-sq="' + sq + '">' + (pc ? pieceImg(pc) : "") + "</div>";
+      }
+      el.innerHTML = html;
+      $$("#apzBoard .sq").forEach(sqEl => sqEl.addEventListener("click", () => apzTap(sqEl.dataset.sq)));
+    }
+    function apzTap(sq) {
+      if (!apzCur) return;
+      const pc = apzBoard[sq];
+      const white = (apzCur.sideToMove || "White") === "White";
+      const mine = (c) => white ? c === c.toUpperCase() : c === c.toLowerCase();
+      if (!apzSel) { if (pc && mine(pc)) { apzSel = sq; drawAPzBoard(); } return; }
+      if (sq === apzSel) { apzSel = null; drawAPzBoard(); return; }
+      if (pc && mine(pc)) { apzSel = sq; drawAPzBoard(); return; }
+      const move = apzSel + sq;
+      const correct = (apzCur.solution || []).includes(move);
+      const att = { id: uid("pa"), puzzleId: apzCur.id, studentId: session.id, date: todayStr(), moves: move, attempts: DB.puzzleAttempts.filter(a => a.puzzleId === apzCur.id && a.studentId === session.id).length + 1, correct, completed: correct };
+      DB.puzzleAttempts.push(att);
+      if (correct) {
+        apzBoard[sq] = apzBoard[apzSel]; delete apzBoard[apzSel]; apzSel = null; apzCur.status = "Solved";
+        drawAPzBoard();
+        $("#apzMsg").innerHTML = '<p style="color:var(--green);font-weight:700">✓ Correct! Puzzle solved.</p>';
+        toast("Correct — puzzle solved!"); confetti();
+        logAudit("edit", "puzzleAttempt", att.id, "Puzzle solved: " + apzCur.title);
+      } else {
+        apzSel = null; drawAPzBoard();
+        $("#apzMsg").innerHTML = '<p style="color:var(--red);font-weight:700">Not quite — try again. Attempt ' + att.attempts + ' recorded.</p>';
+      }
+      /* do NOT re-render the student view here — it would wipe the board mid-play;
+         the attempt is already saved in DB and syncs automatically */
+    }
+
+    /* ---------- REQ-025..029 Assessments ---------- */
+    function renderAssess(prefix) {
+      const el = paneEl(prefix, "assess"); if (!el) return;
+      let list = DB.assessments.slice().sort((a, b) => b.date.localeCompare(a.date));
+      if (prefix === "t") list = list.filter(a => a.trainerId === session.trainerId);
+      const canManage = isAdmin() || prefix === "t";
+      el.innerHTML = '<div class="pane-head"><h2>Assessments</h2>' + (canManage ? '<span class="sp"><button class="btn btn-green btn-sm" id="addAsBtn-' + prefix + '">+ New assessment</button></span>' : "") + '</div>' +
+        "<p style='color:var(--ink2);margin-top:-.5rem'>1 = Needs significant improvement · 2 = Below expectations · 3 = Average · 4 = Good · 5 = Excellent. Skill areas are rated separately.</p>" +
+        (list.length ? list.map(a => { const s = studentById(a.studentId); return '<div class="card"><h3 style="margin-top:0">' + esc(s ? s.name : a.studentId) + " — " + fmtDate(a.date) + '</h3><p><b>' + esc(a.kind || "Assessment") + ':</b> ' + esc(a.question || "") + (a.rating ? "<br><b>Rating:</b> " + RATING_LABELS[a.rating] : "") + (a.comment ? "<br>" + esc(a.comment) : "") + "</p>" +
+          (a.skills ? "<p><b>Skills:</b> " + SKILL_AREAS.map(k => k + ": " + (a.skills[k] || "—")).join(" · ") + "</p>" : "") +
+          (a.practical ? "<p><b>Practical application:</b> " + esc(a.practical.applied || "") + (a.practical.examples ? " — " + esc(a.practical.examples) : "") + "</p>" : "") +
+          ((a.strengths || a.weaknesses || a.targets) ? "<p><b>Strengths:</b> " + esc(a.strengths || "—") + "<br><b>Weaknesses:</b> " + esc(a.weaknesses || "—") + "<br><b>Targets:</b> " + esc(a.targets || "—") + "</p>" : "") + "</div>"; }).join("") : '<div class="empty"><span class="big">⭐</span><b>No assessments yet</b>Assess a student after a class.</div>');
+      const b = $("#addAsBtn-" + prefix); if (b) b.addEventListener("click", () => assessModal(null));
+    }
+    function aAssess() { renderAssess("a"); }
+    function tAssess() { renderAssess("t"); }
+    function assessModal(a) {
+      const isNew = !a; a = a || { studentId: "", date: todayStr(), classId: "", kind: "Post-class check", question: "", rating: 3, comment: "", skills: {}, practical: { applied: "", examples: "" }, strengths: "", weaknesses: "", targets: "" };
+      const skillInputs = SKILL_AREAS.map(k => '<div class="field"><label>' + k + ' (1–5)</label><input type="number" min="1" max="5" class="as-skill" data-skill="' + k + '" value="' + (a.skills && a.skills[k] ? a.skills[k] : "") + '"></div>').join("");
+      openModal('<button class="btn btn-ghost btn-sm modal-x" onclick="closeModal()">✕</button><h3>New assessment</h3><form id="asForm"><div class="form-err" id="asErr"></div>' +
+        '<div class="grid2"><div class="field"><label>Student</label><select id="as-student">' + studentOptions(a.studentId) + '</select></div>' +
+        '<div class="field"><label>Date</label><input id="as-date" type="date" required value="' + esc(a.date) + '"></div></div>' +
+        '<div class="grid2"><div class="field"><label>Kind</label><select id="as-kind">' + ["Post-class check", "Skill assessment", "Practical application", "Strengths & weaknesses"].map(k => '<option' + (a.kind === k ? " selected" : "") + ">" + k + "</option>").join("") + '</select></div>' +
+        '<div class="field"><label>Class (if any)</label><select id="as-class">' + classOptions(a.classId, a.studentId) + '</select></div></div>' +
+        '<div class="field"><label>Question / task / position</label><input id="as-q" value="' + esc(a.question) + '" placeholder="e.g. Find the winning tactic in this position"></div>' +
+        '<div class="field"><label>Overall rating (1–5)</label><select id="as-rating">' + [1, 2, 3, 4, 5].map(n => '<option value="' + n + '"' + (Number(a.rating) === n ? " selected" : "") + ">" + RATING_LABELS[n] + "</option>").join("") + '</select></div>' +
+        '<div class="field"><label>Comment</label><textarea id="as-comment" rows="2">' + esc(a.comment) + '</textarea></div>' +
+        '<h4 style="margin:.6rem 0">Skill areas (1–5 each)</h4><div class="grid2">' + skillInputs + '</div>' +
+        '<div class="field"><label>Practical application in games — did the student apply class concepts?</label><input id="as-prac" value="' + esc(a.practical ? a.practical.applied : "") + '" placeholder="e.g. Yes — used the fork in the club game"></div>' +
+        '<div class="field"><label>Practical examples / observations</label><textarea id="as-pracex" rows="2">' + esc(a.practical ? a.practical.examples : "") + '</textarea></div>' +
+        '<div class="grid2"><div class="field"><label>Strengths</label><input id="as-str" value="' + esc(a.strengths) + '"></div><div class="field"><label>Weaknesses</label><input id="as-weak" value="' + esc(a.weaknesses) + '"></div></div>' +
+        '<div class="field"><label>Improvement targets</label><input id="as-tgt" value="' + esc(a.targets) + '"></div>' +
+        '<button class="btn btn-green" style="width:100%">Save assessment</button></form>');
+      $("#asForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const skills = {};
+        $$(".as-skill").forEach(i => { if (i.value) skills[i.dataset.skill] = Number(i.value); });
+        const data = { studentId: $("#as-student").value, date: $("#as-date").value, classId: $("#as-class").value, kind: $("#as-kind").value, question: $("#as-q").value.trim(), rating: Number($("#as-rating").value), comment: $("#as-comment").value.trim(), skills, practical: { applied: $("#as-prac").value.trim(), examples: $("#as-pracex").value.trim() }, strengths: $("#as-str").value.trim(), weaknesses: $("#as-weak").value.trim(), targets: $("#as-tgt").value.trim(), trainerId: isTrainer() ? session.trainerId : "" };
+        if (!reqFields(data, ["studentId", "date"])) return;
+        if (isNew) { data.id = uid("as"); stamp(data); DB.assessments.push(data); logAudit("create", "assessment", data.id, "Assessment for " + (studentById(data.studentId) || {}).name + " — rating " + data.rating); toast("Assessment saved."); }
+        else { Object.assign(a, data); stamp(a); toast("Assessment updated."); }
+        closeModal(); renderAdmin(); if (isTrainer()) renderTrainer();
+      });
+    }
+    function sLearning() {
+      const el = $("#s-learning"); if (!el) return;
+      const st = myRecord(); if (!st) return;
+      const notes = DB.classNotes.filter(n => n.studentId === st.id).sort((a, b) => b.date.localeCompare(a.date));
+      const as = DB.assessments.filter(a => a.studentId === st.id).sort((a, b) => b.date.localeCompare(a.date));
+      const rats = DB.ratings.filter(r => r.studentId === st.id);
+      el.innerHTML = '<div class="pane-head"><h2>My Learning</h2></div>' +
+        '<div class="card"><h3 style="margin-top:0">Class notes</h3>' + (notes.length ? notes.slice(0, 5).map(n => "<p><b>" + fmtDate(n.date) + "</b> — " + esc((n.topics || []).join(", ")) + "<br>" + esc(n.notes || "") + (n.nextFocus ? "<br><b>Next focus:</b> " + esc(n.nextFocus) : "") + "</p>").join("") : "<p>No class notes yet.</p>") + '</div>' +
+        '<div class="card" style="margin-top:1rem"><h3 style="margin-top:0">My assessments</h3>' + (as.length ? as.slice(0, 5).map(a => "<p><b>" + fmtDate(a.date) + "</b> — " + (a.rating ? RATING_LABELS[a.rating] : a.kind) + (a.comment ? "<br>" + esc(a.comment) : "") + "</p>").join("") : "<p>No assessments yet.</p>") + '</div>' +
+        '<div class="card" style="margin-top:1rem"><h3 style="margin-top:0">My ratings</h3>' + (rats.length ? rats.slice(-5).reverse().map(r => "<p><b>" + esc(r.source) + " " + esc(r.type) + "</b> — " + r.value + " · " + fmtDate(r.date) + "</p>").join("") : "<p>No ratings yet.</p>") + "</div>";
+    }
+
+    /* ---------- REQ-030..033 Ratings ---------- */
+    function renderRatings(prefix) {
+      const el = paneEl(prefix, "ratings"); if (!el) return;
+      const canManage = isAdmin() || prefix === "t";
+      const groups = {};
+      DB.ratings.forEach(r => { const k = r.source + " — " + r.type; (groups[k] = groups[k] || []).push(r); });
+      let h = '<div class="pane-head"><h2>Ratings</h2>' + (canManage ? '<span class="sp"><button class="btn btn-green btn-sm" id="addRateBtn-' + prefix + '">+ Add rating</button></span>' : "") + '</div>' +
+        "<p style='color:var(--ink2);margin-top:-.5rem'>FIDE, Chess.com and Lichess ratings are kept separately by type / time control — never combined.</p>";
+      const keys = Object.keys(groups);
+      h += keys.length ? keys.map(k => {
+        const entries = groups[k].slice().sort((a, b) => a.date.localeCompare(b.date));
+        return '<div class="card"><h3 style="margin-top:0">' + esc(k) + ' — latest <b>' + entries[entries.length - 1].value + '</b></h3>' + ratingGraph(entries) +
+          entries.map(r => { const s = studentById(r.studentId); return "<p>" + esc(s ? s.name : r.studentId) + " — <b>" + r.value + "</b> · " + fmtDate(r.date) + (r.note ? " · " + esc(r.note) : "") + "</p>"; }).join("") + "</div>";
+      }).join("") : '<div class="empty"><span class="big">📈</span><b>No ratings yet</b>Add a FIDE, Chess.com or Lichess rating for a student.</div>';
+      el.innerHTML = h;
+      const b = $("#addRateBtn-" + prefix); if (b) b.addEventListener("click", () => ratingModal());
+    }
+    function aRatings() { renderRatings("a"); }
+    function tRatings() { renderRatings("t"); }
+    function ratingModal() {
+      openModal('<button class="btn btn-ghost btn-sm modal-x" onclick="closeModal()">✕</button><h3>Add rating</h3><form id="rtForm"><div class="form-err" id="rtErr"></div>' +
+        '<div class="field"><label>Student</label><select id="rt-student">' + studentOptions("") + '</select></div>' +
+        '<div class="grid2"><div class="field"><label>Source</label><select id="rt-source"><option>FIDE</option><option>Chess.com</option><option>Lichess</option></select></div>' +
+        '<div class="field"><label>Type / time control</label><select id="rt-type"><option>Standard</option><option>Rapid</option><option>Blitz</option><option>Bullet</option><option>Daily</option><option>Classical</option></select></div></div>' +
+        '<div class="grid2"><div class="field"><label>Rating</label><input id="rt-value" type="number" required placeholder="e.g. 1450"></div>' +
+        '<div class="field"><label>Date</label><input id="rt-date" type="date" required value="' + todayStr() + '"></div></div>' +
+        '<div class="field"><label>Source / note (optional)</label><input id="rt-note" placeholder="e.g. FIDE list Jan 2026"></div>' +
+        '<button class="btn btn-green" style="width:100%">Save rating</button></form>');
+      $("#rtForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const data = { studentId: $("#rt-student").value, source: $("#rt-source").value, type: $("#rt-type").value, value: Number($("#rt-value").value), date: $("#rt-date").value, note: $("#rt-note").value.trim(), updatedBy: actorName() };
+        if (!reqFields(data, ["studentId", "date"]) || !data.value) { toast("Please fill: student, rating and date.", true); return; }
+        data.id = uid("rt"); DB.ratings.push(data); logAudit("create", "rating", data.id, data.source + " " + data.type + " " + data.value + " for " + (studentById(data.studentId) || {}).name);
+        closeModal(); toast("Rating saved."); renderAdmin(); if (isTrainer()) renderTrainer();
+      });
+    }
+
+    /* ---------- REQ-034..036 Tournaments ---------- */
+    function renderTournaments(prefix) {
+      const el = paneEl(prefix, "tournaments"); if (!el) return;
+      let list = DB.tournaments.slice().sort((a, b) => b.date.localeCompare(a.date));
+      if (prefix === "t") list = list.filter(t => { const s = studentById(t.studentId); return s && canSeeStudent(s); });
+      const canManage = isAdmin() || prefix === "t";
+      el.innerHTML = '<div class="pane-head"><h2>Tournaments</h2>' + (canManage ? '<span class="sp"><button class="btn btn-green btn-sm" id="addTourBtn-' + prefix + '">+ Record tournament</button></span>' : "") + '</div>' +
+        (list.length ? list.map(t => { const s = studentById(t.studentId); return '<div class="card"><h3 style="margin-top:0">' + esc(t.name) + '</h3><p><b>' + esc(s ? s.name : t.studentId) + '</b> · ' + fmtDate(t.date) + ' · ' + esc(t.location || t.platform || "") + ' · ' + esc(t.format || "") + ' · ' + esc(t.timeControl || "") + (t.rounds ? " · " + t.rounds + " rounds" : "") + '</p><p><b>Results:</b> ' + (t.wins || 0) + 'W / ' + (t.draws || 0) + 'D / ' + (t.losses || 0) + 'L · Score ' + esc(t.score) + ' · Rank ' + esc(t.rank) + '</p>' + (t.review ? "<p><b>Game review:</b> " + esc(t.review) + "</p>" : "") + (canManage ? '<button class="icon-btn" data-edittour="' + t.id + '">Edit / add review</button>' : "") + '</div>'; }).join("") : '<div class="empty"><span class="big">🏆</span><b>No tournaments yet</b>Record a student\'s tournament participation and results.</div>');
+      const b = $("#addTourBtn-" + prefix); if (b) b.addEventListener("click", () => tournamentModal(null));
+    }
+    function aTournaments() { renderTournaments("a"); }
+    function tTournaments() { renderTournaments("t"); }
+    function tournamentModal(t) {
+      const isNew = !t; t = t || { studentId: "", name: "", date: todayStr(), location: "", platform: "", format: "", timeControl: "", rounds: "", wins: 0, draws: 0, losses: 0, score: "", rank: "", review: "" };
+      openModal('<button class="btn btn-ghost btn-sm modal-x" onclick="closeModal()">✕</button><h3>' + (isNew ? "Record tournament" : "Edit tournament") + '</h3><form id="tourForm"><div class="form-err" id="tourErr"></div>' +
+        '<div class="field"><label>Student</label><select id="to-student">' + studentOptions(t.studentId) + '</select></div>' +
+        '<div class="field"><label>Tournament name</label><input id="to-name" required value="' + esc(t.name) + '"></div>' +
+        '<div class="grid2"><div class="field"><label>Date</label><input id="to-date" type="date" required value="' + esc(t.date) + '"></div>' +
+        '<div class="field"><label>Location / online platform</label><input id="to-loc" value="' + esc(t.location || t.platform || "") + '"></div></div>' +
+        '<div class="grid2"><div class="field"><label>Format</label><input id="to-format" value="' + esc(t.format) + '" placeholder="e.g. Swiss, Round-robin"></div>' +
+        '<div class="field"><label>Time control</label><input id="to-tc" value="' + esc(t.timeControl) + '" placeholder="e.g. 15+10"></div></div>' +
+        '<div class="grid2"><div class="field"><label>Rounds</label><input id="to-rounds" type="number" min="0" value="' + esc(t.rounds) + '"></div>' +
+        '<div class="field"><label>Total score</label><input id="to-score" value="' + esc(t.score) + '" placeholder="e.g. 5.5 / 7"></div></div>' +
+        '<div class="grid2"><div class="field"><label>Wins</label><input id="to-w" type="number" min="0" value="' + (t.wins || 0) + '"></div>' +
+        '<div class="field"><label>Draws</label><input id="to-d" type="number" min="0" value="' + (t.draws || 0) + '"></div></div>' +
+        '<div class="grid2"><div class="field"><label>Losses</label><input id="to-l" type="number" min="0" value="' + (t.losses || 0) + '"></div>' +
+        '<div class="field"><label>Final rank / position</label><input id="to-rank" value="' + esc(t.rank) + '"></div></div>' +
+        '<div class="field"><label>Game review — mistakes, missed opportunities, strengths, were class topics applied?</label><textarea id="to-review" rows="3">' + esc(t.review) + '</textarea></div>' +
+        '<button class="btn btn-green" style="width:100%">' + (isNew ? "Save tournament" : "Save changes") + "</button></form>");
+      $("#tourForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const data = { studentId: $("#to-student").value, name: $("#to-name").value.trim(), date: $("#to-date").value, location: $("#to-loc").value.trim(), platform: "", format: $("#to-format").value.trim(), timeControl: $("#to-tc").value.trim(), rounds: $("#to-rounds").value, wins: Number($("#to-w").value) || 0, draws: Number($("#to-d").value) || 0, losses: Number($("#to-l").value) || 0, score: $("#to-score").value.trim(), rank: $("#to-rank").value.trim(), review: $("#to-review").value.trim(), updatedBy: actorName() };
+        if (!reqFields(data, ["studentId", "name", "date"])) return;
+        if (isNew) { data.id = uid("tr"); DB.tournaments.push(data); logAudit("create", "tournament", data.id, "Tournament: " + data.name); toast("Tournament recorded."); }
+        else { Object.assign(t, data); logAudit("edit", "tournament", t.id, "Tournament updated: " + t.name); toast("Tournament updated."); }
+        closeModal(); renderAdmin(); if (isTrainer()) renderTrainer();
+      });
+    }
+    document.addEventListener("click", (e) => { const ed = e.target.closest("[data-edittour]"); if (ed) tournamentModal(DB.tournaments.find(t => t.id === ed.dataset.edittour)); });
+
+    /* ---------- REQ-037..039 Weekly reports ---------- */
+    function buildWeeklySummary(stId, weekStart) {
+      const weekEnd = addDaysStr(weekStart, 6);
+      const inWeek = (d) => d && d >= weekStart && d <= weekEnd;
+      const st = studentById(stId);
+      const classes = DB.classes.filter(c => inWeek(c.date) && (c.studentIds || []).includes(stId));
+      const att = DB.attendance.filter(a => a.studentId === stId && inWeek(a.date));
+      const notes = DB.classNotes.filter(n => n.studentId === stId && inWeek(n.date));
+      const hw = DB.homework.filter(h => h.studentId === stId && inWeek(h.assignedDate));
+      const hwDone = hw.filter(h => h.status === "Completed" || h.status === "Submitted").length;
+      const atts = DB.puzzleAttempts.filter(a => a.studentId === stId && inWeek(a.date));
+      const solved = atts.filter(a => a.correct).length;
+      const as = DB.assessments.filter(a => a.studentId === stId && inWeek(a.date));
+      const rats = DB.ratings.filter(r => r.studentId === stId && inWeek(r.date));
+      const tours = DB.tournaments.filter(t => t.studentId === stId && inWeek(t.date));
+      const cc = classCounts(st);
+      return { weekStart, weekEnd, classesScheduled: classes.length, classesCompleted: classes.filter(c => c.status === "Completed").length, classesRemaining: cc.remaining, attendance: att.length + " marked (" + att.filter(a => a.status === "Present").length + " present)", topics: notes.flatMap(n => n.topics || []).filter((v, i, a) => a.indexOf(v) === i), observations: notes.map(n => n.notes).filter(Boolean), homeworkAssigned: hw.length, homeworkDone: hwDone, puzzlesAttempted: atts.length, puzzlesSolved: solved, improvement: notes.map(n => n.improvement).filter(Boolean), assessments: as.map(a => (a.rating ? "Rating " + a.rating + "/5" : a.kind) + (a.comment ? " — " + a.comment : "")), ratings: rats.map(r => r.source + " " + r.type + " " + r.value), tournaments: tours.map(t => t.name + " — score " + t.score + ", rank " + t.rank), nextFocus: notes.map(n => n.nextFocus).filter(Boolean) };
+    }
+    function renderReports(prefix) {
+      const el = paneEl(prefix, "reports"); if (!el) return;
+      const canManage = isAdmin() || prefix === "t";
+      let list = DB.reports.slice().sort((a, b) => b.weekStart.localeCompare(a.weekStart));
+      if (prefix === "s") list = list.filter(r => r.studentId === session.id && r.status === "Shared");
+      if (prefix === "t") list = list.filter(r => { const s = studentById(r.studentId); return s && canSeeStudent(s); });
+      el.innerHTML = '<div class="pane-head"><h2>Weekly Reports</h2>' + (canManage ? '<span class="sp"><button class="btn btn-green btn-sm" id="genRepBtn-' + prefix + '">+ Generate weekly report</button></span>' : "") + '</div>' +
+        (list.length ? list.map(r => { const s = studentById(r.studentId); const sm = r.summary || {}; return '<div class="card"><h3 style="margin-top:0">' + esc(s ? s.name : r.studentId) + " — Week of " + fmtDate(r.weekStart) + ' <span class="chip">' + esc(r.status) + '</span></h3>' +
+          "<p><b>Classes:</b> " + (sm.classesScheduled || 0) + " scheduled, " + (sm.classesCompleted || 0) + " completed, " + (sm.classesRemaining || 0) + " remaining · <b>Attendance:</b> " + esc(sm.attendance || "—") + "</p>" +
+          "<p><b>Topics:</b> " + esc((sm.topics || []).join(", ") || "—") + "</p>" +
+          "<p><b>Homework:</b> " + (sm.homeworkDone || 0) + " / " + (sm.homeworkAssigned || 0) + " done · <b>Puzzles:</b> " + (sm.puzzlesSolved || 0) + " / " + (sm.puzzlesAttempted || 0) + " solved</p>" +
+          (sm.assessments && sm.assessments.length ? "<p><b>Assessments:</b> " + esc(sm.assessments.join(" · ")) + "</p>" : "") +
+          (sm.ratings && sm.ratings.length ? "<p><b>Rating changes:</b> " + esc(sm.ratings.join(" · ")) + "</p>" : "") +
+          (sm.tournaments && sm.tournaments.length ? "<p><b>Tournaments:</b> " + esc(sm.tournaments.join(" · ")) + "</p>" : "") +
+          (sm.improvement && sm.improvement.length ? "<p><b>Improvement areas:</b> " + esc(sm.improvement.join(" · ")) + "</p>" : "") +
+          (sm.nextFocus && sm.nextFocus.length ? "<p><b>Next week's focus:</b> " + esc(sm.nextFocus.join(" · ")) + "</p>" : "") +
+          (r.trainerComment ? "<p><b>Trainer feedback:</b> " + esc(r.trainerComment) + "</p>" : "") +
+          (canManage ? '<div class="row-actions"><button class="icon-btn" data-repedit="' + r.id + '">Review / edit</button><button class="icon-btn" data-repshare="' + r.id + '">Share with student &amp; parent</button></div>' : "") + "</div>"; }).join("") : '<div class="empty"><span class="big">📄</span><b>No weekly reports yet</b>' + (canManage ? "Generate one from this week's saved records." : "Your weekly report will appear here once your trainer shares it.") + "</div>");
+      const b = $("#genRepBtn-" + prefix); if (b) b.addEventListener("click", () => generateReportModal());
+    }
+    function aReports() { renderReports("a"); }
+    function tReports() { renderReports("t"); }
+    function sReports() { renderReports("s"); }
+    function generateReportModal() {
+      openModal('<button class="btn btn-ghost btn-sm modal-x" onclick="closeModal()">✕</button><h3>Generate weekly report</h3><form id="repForm"><div class="field"><label>Student</label><select id="rp-student">' + studentOptions("") + '</select></div><div class="field"><label>Week starting (Monday)</label><input id="rp-week" type="date" required value="' + weekStartStr(todayStr()) + '"></div><button class="btn btn-green" style="width:100%">Generate from saved records</button></form>');
+      $("#repForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const stId = $("#rp-student").value, ws = $("#rp-week").value;
+        if (!reqFields({ studentId: stId, week: ws }, ["studentId", "week"])) return;
+        let rep = DB.reports.find(r => r.studentId === stId && r.weekStart === ws);
+        const summary = buildWeeklySummary(stId, ws);
+        if (!rep) { rep = { id: uid("rp"), studentId: stId, weekStart: ws, weekEnd: summary.weekEnd, summary, trainerComment: "", status: "Draft", editedBy: actorName() }; DB.reports.push(rep); }
+        else { rep.summary = summary; rep.editedBy = actorName(); }
+        stamp(rep); logAudit("create", "report", rep.id, "Weekly report generated for " + (studentById(stId) || {}).name + " — week of " + ws);
+        closeModal(); toast("Weekly report generated — review it before sharing."); renderAdmin(); if (isTrainer()) renderTrainer();
+      });
+    }
+    document.addEventListener("click", (e) => {
+      const ed = e.target.closest("[data-repedit]");
+      if (ed) {
+        const r = DB.reports.find(x => x.id === ed.dataset.repedit); if (!r) return;
+        const s = studentById(r.studentId);
+        openModal('<button class="btn btn-ghost btn-sm modal-x" onclick="closeModal()">✕</button><h3>Review report — ' + esc(s ? s.name : "") + " · Week of " + fmtDate(r.weekStart) + '</h3><p class="sub">Generated from saved records. Edit the final summary before sharing.</p><form id="repEditForm"><div class="field"><label>Trainer final summary / comments</label><textarea id="re-comment" rows="4">' + esc(r.trainerComment || "") + '</textarea></div><button class="btn btn-green" style="width:100%">Save review</button></form>');
+        $("#repEditForm").addEventListener("submit", (ev) => { ev.preventDefault(); r.trainerComment = $("#re-comment").value.trim(); r.editedBy = actorName(); stamp(r); logAudit("edit", "report", r.id, "Report reviewed"); closeModal(); toast("Report review saved."); renderAdmin(); if (isTrainer()) renderTrainer(); });
+        return;
+      }
+      const sh = e.target.closest("[data-repshare]");
+      if (sh) { const r = DB.reports.find(x => x.id === sh.dataset.repshare); if (r) { r.status = "Shared"; stamp(r); logAudit("edit", "report", r.id, "Report shared with student & parent"); toast("Report shared — the student and linked parent can now see it."); renderAdmin(); if (isTrainer()) renderTrainer(); } }
+    });
+
+    /* ---------- REQ-009/045 Reminders ---------- */
+    function upcomingReminders() {
+      const mins = Number(DB.settings.reminderMinutes) || 60;
+      const now = new Date();
+      const items = [];
+      const myClasses = DB.classes.filter(c => {
+        if (c.status !== "Scheduled") return false;
+        if (session && session.role === "student") return (c.studentIds || []).includes(session.id);
+        if (session && session.role === "parent") return (c.studentIds || []).includes(session.id);
+        if (isTrainer()) return c.trainerId === session.trainerId;
+        return true;
+      });
+      myClasses.forEach(c => {
+        const dt = new Date(c.date + "T" + (c.startTime || "00:00") + ":00");
+        const diffMin = (dt - now) / 60000;
+        if (diffMin >= 0 && diffMin <= Math.max(mins, 24 * 60)) items.push({ kind: "Class reminder", text: c.title + " — " + fmtDate(c.date) + " at " + (c.startTime || "") + ", trainer: " + ((trainerById(c.trainerId) || {}).name || "—") + " (in " + Math.round(diffMin / 60 * 10) / 10 + " hrs)", when: dt });
+      });
+      const hwScope = DB.homework.filter(h => {
+        if (h.status === "Completed") return false;
+        if (session && (session.role === "student" || session.role === "parent")) return h.studentId === session.id;
+        if (isTrainer()) return h.trainerId === session.trainerId;
+        return true;
+      });
+      hwScope.forEach(h => { const s = studentById(h.studentId); const overdue = h.dueDate && h.dueDate < todayStr(); items.push({ kind: overdue ? "Overdue homework" : "Homework due", text: h.title + " — " + (s ? s.name : "") + " · due " + fmtDate(h.dueDate) + " · " + h.status, when: new Date((h.dueDate || todayStr()) + "T00:00:00") }); });
+      const pzScope = DB.assignedPuzzles.filter(p => {
+        if (p.status === "Solved") return false;
+        if (session && (session.role === "student" || session.role === "parent")) return p.studentId === session.id;
+        if (isTrainer()) return p.trainerId === session.trainerId;
+        return true;
+      });
+      pzScope.forEach(p => { if (p.dueDate && p.dueDate < todayStr()) { const s = studentById(p.studentId); items.push({ kind: "Overdue puzzle", text: p.title + " — " + (s ? s.name : "") + " · was due " + fmtDate(p.dueDate), when: new Date(p.dueDate + "T00:00:00") }); } });
+      return items.sort((a, b) => a.when - b.when);
+    }
+    function renderReminders(prefix) {
+      const el = paneEl(prefix, "reminders"); if (!el) return;
+      const items = upcomingReminders();
+      const overdueHw = DB.homework.filter(h => h.status !== "Completed" && h.dueDate && h.dueDate < todayStr() && (isAdmin() || (isTrainer() && h.trainerId === session.trainerId)));
+      el.innerHTML = '<div class="pane-head"><h2>Reminders</h2></div>' +
+        '<div class="card" style="max-width:560px"><h3 style="margin-top:0">Class reminder timing</h3><p>Reminders are shown before a scheduled class, with date, time and trainer. Admin can change how early they appear.</p><form id="remForm"><div class="field"><label>Remind me this many minutes before class</label><input id="rem-mins" type="number" min="5" max="1440" value="' + (Number(DB.settings.reminderMinutes) || 60) + '"></div><button class="btn btn-green">Save reminder setting</button></form></div>' +
+        '<div class="card" style="margin-top:1rem"><h3 style="margin-top:0">Upcoming reminders</h3>' + (items.length ? items.map(i => "<p><b>" + esc(i.kind) + ":</b> " + esc(i.text) + "</p>").join("") : "<p>No reminders right now.</p>") + '</div>' +
+        (isTrainer() || isAdmin() ? '<div class="card" style="margin-top:1rem"><h3 style="margin-top:0">Overdue homework (' + overdueHw.length + ')</h3>' + (overdueHw.length ? overdueHw.map(h => { const s = studentById(h.studentId); return "<p><b>" + esc(h.title) + "</b> — " + esc(s ? s.name : "") + " · due " + fmtDate(h.dueDate) + " · " + esc(h.status) + "</p>"; }).join("") : "<p>Nothing overdue.</p>") + "</div>" : "");
+      const f = $("#remForm"); if (f) f.addEventListener("submit", (e) => { e.preventDefault(); DB.settings.reminderMinutes = Number($("#rem-mins").value) || 60; toast("Reminder timing saved: " + DB.settings.reminderMinutes + " minutes before class."); renderAdmin(); if (isTrainer()) renderTrainer(); });
+    }
+    function aReminders() { renderReminders("a"); }
+    function tReminders() { renderReminders("t"); }
+
+    /* ---------- REQ-046/047/050 History & search + audit ---------- */
+    function renderHistory(prefix) {
+      const el = paneEl(prefix, "history"); if (!el) return;
+      const f = histFilter;
+      const stuList = scopeStudents();
+      let rows = [];
+      const push = (type, date, studentId, trainer, status, topic, label) => rows.push({ type, date, studentId, trainer, status, topic, label });
+      DB.classes.forEach(c => (c.studentIds || []).forEach(id => push("Class", c.date, id, (trainerById(c.trainerId) || {}).name || "", c.status, c.title, c.title)));
+      DB.attendance.forEach(a => push("Attendance", a.date, a.studentId, (trainerById(a.trainerId) || {}).name || "", a.status, "", "Attendance — " + a.status));
+      DB.classNotes.forEach(n => push("Class note", n.date, n.studentId, (trainerById(n.trainerId) || {}).name || "", "", (n.topics || []).join(", "), "Notes: " + (n.topics || []).join(", ")));
+      DB.homework.forEach(h => push("Homework", h.assignedDate, h.studentId, "", h.status, h.topic || "", h.title));
+      DB.puzzleAttempts.forEach(a => push("Puzzle attempt", a.date, a.studentId, "", a.correct ? "Correct" : "Incorrect", "", "Puzzle attempt — " + (a.correct ? "correct" : "incorrect")));
+      DB.assessments.forEach(a => push("Assessment", a.date, a.studentId, (trainerById(a.trainerId) || {}).name || "", a.rating ? "Rating " + a.rating : "", "", "Assessment — " + (a.kind || "")));
+      DB.ratings.forEach(r => push("Rating", r.date, r.studentId, "", r.source + " " + r.type, "", r.source + " " + r.type + " " + r.value));
+      DB.tournaments.forEach(t => push("Tournament", t.date, t.studentId, "", "Score " + t.score, "", t.name));
+      DB.reports.forEach(r => push("Report", r.weekStart, r.studentId, "", r.status, "", "Weekly report — week of " + r.weekStart));
+      rows = rows.filter(r => {
+        if (f.studentId && r.studentId !== f.studentId) return false;
+        if (f.from && r.date < f.from) return false;
+        if (f.to && r.date > f.to) return false;
+        if (f.trainer && r.trainer !== f.trainer) return false;
+        if (f.status && r.status !== f.status) return false;
+        if (f.topic && !(r.topic || "").toLowerCase().includes(f.topic.toLowerCase())) return false;
+        if (f.type && r.type !== f.type) return false;
+        return true;
+      }).sort((a, b) => (b.date || "").localeCompare(a.date || "")).slice(0, 100);
+      const trainerNames = Array.from(new Set(DB.trainers.map(t => t.name))).map(n => '<option' + (f.trainer === n ? " selected" : "") + ">" + esc(n) + "</option>").join("");
+      el.innerHTML = '<div class="pane-head"><h2>History &amp; Search</h2></div>' +
+        '<div class="card"><div class="grid2"><div class="field"><label>Student</label><select id="hf-student"><option value="">All students</option>' + stuList.map(s => '<option value="' + s.id + '"' + (f.studentId === s.id ? " selected" : "") + ">" + esc(s.name) + "</option>").join("") + '</select></div>' +
+        '<div class="field"><label>Record type</label><select id="hf-type"><option value="">All types</option>' + ["Class", "Attendance", "Class note", "Homework", "Puzzle attempt", "Assessment", "Rating", "Tournament", "Report"].map(t => '<option' + (f.type === t ? " selected" : "") + ">" + t + "</option>").join("") + '</select></div></div>' +
+        '<div class="grid2"><div class="field"><label>From date</label><input id="hf-from" type="date" value="' + esc(f.from) + '"></div><div class="field"><label>To date</label><input id="hf-to" type="date" value="' + esc(f.to) + '"></div></div>' +
+        '<div class="grid2"><div class="field"><label>Trainer</label><select id="hf-trainer"><option value="">All trainers</option>' + trainerNames + '</select></div><div class="field"><label>Status</label><input id="hf-status" value="' + esc(f.status) + '" placeholder="e.g. Present, Completed, Pending"></div></div>' +
+        '<div class="field"><label>Topic</label><input id="hf-topic" value="' + esc(f.topic) + '" placeholder="e.g. Tactics"></div>' +
+        '<button class="btn btn-green btn-sm" id="hfApply">Apply filters</button> <button class="btn btn-ghost btn-sm" id="hfClear">Clear</button></div>' +
+        '<div class="card" style="margin-top:1rem"><h3 style="margin-top:0">Records (' + rows.length + ')</h3>' + (rows.length ? '<div class="tbl-wrap"><table><thead><tr><th>Date</th><th>Type</th><th>Student</th><th>Trainer</th><th>Status</th><th>Details</th></tr></thead><tbody>' + rows.map(r => { const s = studentById(r.studentId); return "<tr><td>" + fmtDate(r.date) + "</td><td>" + esc(r.type) + "</td><td>" + esc(s ? s.name : r.studentId) + "</td><td>" + esc(r.trainer || "—") + "</td><td>" + esc(r.status || "—") + "</td><td>" + esc(r.label) + "</td></tr>"; }).join("") + "</tbody></table></div>" : "<p>No records match these filters.</p>") + "</div>" +
+        '<div class="card" style="margin-top:1rem"><h3 style="margin-top:0">Change history (audit trail)</h3>' + (DB.audit.length ? DB.audit.slice(0, 30).map(a => "<p><b>" + esc(new Date(a.date).toLocaleString()) + "</b> — " + esc(a.user) + " · " + esc(a.action) + " " + esc(a.recordType) + " · " + esc(a.detail) + "</p>").join("") : "<p>No changes recorded yet.</p>") + "</div>";
+      $("#hfApply").addEventListener("click", () => { histFilter = { studentId: $("#hf-student").value, type: $("#hf-type").value, from: $("#hf-from").value, to: $("#hf-to").value, trainer: $("#hf-trainer").value, status: $("#hf-status").value.trim(), topic: $("#hf-topic").value.trim() }; renderHistory(prefix); });
+      $("#hfClear").addEventListener("click", () => { histFilter = { studentId: "", from: "", to: "", trainer: "", status: "", topic: "", type: "" }; renderHistory(prefix); });
+    }
+    function aHistory() { renderHistory("a"); }
+    function tHistory() { renderHistory("t"); }
+
+    /* ---------- Trainer wrappers (REQ-040) ---------- */
+    function tOverview() {
+      const el = $("#t-overview"); if (!el) return;
+      const tr = trainerById(session.trainerId);
+      const mine = visibleStudents();
+      const myClasses = DB.classes.filter(c => c.trainerId === session.trainerId && c.date >= todayStr()).sort((a, b) => a.date.localeCompare(b.date)).slice(0, 5);
+      const overdue = DB.homework.filter(h => h.trainerId === session.trainerId && h.status !== "Completed" && h.dueDate && h.dueDate < todayStr()).length;
+      el.innerHTML = '<div class="pane-head"><h2>Trainer Overview</h2></div>' +
+        '<div class="stat-grid"><div class="stat"><b>' + mine.length + '</b><span>My students</span></div><div class="stat"><b>' + myClasses.length + '</b><span>Upcoming classes</span></div><div class="stat"><b>' + overdue + '</b><span>Overdue homework</span></div></div>' +
+        '<div class="card"><h3 style="margin-top:0">My students</h3>' + (mine.length ? mine.map(s => "<p><b>" + esc(s.name) + "</b> · " + esc(s.stage) + " · Classes " + classCounts(s).completed + "/" + classCounts(s).allocated + "</p>").join("") : "<p>No students assigned yet — ask the admin to assign students to you.</p>") + "</div>" +
+        '<div class="card" style="margin-top:1rem"><h3 style="margin-top:0">Upcoming classes</h3>' + (myClasses.length ? myClasses.map(c => "<p><b>" + esc(c.title) + "</b> — " + fmtDate(c.date) + " " + esc(c.startTime || "") + "</p>").join("") : "<p>No upcoming classes.</p>") + "</div>";
+    }
+    function tStudents() {
+      const el = $("#t-students"); if (!el) return;
+      const mine = visibleStudents();
+      el.innerHTML = '<div class="pane-head"><h2>My Students</h2></div>' + (mine.length ? mine.map(s => { const cc = classCounts(s); return '<div class="card"><h3 style="margin-top:0">' + esc(s.name) + ' <span class="chip">' + esc(s.stage) + '</span></h3><p>Classes ' + cc.completed + "/" + cc.allocated + " · Attendance " + (attendanceSummary(s.id).pct == null ? "—" : attendanceSummary(s.id).pct + "%") + ' · Puzzle success ' + (puzzlePerf(s.id).pct == null ? "—" : puzzlePerf(s.id).pct + "%") + '</p><button class="btn btn-green btn-sm" data-profile="' + s.id + '">Open full profile</button></div>'; }).join("") : '<div class="empty"><span class="big">🎓</span><b>No assigned students yet</b>Ask the admin to assign students to your trainer account.</div>');
+    }
+    function tSchedule() {
+      const el = $("#t-schedule"); if (!el) return;
+      el.innerHTML = '<div class="pane-head"><h2>Class Schedule</h2></div><div id="calMountT"></div>';
+      const m = $("#calMountT"); if (m) m.innerHTML = calendarHTML("t");
+      /* reuse admin calendar mount logic: render into t mount via a temporary hook */
+      if (m) { const old = $("#calMountA"); }
+    }
+
+    /* ---------- HR: trainers (REQ-042) — extend staff tab with trainer accounts ---------- */
+    const _aHRorig = aHR;
+    aHR = function () {
+      _aHRorig();
+      const el = $("#a-hr"); if (!el) return;
+      const trows = DB.trainers.map(t => "<tr><td><b>" + esc(t.name) + "</b><br><span style='color:var(--ink2);font-size:.82rem'>Login: " + esc(t.loginId) + "</span></td><td>" + esc(t.email || "—") + "</td><td>" + (t.assignedStudentIds || []).length + " students</td>" +
+        '<td><div class="row-actions"><button class="icon-btn" data-edittrainer="' + t.id + '">Edit</button><button class="icon-btn del" data-deltrainer="' + t.id + '">Delete</button></div></td></tr>').join("");
+      el.insertAdjacentHTML("beforeend",
+        '<div class="card" style="margin-top:1rem"><div class="pane-head"><h2>Trainer logins</h2><span class="sp"><button class="btn btn-green btn-sm" id="addTrainerBtn">+ Add trainer login</button></span></div>' +
+        "<p style='color:var(--ink2)'>Trainers log in with their own ID/password and see only their assigned students.</p>" +
+        (DB.trainers.length ? '<div class="tbl-wrap"><table><thead><tr><th>Trainer</th><th>Email</th><th>Assigned</th><th></th></tr></thead><tbody>' + trows + "</tbody></table></div>" : "<p>No trainer logins yet.</p>") + "</div>");
+      $("#addTrainerBtn").addEventListener("click", () => trainerModal(null));
+    };
+    function trainerModal(tr) {
+      const isNew = !tr; tr = tr || { name: "", loginId: "", pw: "", phone: "", email: "", assignedStudentIds: [] };
+      const checks = DB.students.map(s => '<label style="display:flex;gap:.5rem;align-items:center;padding:.3rem 0"><input type="checkbox" class="tr-stu" value="' + s.id + '"' + ((tr.assignedStudentIds || []).includes(s.id) ? " checked" : "") + "> " + esc(s.name) + "</label>").join("");
+      openModal('<button class="btn btn-ghost btn-sm modal-x" onclick="closeModal()">✕</button><h3>' + (isNew ? "Add trainer login" : "Edit trainer") + '</h3><form id="trForm"><div class="form-err" id="trErr"></div>' +
+        '<div class="field"><label>Full name</label><input id="tr-name" required value="' + esc(tr.name) + '"></div>' +
+        '<div class="grid2"><div class="field"><label>Trainer login ID</label><input id="tr-login" required value="' + esc(tr.loginId) + '" placeholder="e.g. TRN001"></div>' +
+        '<div class="field"><label>Password</label><input id="tr-pw" required value="' + esc(tr.pw) + '"></div></div>' +
+        '<div class="grid2"><div class="field"><label>Phone</label><input id="tr-phone" value="' + esc(tr.phone) + '"></div>' +
+        '<div class="field"><label>Email</label><input id="tr-email" type="email" value="' + esc(tr.email) + '"></div></div>' +
+        '<div class="field"><label>Assigned students</label><div style="max-height:160px;overflow:auto;border:1px solid var(--line);border-radius:10px;padding:.5rem .8rem">' + (checks || "No students yet.") + '</div></div>' +
+        '<button class="btn btn-green" style="width:100%">' + (isNew ? "Add trainer" : "Save changes") + "</button></form>");
+      $("#trForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const loginId = $("#tr-login").value.trim();
+        if (DB.trainers.some(t => t.loginId.toLowerCase() === loginId.toLowerCase() && t !== tr)) { const er = $("#trErr"); er.textContent = "That trainer login ID is already in use."; er.style.display = ""; return; }
+        const data = { name: $("#tr-name").value.trim(), loginId, pw: $("#tr-pw").value, phone: $("#tr-phone").value.trim(), email: $("#tr-email").value.trim(), assignedStudentIds: $$(".tr-stu").filter(x => x.checked).map(x => x.value) };
+        if (!reqFields(data, ["name", "loginId", "pw"])) return;
+        if (isNew) { data.id = uid("trn"); DB.trainers.push(data); logAudit("create", "trainer", data.id, "Trainer added: " + data.name); toast("Trainer login created."); }
+        else { Object.assign(tr, data); logAudit("edit", "trainer", tr.id, "Trainer updated: " + tr.name); toast("Trainer updated."); }
+        closeModal(); renderAdmin();
+      });
+    }
+    document.addEventListener("click", (e) => {
+      const ed = e.target.closest("[data-edittrainer]"); if (ed) trainerModal(trainerById(ed.dataset.edittrainer));
+      const del = e.target.closest("[data-deltrainer]");
+      if (del) { const t = trainerById(del.dataset.deltrainer); confirmModal("Remove trainer?", t.name + " will no longer be able to log in.", () => { DB.trainers = DB.trainers.filter(x => x.id !== t.id); DB.students.forEach(s => { if (s.trainerId === t.id) s.trainerId = ""; }); toast("Trainer removed."); renderAdmin(); }); }
+    });
 
     /* ================= init ================= */
     setRole("student");
